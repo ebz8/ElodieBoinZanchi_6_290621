@@ -1,0 +1,22 @@
+{
+  "name": "elodieboinzanchi_6_290621",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ebz8/ElodieBoinZanchi_6_290621.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ebz8/ElodieBoinZanchi_6_290621/issues"
+  },
+  "homepage": "https://github.com/ebz8/ElodieBoinZanchi_6_290621#readme",
+  "dependencies": {
+    "sass": "^1.35.1"
+  }
+}
