@@ -3,3 +3,19 @@
 page index
 ----------------------
 */
+
+.photographes-galerie{
+    display: flex;
+    width: 100%;
+}
+
+.photographe{
+    width: 33.33%;
+
+    .vignette{
+        width: 15vw;
+        height: 15vw;
+        object-fit: cover;
+        border-radius: 100%;
+    }
+}

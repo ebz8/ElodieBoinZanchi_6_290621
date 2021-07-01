@@ -3,3 +3,33 @@
 base
 ----------------------
 */
+
+// reset balises de base
+h1, h2, h3, h4, h5, p{
+    margin: 0;
+    padding: 0;
+}
+
+//
+//styles textuels
+//
+
+body{
+    margin: 40px 50px;
+}
+
+a{
+    text-decoration: none;
+}
+
+ul{
+    list-style-type: none;
+}
+
+//
+//blocs
+//
+
+.nav-par-tag{
+    display: flex;
+}

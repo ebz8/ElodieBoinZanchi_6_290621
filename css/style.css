@@ -13,13 +13,9 @@ fonctions
 mixins
 ----------------------
 */
-/**
------------------------
-modern-normalize v1.0.0
+/*! modern-normalize v1.1.0
 | MIT License |
-https://github.com/sindresorhus/modern-normalize
------------------------
-
+https://github.com/sindresorhus/modern-normalize */
 /*
 Document
 ========
@@ -28,15 +24,15 @@ Document
 Use a better box model (opinionated).
 */
 *,
-*::before,
-*::after {
+::before,
+::after {
   box-sizing: border-box;
 }
 
 /**
 Use a more readable tab size (opinionated).
 */
-:root {
+html {
   -moz-tab-size: 4;
   tab-size: 4;
 }
@@ -61,7 +57,6 @@ Remove the margin in all browsers.
 */
 body {
   margin: 0;
-  padding: 0;
 }
 
 /**
@@ -173,6 +168,8 @@ input,
 optgroup,
 select,
 textarea {
+  font-family: inherit;
+  /* 1 */
   font-size: 100%;
   /* 1 */
   line-height: 1.15;
@@ -296,11 +293,37 @@ gestion des fonts
 base
 ----------------------
 */
+h1, h2, h3, h4, h5, p {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin: 40px 50px;
+}
+
+a {
+  text-decoration: none;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.nav-par-tag {
+  display: flex;
+}
+
 /**
 ----------------------
 header
 ----------------------
 */
+.logo {
+  width: 14vw;
+  min-width: 150px;
+}
+
 /**
 ----------------------
 footer
@@ -321,5 +344,19 @@ boutons
 page index
 ----------------------
 */
+.photographes-galerie {
+  display: flex;
+  width: 100%;
+}
+
+.photographe {
+  width: 33.33%;
+}
+.photographe .vignette {
+  width: 15vw;
+  height: 15vw;
+  object-fit: cover;
+  border-radius: 100%;
+}
 
 /*# sourceMappingURL=style.css.map */
