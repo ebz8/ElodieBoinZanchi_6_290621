@@ -3,3 +3,16 @@
 boutons
 ----------------------
 */
+
+// tags
+.tag-entree{
+    margin: 0 .2em;
+    padding: .2em .5em;
+    color: $couleur-primaire;
+    border: 1px solid $couleur-neutre-intermediaire;
+    border-radius: .9rem;
+
+    &::before{
+        content: "#";
+    }
+}

@@ -23,6 +23,7 @@ Document
 /**
 Use a better box model (opinionated).
 */
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&display=swap");
 *,
 ::before,
 ::after {
@@ -296,10 +297,12 @@ base
 h1, h2, h3, h4, h5, p {
   margin: 0;
   padding: 0;
+  font-weight: normal;
 }
 
 body {
   margin: 40px 50px;
+  font-family: "DM Sans", sans-serif;
 }
 
 a {
@@ -319,6 +322,21 @@ ul {
 header
 ----------------------
 */
+.banniere {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 100px;
+}
+.banniere nav {
+  flex-grow: 1;
+}
+.banniere h1 {
+  margin-right: 80px;
+  font-size: 1.8rem;
+  color: #911d1d;
+}
+
 .logo {
   width: 14vw;
   min-width: 150px;
@@ -339,6 +357,17 @@ animations CSS
 boutons
 ----------------------
 */
+.tag-entree {
+  margin: 0 0.2em;
+  padding: 0.2em 0.5em;
+  color: #911d1d;
+  border: 1px solid #c4c4c4;
+  border-radius: 0.9rem;
+}
+.tag-entree::before {
+  content: "#";
+}
+
 /**
 ----------------------
 page index
@@ -347,6 +376,7 @@ page index
 .photographes-galerie {
   display: flex;
   width: 100%;
+  text-align: center;
 }
 
 .photographe {
