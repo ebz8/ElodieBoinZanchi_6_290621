@@ -16,8 +16,13 @@ h1, h2, h3, h4, h5, p{
 //
 
 body{
-    margin: 40px 50px;
+    margin: 40px 50px 80px 50px;
     font-family: 'DM Sans', sans-serif;
+    color: $couleur-primaire;
+
+    @include tablet{
+        margin: 8vw 5vw;
+    }
 }
 
 a{

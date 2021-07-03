@@ -14,25 +14,25 @@ mixins
   }
   
   @mixin mobile-large{
-    @media screen and (min-width: map-get($breakpoint, mobile-large)){
+    @media screen and (max-width: map-get($breakpoint, mobile-large)){
       @content;
     }
   }
   
   @mixin tablet{
-    @media screen and (min-width: map-get($breakpoint, tablet)){
+    @media screen and (max-width: map-get($breakpoint, tablet)){
       @content;
     }
   }
   
   @mixin small-desk{
-    @media screen and (min-width: map-get($breakpoint, small-desk)){
+    @media screen and (max-width: map-get($breakpoint, small-desk)){
       @content;
     }
   }
   
   @mixin large-desk{
-    @media screen and (min-width: map-get($breakpoint, large-desk)){
+    @media screen and (max-width: map-get($breakpoint, large-desk)){
       @content;
     }
   }

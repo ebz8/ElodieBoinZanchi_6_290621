@@ -4,24 +4,3 @@ header
 ----------------------
 */
 
-.banniere{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 100px;
-
-    nav{
-        flex-grow: 1;
-    }
-    
-    h1{
-        margin-right: 80px;
-        font-size: 1.8rem;
-        color: $couleur-primaire;
-    }
-}
-
-.logo{
-    width: 14vw;
-    min-width: 150px;
-}
