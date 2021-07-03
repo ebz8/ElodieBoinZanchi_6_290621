@@ -450,6 +450,9 @@ TODO:
   margin-top: 8vw;
   padding-left: 0;
 }
+.photographes-galerie .nav-par-tag {
+  justify-content: center;
+}
 
 .photographe-profil {
   flex-basis: 33.33%;
@@ -541,6 +544,24 @@ TODO:
 .banniere-photographe .accroche {
   font-size: 0.8em;
   color: #525252;
+}
+
+.bloc-fixe {
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  padding: 1rem;
+  margin-right: 2rem;
+  background-color: #db8876;
+  color: black;
+  border-radius: 0.3rem 0.3rem 0 0;
+}
+.bloc-fixe .icone-like {
+  font-size: 0.8rem;
+}
+.bloc-fixe .tarif {
+  margin-left: 2rem;
 }
 
 /*# sourceMappingURL=style.css.map */

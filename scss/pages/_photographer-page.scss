@@ -47,3 +47,24 @@ TODO:
         color: $couleur-neutre-fonce;
     }
 }
+// compteur de likes
+// reste fixe en bas de la page
+.bloc-fixe{
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    padding: 1rem;
+    margin-right: 2rem;
+    background-color: $couleur-secondaire;
+    color: black;
+    border-radius: .3rem .3rem 0 0;
+
+    .icone-like{
+        font-size: .8rem;
+    }
+
+    .tarif{
+        margin-left: 2rem;
+    }
+}
