@@ -1,0 +1,49 @@
+/**
+----------------------
+page photographe
+
+TODO:
+- mettre au propre l'anim btn-principal
+----------------------
+*/
+
+
+.banniere-photographe{
+    display: flex;
+    position: relative;
+    // justify-content: space-between;
+    flex-flow: row wrap;
+    margin-top: 3vw;
+    padding: 3rem 2rem;
+    background-color: $couleur-neutre-clair;
+    font-size: 1rem;
+    align-items: flex-start;
+    margin-right: 2rem;
+
+    .photographe-profil{
+        line-height: 2rem;
+
+        @include tablet{
+            flex-basis: 100%;
+        }
+    }
+
+    .vignette{
+        @include vignette-ronde(8rem, 8rem);
+        position: absolute;
+        right: 2rem;
+    }
+
+    .nom{
+        font-size: 2.5em;
+    }
+
+    .localisation{
+        font-size: .99em;
+    }
+
+    .accroche{
+        font-size: .8em;
+        color: $couleur-neutre-fonce;
+    }
+}

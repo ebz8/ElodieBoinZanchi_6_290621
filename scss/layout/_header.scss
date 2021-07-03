@@ -1,6 +1,49 @@
 /**
 ----------------------
-header
+bannières
 ----------------------
 */
 
+// en-tête
+.banniere{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    @include mobile-large{
+        flex-flow: row wrap;
+    }
+
+    nav{
+        flex-grow: 1;
+
+        @include mobile-large{
+            width: 100%;
+            order: 3;
+        }
+    }
+    
+    h1{
+        margin-right: 80px;
+        font-size: 1.8rem;
+        color: $couleur-primaire;
+
+        @include mobile-large{
+            position: absolute;
+            top: 50px;
+            right: 5vw;
+            margin-right: 0;
+            font-size: 1rem;
+            flex-basis: 50%;
+        }
+    }
+}
+
+.logo{
+    width: 14vw;
+    min-width: 150px;
+
+    @include mobile-large{
+        flex-basis: 50%;
+    }
+}

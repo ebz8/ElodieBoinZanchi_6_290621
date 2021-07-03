@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /**
 ----------------------
 variables
@@ -300,8 +301,20 @@ h1, h2, h3, h4, h5, p {
   font-weight: normal;
 }
 
+a {
+  text-decoration: none;
+}
+
+ul {
+  list-style-type: none;
+}
+
+button {
+  border: none;
+}
+
 body {
-  margin: 40px 50px 80px 50px;
+  margin: 30px 40px 50px 40px;
   font-family: "DM Sans", sans-serif;
   color: #911d1d;
 }
@@ -311,63 +324,19 @@ body {
   }
 }
 
-a {
-  text-decoration: none;
-}
-
-ul {
-  list-style-type: none;
-}
-
 .nav-par-tag {
   display: flex;
 }
 
 /**
 ----------------------
-header
-----------------------
-*/
-/**
-----------------------
-footer
-----------------------
-*/
-/**
-----------------------
-animations CSS
-----------------------
-*/
-/**
-----------------------
-boutons
-----------------------
-*/
-.tag-entree {
-  margin: 0 0.2em;
-  padding: 0.2em 0.5em;
-  color: #911d1d;
-  border: 1px solid #c4c4c4;
-  border-radius: 0.9rem;
-}
-.tag-entree::before {
-  content: "#";
-}
-
-/**
-----------------------
-page index
-
-TODO:
-- responsive pour petits mobiles
-- vignette ronde responsive
+bannières
 ----------------------
 */
 .banniere {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 8vw;
 }
 @media screen and (max-width: 544px) {
   .banniere {
@@ -409,56 +378,169 @@ TODO:
   }
 }
 
+/**
+----------------------
+footer
+----------------------
+*/
+/**
+----------------------
+animations CSS
+----------------------
+*/
+/**
+----------------------
+boutons
+----------------------
+*/
+.tag-entree {
+  margin: 0 0.2rem;
+  padding: 0.2rem 0.5rem;
+  color: #911d1d;
+  border: 1px solid #c4c4c4;
+  border-radius: 0.9rem;
+}
+.tag-entree::before {
+  content: "#";
+}
+
+.bouton-principal {
+  position: relative;
+  z-index: 1;
+  width: max-content;
+  padding: 1rem;
+  background-color: #911d1d;
+  color: white;
+  border-radius: 0.4rem;
+}
+.bouton-principal::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #db8876;
+  border-radius: 0.4rem;
+  opacity: 0;
+  transition: opacity 220ms;
+}
+.bouton-principal:hover {
+  color: black;
+}
+.bouton-principal:hover::after {
+  opacity: 1;
+}
+
+/**
+----------------------
+page index
+
+TODO:
+- responsive pour petits mobiles
+- vignette ronde responsive
+----------------------
+*/
 .photographes-galerie {
   display: flex;
   text-align: center;
   flex-flow: row wrap;
   width: 100%;
+  margin-top: 8vw;
   padding-left: 0;
 }
 
-.photographe {
+.photographe-profil {
   flex-basis: 33.33%;
   line-height: 1.3rem;
   margin-bottom: 2rem;
 }
 @media screen and (max-width: 718px) {
-  .photographe {
+  .photographe-profil {
     flex-basis: 50%;
   }
 }
 @media screen and (max-width: 544px) {
-  .photographe {
+  .photographe-profil {
     flex-basis: 100%;
   }
 }
-.photographe .vignette {
+.photographe-profil .vignette {
   width: 10rem;
   height: 10rem;
   object-fit: cover;
   border-radius: 100%;
   box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.3);
 }
-.photographe .nom {
+.photographe-profil .nom {
   padding: 0.5rem 0;
   font-size: 1.8rem;
-  color: #d3573c;
+  color: #db8876;
 }
-.photographe .localisation {
+.photographe-profil .localisation {
   font-size: 0.9rem;
 }
-.photographe .accroche {
+.photographe-profil .accroche {
   font-size: 0.8rem;
   color: black;
 }
-.photographe .tarif {
+.photographe-profil .tarif {
   font-size: 0.8rem;
   color: #c4c4c4;
 }
-.photographe .nav-par-tag {
-  justify-content: center;
+.photographe-profil .nav-par-tag {
   padding-left: 0;
   margin-top: 0.4rem;
+  text-transform: lowercase;
+  line-height: 1rem;
+}
+
+/**
+----------------------
+page photographe
+
+TODO:
+- mettre au propre l'anim btn-principal
+----------------------
+*/
+.banniere-photographe {
+  display: flex;
+  position: relative;
+  flex-flow: row wrap;
+  margin-top: 3vw;
+  padding: 3rem 2rem;
+  background-color: #fafafa;
+  font-size: 1rem;
+  align-items: flex-start;
+  margin-right: 2rem;
+}
+.banniere-photographe .photographe-profil {
+  line-height: 2rem;
+}
+@media screen and (max-width: 718px) {
+  .banniere-photographe .photographe-profil {
+    flex-basis: 100%;
+  }
+}
+.banniere-photographe .vignette {
+  width: 8rem;
+  height: 8rem;
+  object-fit: cover;
+  border-radius: 100%;
+  box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.3);
+  position: absolute;
+  right: 2rem;
+}
+.banniere-photographe .nom {
+  font-size: 2.5em;
+}
+.banniere-photographe .localisation {
+  font-size: 0.99em;
+}
+.banniere-photographe .accroche {
+  font-size: 0.8em;
+  color: #525252;
 }
 
 /*# sourceMappingURL=style.css.map */
