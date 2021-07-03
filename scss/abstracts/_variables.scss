@@ -27,3 +27,9 @@ $breakpoint: (
     small-desk: $small-desk,
     large-desk: $large-desk
 ) !default;
+
+// gestion des marges
+
+$petite-marge: 1rem;
+$grande-marge: 2rem;
+$moyenne-marge: .5rem;
