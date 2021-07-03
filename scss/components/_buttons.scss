@@ -51,4 +51,31 @@ boutons
             opacity: 1;
         }
     }
+
+    &:focus{
+        color: black;
+        
+        &::after{
+            opacity: 1;
+        }
+    }
+}
+
+
+// Selection critere de tri
+
+.trier-par{
+    display: flex;
+
+    .menu-options{
+        margin-left: 1rem;
+        background-color: $couleur-primaire;
+        border: none;
+
+        .option{
+            &::after{
+                border-bottom: 1px solid white;
+            }
+        }
+    }
 }

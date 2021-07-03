@@ -41,9 +41,16 @@
             <span class="tarif">300€ /jour</span>
         </div>
 
-        <div>
+        <div class="trier-par">
             <p>Trier par</p>
-            <button class="menu-deroulant"></button>
+            <div class="select" tabindex="1">
+                <input class="selectopt" name="test" type="radio" id="popularite" checked>
+                <label for="popularite" class="option">Popularité</label>
+                <input class="selectopt" name="test" type="radio" id="date">
+                <label for="date" class="option">Date</label>
+                <input class="selectopt" name="test" type="radio" id="titre">
+                <label for="titre" class="option">Titre</label>
+            </div>
         </div>
 
         <div class="profil-galerie">
@@ -54,7 +61,7 @@
         
     </main>
 
-    <script src="js/app.js"></script>
+    <script src="/js/app.js"></script>
     <noscript>Ce site nécessite l'activation de JavaScript pour fonctionner.</noscript>
     
 
