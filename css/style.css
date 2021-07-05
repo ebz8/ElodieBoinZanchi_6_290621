@@ -397,18 +397,17 @@ boutons
   z-index: 10;
   cursor: pointer;
   position: absolute;
-  width: 32px;
-  height: 40px;
+  background-color: transparent;
   opacity: 1;
-  transform: scale(0.5);
+  transform: scale(0.9);
 }
 .btn-fermeture::before, .btn-fermeture::after {
   content: " ";
   position: absolute;
-  width: 3px;
-  height: 33px;
+  width: 5px;
+  height: 40px;
   left: 15px;
-  background-color: black;
+  background-color: #911d1d;
 }
 .btn-fermeture::before {
   transform: rotate(45deg);
@@ -565,12 +564,15 @@ lightbox
 .lightbox {
   height: 100vh;
   width: 70vw;
+  position: relative;
 }
 
 .lightbox__commandes .gauche,
 .lightbox__commandes .droite {
   cursor: pointer;
   background-color: transparent;
+  font-size: 2rem;
+  color: #911d1d;
 }
 
 .lightbox__contenu {
@@ -579,7 +581,7 @@ lightbox
 .lightbox__contenu img {
   object-fit: scale-down;
   width: 100%;
-  height: 70vh;
+  height: 100%;
 }
 
 /**

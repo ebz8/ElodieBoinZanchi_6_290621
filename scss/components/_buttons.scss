@@ -9,19 +9,18 @@ boutons
     z-index: 10;
     cursor: pointer;
     position: absolute;
-    width: 32px;
-    height: 40px;
+    background-color: transparent;
     opacity: 1;
-    transform: scale(0.5);
+    transform: scale(.9);
 
     &::before,
     &::after{
         content: " ";
         position: absolute;
-        width: 3px;
-        height: 33px;
+        width: 5px;
+        height: 40px;
         left: 15px;
-        background-color: black;
+        background-color: $couleur-primaire;
     }
   
     &::before{

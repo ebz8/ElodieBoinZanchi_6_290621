@@ -18,5 +18,8 @@
   "homepage": "https://github.com/ebz8/ElodieBoinZanchi_6_290621#readme",
   "dependencies": {
     "sass": "^1.35.1"
+  },
+  "devDependencies": {
+    "eslint": "^7.30.0"
   }
 }
