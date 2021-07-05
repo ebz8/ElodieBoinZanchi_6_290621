@@ -393,6 +393,30 @@ animations CSS
 boutons
 ----------------------
 */
+.btn-fermeture {
+  z-index: 10;
+  cursor: pointer;
+  position: absolute;
+  width: 32px;
+  height: 40px;
+  opacity: 1;
+  transform: scale(0.5);
+}
+.btn-fermeture::before, .btn-fermeture::after {
+  content: " ";
+  position: absolute;
+  width: 3px;
+  height: 33px;
+  left: 15px;
+  background-color: black;
+}
+.btn-fermeture::before {
+  transform: rotate(45deg);
+}
+.btn-fermeture::after {
+  transform: rotate(-45deg);
+}
+
 .tag-entree {
   margin: 0 0.2rem;
   padding: 0.2rem 0.5rem;
@@ -535,6 +559,31 @@ formulaires
 
 /**
 ----------------------
+lightbox
+----------------------
+*/
+.lightbox {
+  height: 100vh;
+  width: 70vw;
+}
+
+.lightbox__commandes .gauche,
+.lightbox__commandes .droite {
+  cursor: pointer;
+  background-color: transparent;
+}
+
+.lightbox__contenu {
+  margin: 5rem auto 5rem;
+}
+.lightbox__contenu img {
+  object-fit: scale-down;
+  width: 100%;
+  height: 70vh;
+}
+
+/**
+----------------------
 page index
 
 TODO:
@@ -670,7 +719,7 @@ TODO:
   flex-flow: row wrap;
   margin-top: 2rem;
 }
-.profil-galerie .lightbox {
+.profil-galerie .apercu-photo {
   width: 30vw;
   height: 30vw;
   margin: 0;

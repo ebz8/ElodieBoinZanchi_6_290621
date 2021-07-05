@@ -4,6 +4,36 @@ boutons
 ----------------------
 */
 
+// icône close
+.btn-fermeture{
+    z-index: 10;
+    cursor: pointer;
+    position: absolute;
+    width: 32px;
+    height: 40px;
+    opacity: 1;
+    transform: scale(0.5);
+
+    &::before,
+    &::after{
+        content: " ";
+        position: absolute;
+        width: 3px;
+        height: 33px;
+        left: 15px;
+        background-color: black;
+    }
+  
+    &::before{
+        transform: rotate(45deg);
+    }
+  
+    &::after{
+        transform: rotate(-45deg);
+    }
+}
+
+
 // tags
 .tag-entree{
     margin: 0 .2rem;
@@ -79,3 +109,4 @@ boutons
         }
     }
 }
+
