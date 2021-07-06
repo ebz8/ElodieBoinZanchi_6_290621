@@ -314,6 +314,7 @@ button {
 }
 
 body {
+  max-width: 1400px;
   margin: 30px 40px 50px 40px;
   font-family: "DM Sans", sans-serif;
   color: #911d1d;
@@ -417,7 +418,7 @@ boutons
 }
 
 .tag-entree {
-  margin: 0 0.2rem;
+  margin: 0 0.2rem 0.2rem 0;
   padding: 0.2rem 0.5rem;
   color: #911d1d;
   border: 1px solid #c4c4c4;
@@ -621,8 +622,8 @@ TODO:
   }
 }
 .photographe-profil .vignette {
-  width: 10rem;
-  height: 10rem;
+  width: 12rem;
+  height: 12rem;
   object-fit: cover;
   border-radius: 100%;
   box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.3);
@@ -660,7 +661,7 @@ TODO:
 */
 .banniere-photographe {
   display: flex;
-  position: relative;
+  justify-content: space-between;
   flex-flow: row wrap;
   margin-top: 3vw;
   padding: 3rem 2rem;
@@ -668,32 +669,49 @@ TODO:
   font-size: 1rem;
   align-items: flex-start;
 }
+@media screen and (max-width: 544px) {
+  .banniere-photographe {
+    background-color: white;
+  }
+}
 .banniere-photographe .photographe-profil {
+  display: flex;
+  flex-flow: column wrap;
   line-height: 2rem;
+  width: 100%;
+}
+.banniere-photographe .photographe-profil .bouton-principal {
+  position: relative;
+  top: -10rem;
+  left: 100%;
 }
 @media screen and (max-width: 718px) {
-  .banniere-photographe .photographe-profil {
-    flex-basis: 100%;
+  .banniere-photographe .photographe-profil .bouton-principal {
+    position: fixed;
+  }
+}
+.banniere-photographe .photographe-profil .nom {
+  font-size: 2.5em;
+}
+.banniere-photographe .photographe-profil .localisation {
+  font-size: 0.99em;
+}
+.banniere-photographe .photographe-profil .accroche {
+  font-size: 0.8em;
+  color: #525252;
+}
+@media screen and (max-width: 544px) {
+  .banniere-photographe .photographe-profil .nav-par-tag {
+    flex-flow: row wrap;
   }
 }
 .banniere-photographe .vignette {
-  width: 8rem;
-  height: 8rem;
+  width: 10rem;
+  height: 10rem;
   object-fit: cover;
   border-radius: 100%;
   box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.3);
-  position: absolute;
-  right: 2rem;
-}
-.banniere-photographe .nom {
-  font-size: 2.5em;
-}
-.banniere-photographe .localisation {
-  font-size: 0.99em;
-}
-.banniere-photographe .accroche {
-  font-size: 0.8em;
-  color: #525252;
+  align-self: center;
 }
 
 .bloc-fixe {
@@ -722,8 +740,8 @@ TODO:
   margin-top: 2rem;
 }
 .profil-galerie .apercu-photo {
-  width: 30vw;
-  height: 30vw;
+  width: 23rem;
+  height: 23rem;
   margin: 0;
 }
 .profil-galerie img {

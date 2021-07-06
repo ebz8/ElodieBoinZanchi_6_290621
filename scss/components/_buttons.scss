@@ -35,7 +35,7 @@ boutons
 
 // tags
 .tag-entree{
-    margin: 0 .2rem;
+    margin: 0 .2rem .2rem 0;
     padding: .2rem .5rem;
     color: $couleur-primaire;
     border: 1px solid $couleur-neutre-intermediaire;
@@ -91,8 +91,8 @@ boutons
 }
 
 
-// Selection critere de tri
-
+// Bouton select
+// critères de tri
 .trier-par{
     display: flex;
 
