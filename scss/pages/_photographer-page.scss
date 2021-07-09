@@ -34,12 +34,13 @@ TODO:
 
         .btn-principal{ // à corriger
             position: relative;
-            width: 12rem;
+            
             transform: translateY(-10rem);
             left: 100%; 
 
             @include tablet{
                 z-index: 5;
+                width: 12rem;
                 position: fixed;
                 left: 50%;
                 bottom: 1rem;
@@ -114,20 +115,26 @@ TODO:
     justify-content: space-between;
     flex-flow: row wrap;
     margin-top: $grande-marge;
+    gap: $moyenne-marge;
 
     .apercu-photo{
-        width: 23rem;
-        height: 23rem;
+        width: 30vw;
+        height: 30vw;
         margin: 0;
 
+        @include tablet{
+            width: 43vw;
+        }
+
         @include mobile-large{
-            width: 100%;
+            width: 100vw;
+            height: 60vw;
         }
     }
 
     img{
         width: 100%;
-        height: 90%;
+        height: 80%;
         object-fit: cover;
         border-radius: .3rem;
         margin-bottom: $moyenne-marge;
