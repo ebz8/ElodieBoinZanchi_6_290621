@@ -33,12 +33,12 @@
                     </ul>
 
                     <button type="button"
-                    aria-haspopup="modale-formulaire" aria-controls="modale-formulaire"
+                    aria-haspopup="dialog" aria-controls="dialog"
                     id="btn-modale" class="btn-principal">
                         Contactez-moi
                     </button>
             </div>
-                <img class="vignette" src="resources/img/photographers/ID Photos/MimiKeel.jpg" alt="Mimi Keel"/>
+                <img class="vignette" src="resources/img/photographers/IDphotos/MimiKeel.jpg" alt="Mimi Keel"/>
         </div>
 
         <div class="bloc-fixe">
@@ -104,20 +104,21 @@
     </main>
 
        <!-- formulaire de contact -->
-        <section
-          id="modale-formulaire" role="modale-formulaire"
-          aria-labelledby="contact" aria-describedby="formulaire de contact du photographe"
+        <div
+          id="dialog" role="dialog"
+          aria-labelledby="contact" aria-describedby="contact"
           aria-modal="true" aria-hidden="true" tabindex="-1" 
           class="modale-formulaire" >
 
             <div role="document" class="formulaire-contenu">
+
                 <button type="button" aria-label="Fermer"
-                title="Fermer la modale" data-dismiss="modale-formulaire"
-                class="btn-fermeture">
+                title="Fermer la modale" data-dismiss="dialog"
+                class="btn-fermeture">X
                 </button>
 
 
-                <form action="" method="post">
+                <form method="post">
 
                     <div class="champFormulaire">
                         <label for="prenom">Prénom</label>
@@ -171,23 +172,22 @@
                     </div>
 
                     <!-- bouton d'envoi -->
-                    <buttton
+                    <input
                       id="btn-envoi"
                       type="submit"
                       class="btn-principal"
-                      value="C'est parti">
-                    </buttton>
+                      value="C'est parti"/>
 
                 </form>
 
             </div>
-    </section>
+        </div>
 
 
         <div class="lightbox">
                 <div class="lightbox__contenu">
                     <!-- contenu photographe -->
-                    <img src="/resources/img/photographers/Mimi/Animals_Rainbow.jpg">
+                    <img src="/resources/img/photographers/Mimi/Animals_Rainbow.jpg" alt="Oiseau multicolor">
                     <div class="photo-titre">Arc-en-ciel</div>
 
                     <!-- composants lightbox -->

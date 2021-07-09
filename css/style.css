@@ -395,26 +395,11 @@ boutons
 ----------------------
 */
 .btn-fermeture {
+  display: block;
   z-index: 10;
   cursor: pointer;
-  position: absolute;
-  background-color: transparent;
-  opacity: 1;
-  transform: scale(0.9);
-}
-.btn-fermeture::before, .btn-fermeture::after {
-  content: " ";
-  position: absolute;
-  width: 5px;
-  height: 40px;
-  left: 15px;
-  background-color: #911d1d;
-}
-.btn-fermeture::before {
-  transform: rotate(45deg);
-}
-.btn-fermeture::after {
-  transform: rotate(-45deg);
+  position: relative;
+  right: 0;
 }
 
 .tag-entree {
@@ -507,6 +492,12 @@ formulaires
   margin: auto;
   padding: 2.4rem;
   background-color: #db8876;
+}
+.formulaire-contenu .btn-fermeture {
+  position: relative;
+  top: 0;
+  right: 0;
+  background-color: blueviolet;
 }
 
 .trier-par {

@@ -6,31 +6,38 @@ boutons
 
 // icône close
 .btn-fermeture{
+    display: block;
     z-index: 10;
     cursor: pointer;
-    position: absolute;
-    background-color: transparent;
-    opacity: 1;
-    transform: scale(.9);
-
-    &::before,
-    &::after{
-        content: " ";
-        position: absolute;
-        width: 5px;
-        height: 40px;
-        left: 15px;
-        background-color: $couleur-primaire;
-    }
-  
-    &::before{
-        transform: rotate(45deg);
-    }
-  
-    &::after{
-        transform: rotate(-45deg);
-    }
+    position: relative;
+    right: 0;
 }
+// .btn-fermeture{
+//     z-index: 10;
+//     cursor: pointer;
+//     position: absolute;
+//     background-color: transparent;
+//     opacity: 1;
+//     transform: scale(.9);
+
+//     &::before,
+//     &::after{
+//         content: " ";
+//         position: absolute;
+//         width: 5px;
+//         height: 40px;
+//         left: 15px;
+//         background-color: $couleur-primaire;
+//     }
+  
+//     &::before{
+//         transform: rotate(45deg);
+//     }
+  
+//     &::after{
+//         transform: rotate(-45deg);
+//     }
+// }
 
 
 // tags

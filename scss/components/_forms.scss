@@ -34,8 +34,14 @@ formulaires
   margin: auto;
   padding: 2.4rem;
   background-color: $couleur-secondaire;
-}
 
+  .btn-fermeture{
+    position: relative;
+    top: 0;
+    right: 0;
+    background-color: blueviolet;
+  }
+}
 
 // bouton de selection par option
   .trier-par{

@@ -6,7 +6,7 @@ photographe
 */
 
 document.addEventListener('DOMContentLoaded', () => {
-  const declencheurs = document.querySelectorAll('[aria-haspopup="modale-formulaire"]')
+  const declencheurs = document.querySelectorAll('[aria-haspopup="dialog"]')
   const docGeneral = document.querySelector('.js-document')
   const tableauElementsFocusables = [
     '[href]',
