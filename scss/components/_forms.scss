@@ -68,7 +68,12 @@ formulaires
   flex-flow: column wrap;
 
   .btn-principal{
+    cursor: pointer;
     font-size: 1rem;
+
+    &:hover{
+      background-color: lighten($couleur-primaire, 5%);
+    }
 
     @include mobile-large{
       align-self: center;

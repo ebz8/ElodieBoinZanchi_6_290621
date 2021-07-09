@@ -517,7 +517,11 @@ formulaires
   flex-flow: column wrap;
 }
 .formulaire .btn-principal {
+  cursor: pointer;
   font-size: 1rem;
+}
+.formulaire .btn-principal:hover {
+  background-color: #a62121;
 }
 @media screen and (max-width: 544px) {
   .formulaire .btn-principal {
