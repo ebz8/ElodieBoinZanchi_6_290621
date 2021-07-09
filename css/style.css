@@ -1,4 +1,3 @@
-@charset "UTF-8";
 /**
 ----------------------
 variables
@@ -344,61 +343,6 @@ body {
 
 /**
 ----------------------
-bannières
-----------------------
-*/
-.banniere {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-@media screen and (max-width: 544px) {
-  .banniere {
-    flex-flow: row wrap;
-  }
-}
-.banniere nav {
-  flex-grow: 1;
-}
-@media screen and (max-width: 544px) {
-  .banniere nav {
-    width: 100%;
-    order: 3;
-  }
-}
-.banniere h1 {
-  margin-right: 80px;
-  font-size: 1.8rem;
-  color: #911d1d;
-}
-@media screen and (max-width: 544px) {
-  .banniere h1 {
-    position: absolute;
-    top: 50px;
-    right: 5vw;
-    margin-right: 0;
-    font-size: 1rem;
-    flex-basis: 50%;
-  }
-}
-
-.logo {
-  width: 14vw;
-  min-width: 150px;
-}
-@media screen and (max-width: 544px) {
-  .logo {
-    flex-basis: 50%;
-  }
-}
-
-/**
-----------------------
-footer
-----------------------
-*/
-/**
-----------------------
 animations CSS
 ----------------------
 */
@@ -625,6 +569,51 @@ TODO:
 - vignette ronde responsive
 ----------------------
 */
+.banniere {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+@media screen and (max-width: 544px) {
+  .banniere {
+    flex-flow: row wrap;
+  }
+}
+.banniere nav {
+  flex-grow: 1;
+}
+@media screen and (max-width: 544px) {
+  .banniere nav {
+    width: 100%;
+    order: 3;
+  }
+}
+.banniere h1 {
+  margin-right: 80px;
+  font-size: 1.8rem;
+  color: #911d1d;
+}
+@media screen and (max-width: 544px) {
+  .banniere h1 {
+    position: absolute;
+    top: 50px;
+    right: 5vw;
+    margin-right: 0;
+    font-size: 1rem;
+    flex-basis: 50%;
+  }
+}
+
+.logo {
+  width: 14vw;
+  min-width: 150px;
+}
+@media screen and (max-width: 544px) {
+  .logo {
+    flex-basis: 50%;
+  }
+}
+
 .photographes-galerie {
   display: flex;
   text-align: center;
