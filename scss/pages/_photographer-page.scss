@@ -19,7 +19,9 @@ TODO:
     align-items: flex-start;
 
     @include mobile-large{
+        flex-flow: row nowrap;
         background-color: white;
+        padding: 0;
     }
 
     
@@ -68,6 +70,12 @@ TODO:
     .vignette{
         @include vignette-ronde(10rem, 10rem);
         align-self: center;
+
+        @include mobile-large{
+            width: 8rem;
+            height: 8rem;
+            flex-shrink: 0;
+        }
     }
 
 }
@@ -84,6 +92,10 @@ TODO:
     background-color: $couleur-secondaire;
     color: black;
     border-radius: .3rem .3rem 0 0;
+
+    @include tablet{
+        display: none;
+    }
 
     .icone-like{
         font-size: .8rem;
@@ -107,6 +119,10 @@ TODO:
         width: 23rem;
         height: 23rem;
         margin: 0;
+
+        @include mobile-large{
+            width: 100%;
+        }
     }
 
     img{
