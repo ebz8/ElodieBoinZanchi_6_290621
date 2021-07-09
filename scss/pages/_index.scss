@@ -14,22 +14,30 @@ TODO:
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: nowrap;
+    gap: 1rem;
 
-    @include mobile-large{
+    @include tablet{
         flex-flow: row wrap;
+        gap: 0;
     }
 
     nav{
         flex-grow: 1;
+        max-width: 50%;
 
-        @include mobile-large{
-            width: 100%;
+        @include tablet{
+            max-width: 100%;
             order: 3;
+        }
+
+        .nav-par-tag{
+            width: 100%;
+            flex-flow: row wrap;
         }
     }
     
     h1{
-        margin-right: 80px;
         font-size: 1.8rem;
         color: $couleur-primaire;
 
@@ -58,6 +66,7 @@ TODO:
     display: flex;
     text-align: center;
     flex-flow: row wrap;
+    gap: 1rem;
     width: 100%;
     margin-top: 8vw;
     padding-left: 0;

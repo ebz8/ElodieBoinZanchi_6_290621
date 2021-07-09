@@ -310,6 +310,7 @@ a:hover {
 
 ul {
   list-style-type: none;
+  padding: 0;
 }
 
 button {
@@ -322,7 +323,7 @@ body {
   font-family: "DM Sans", sans-serif;
   color: #911d1d;
 }
-@media screen and (max-width: 718px) {
+@media screen and (max-width: 800px) {
   body {
     margin: 8vw 5vw;
   }
@@ -363,6 +364,7 @@ boutons
   margin: 0 0.2rem 0.2rem 0;
   padding: 0.2rem 0.5rem;
   color: #911d1d;
+  font-size: 0.8rem;
   border: 1px solid #c4c4c4;
   border-radius: 0.9rem;
 }
@@ -573,23 +575,30 @@ TODO:
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: nowrap;
+  gap: 1rem;
 }
-@media screen and (max-width: 544px) {
+@media screen and (max-width: 800px) {
   .banniere {
     flex-flow: row wrap;
+    gap: 0;
   }
 }
 .banniere nav {
   flex-grow: 1;
+  max-width: 50%;
 }
-@media screen and (max-width: 544px) {
+@media screen and (max-width: 800px) {
   .banniere nav {
-    width: 100%;
+    max-width: 100%;
     order: 3;
   }
 }
+.banniere nav .nav-par-tag {
+  width: 100%;
+  flex-flow: row wrap;
+}
 .banniere h1 {
-  margin-right: 80px;
   font-size: 1.8rem;
   color: #911d1d;
 }
@@ -618,6 +627,7 @@ TODO:
   display: flex;
   text-align: center;
   flex-flow: row wrap;
+  gap: 1rem;
   width: 100%;
   margin-top: 8vw;
   padding-left: 0;
@@ -631,7 +641,7 @@ TODO:
   line-height: 1.3rem;
   margin-bottom: 2rem;
 }
-@media screen and (max-width: 718px) {
+@media screen and (max-width: 800px) {
   .photographe-profil {
     flex-basis: 50%;
   }
@@ -705,7 +715,7 @@ TODO:
   top: -10rem;
   left: 100%;
 }
-@media screen and (max-width: 718px) {
+@media screen and (max-width: 800px) {
   .banniere-photographe .photographe-profil .btn-principal {
     position: fixed;
   }
