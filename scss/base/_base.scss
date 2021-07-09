@@ -47,3 +47,15 @@ body{
 .nav-par-tag{
     display: flex;
 }
+
+
+/// dissimulation - accessibilité
+
+.hidden{
+    width: 1px;
+    height: 1px;
+    position: absolute;
+    left: 0;
+    top: -10 000px;
+    overflow: hidden;
+}

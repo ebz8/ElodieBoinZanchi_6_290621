@@ -329,6 +329,15 @@ body {
   display: flex;
 }
 
+.hidden {
+  width: 1px;
+  height: 1px;
+  position: absolute;
+  left: 0;
+  top: -10 0px;
+  overflow: hidden;
+}
+
 /**
 ----------------------
 bannières
