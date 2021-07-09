@@ -428,7 +428,7 @@ boutons
   content: "#";
 }
 
-.bouton-principal {
+.btn-principal {
   position: relative;
   z-index: 1;
   width: max-content;
@@ -436,8 +436,9 @@ boutons
   background-color: #911d1d;
   color: white;
   border-radius: 0.4rem;
+  border: none;
 }
-.bouton-principal::after {
+.btn-principal::after {
   content: "";
   position: absolute;
   z-index: -1;
@@ -450,16 +451,16 @@ boutons
   opacity: 0;
   transition: opacity 220ms;
 }
-.bouton-principal:hover {
+.btn-principal:hover {
   color: black;
 }
-.bouton-principal:hover::after {
+.btn-principal:hover::after {
   opacity: 1;
 }
-.bouton-principal:focus {
+.btn-principal:focus {
   color: black;
 }
-.bouton-principal:focus::after {
+.btn-principal:focus::after {
   opacity: 1;
 }
 
@@ -482,6 +483,32 @@ formulaires
 
 ----------------------
 */
+.modale-formulaire {
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  padding: 2.4rem;
+  overflow-y: scroll;
+  background-color: rgba(255, 255, 255, 0.75);
+  transition: 0.2s;
+}
+.modale-formulaire[aria-hidden=true] {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.formulaire-contenu {
+  flex: 1;
+  max-width: 48rem;
+  margin: auto;
+  padding: 2.4rem;
+  background-color: #db8876;
+}
+
 .trier-par {
   display: flex;
   align-items: center;
@@ -680,13 +707,13 @@ TODO:
   line-height: 2rem;
   width: 100%;
 }
-.banniere-photographe .photographe-profil .bouton-principal {
+.banniere-photographe .photographe-profil .btn-principal {
   position: relative;
   top: -10rem;
   left: 100%;
 }
 @media screen and (max-width: 718px) {
-  .banniere-photographe .photographe-profil .bouton-principal {
+  .banniere-photographe .photographe-profil .btn-principal {
     position: fixed;
   }
 }

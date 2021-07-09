@@ -10,7 +10,7 @@
         <link rel="stylesheet" href="/css/style.css" />
     </head>
 
-    <body>
+    <body class="js-page">
 
     <header class="banniere">
         <a href="/index.html">
@@ -18,7 +18,7 @@
         </a>
     </header>
 
-    <main>
+    <main class="js-document">
         <div class="banniere-photographe">
             <div class="photographe-profil">
                     <h1 class="nom">Mimi Keel</h1>
@@ -31,7 +31,11 @@
                         <li class="tag-entree">Travels</li>
                         <li class="tag-entree">Animals</li>
                     </ul>
-                    <button class="bouton-principal">Contactez-moi</button>
+                    <button type="button"
+                    aria-haspopup="dialog" aria-controls="dialog"
+                    id="btn-modale" class="btn-principal">
+                        Contactez-moi
+                    </button>
             </div>
                 <img class="vignette" src="/resources/img/photographers/ID Photos/MimiKeel.jpg" alt="Mimi Keel"/>
         </div>
@@ -94,6 +98,91 @@
             </figure>
         </div>
 
+
+ 
+    </main>
+
+       <!-- formulaire de contact -->
+        <section
+          id="modale-formulaire" role="dialog"
+          aria-labelledby="contact" aria-describedby="formulaire de contact du photographe"
+          aria-modal="true" aria-hidden="true" tabindex="-1" 
+          class="modale-formulaire" >
+
+            <div role="document" class="formulaire-contenu">
+                <button type="button" aria-label="Fermer"
+                title="Fermer la modale" data-dismiss="dialog"
+                class="btn-fermeture">
+                </button>
+
+
+                <form action="" method="post">
+
+                    <div class="champFormulaire">
+                        <label for="prenom">Prénom</label>
+                        <input
+                        class="text-control"
+                        type="text"
+                        id="prenom"
+                        name="prénom"
+                        placeholder="Pauline"
+                        required
+                        />
+                        <span class="erreur-saisie"></span>
+                    </div>
+
+                    <div class="champFormulaire">
+                        <label for="nom">Nom</label>
+                        <input
+                        class="text-control"
+                        type="text"
+                        id="nom"
+                        name="nom"
+                        placeholder="Tucool"
+                        required
+                        />
+                        <span class="erreur-saisie"></span>
+                    </div>
+
+                    <div class="champFormulaire">
+                        <label for="email">Email</label>
+                        <input
+                        class="text-control"
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="pauline.tucoule@mail.fr"
+                        required
+                        />
+                        <span class="erreur-saisie"></span>
+                    </div>
+
+                    <div class="champFormulaire">
+                        <label for="message">Message</label>
+                        <input
+                        class="text-control"
+                        type="text"
+                        id="message"
+                        name="message"
+                        required
+                        />
+                        <span class="erreur-saisie"></span>
+                    </div>
+
+                    <!-- bouton d'envoi -->
+                    <buttton
+                      id="btn-envoi"
+                      type="submit"
+                      class="btn-principal"
+                      value="C'est parti">
+                    </buttton>
+
+                </form>
+
+            </div>
+    </section>
+
+
         <div class="lightbox">
                 <div class="lightbox__contenu">
                     <!-- contenu photographe -->
@@ -108,8 +197,6 @@
                     </div>
                 </div>
             </div>
-    </main>
-
     <script src="/js/app.js"></script>
     <noscript>Ce site nécessite l'activation de JavaScript pour fonctionner.</noscript>
     

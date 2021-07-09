@@ -48,7 +48,7 @@ boutons
 
 // Contactez-moi, menu etc
 //
-.bouton-principal{
+.btn-principal{
     position: relative;
     z-index: 1;
     width: max-content;
@@ -56,6 +56,7 @@ boutons
     background-color: $couleur-primaire;
     color: white;
     border-radius: .4rem;
+    border: none;
 
     &::after{
         content: "";
