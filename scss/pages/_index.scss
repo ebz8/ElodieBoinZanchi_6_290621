@@ -38,6 +38,8 @@ TODO:
     }
     
     h1{
+        display: inline;
+        white-space: nowrap;
         font-size: 1.8rem;
         color: $couleur-primaire;
 

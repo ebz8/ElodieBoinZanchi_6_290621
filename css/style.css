@@ -361,10 +361,10 @@ boutons
 }
 
 .tag-entree {
-  margin: 0 0.2rem 0.2rem 0;
+  margin: 0 0.3rem 0.3rem 0;
   padding: 0.2rem 0.5rem;
   color: #911d1d;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   border: 1px solid #c4c4c4;
   border-radius: 0.9rem;
 }
@@ -599,6 +599,8 @@ TODO:
   flex-flow: row wrap;
 }
 .banniere h1 {
+  display: inline;
+  white-space: nowrap;
   font-size: 1.8rem;
   color: #911d1d;
 }
