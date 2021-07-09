@@ -16,7 +16,6 @@ formulaires
   bottom: 0;
   left: 0;
   display: flex;
-  padding: 2.4rem;
   overflow-y: scroll;
   background-color: hsla(0, 0%, 100%, 0.75);
   transition: .2s;
@@ -26,21 +25,77 @@ formulaires
     visibility: hidden;
     opacity: 0;
   }
+
+  .btn-fermeture{
+    position: absolute;
+    top: 1.5rem;
+    right: 2.5rem;
+
+    &::before,
+    &::after{
+        background-color: white;
+    }
+  }
 }
 
 .formulaire-contenu{
-  flex: 1;
-  max-width: 48rem;
-  margin: auto;
-  padding: 2.4rem;
+  position: relative;
+  width: 30rem;
+  height: max-content;
+  margin: 2.4rem auto;
+  padding: 1.5rem;
   background-color: $couleur-secondaire;
+  color: black;
+  font-size: 1.3rem;
+  border-radius: .5rem;
+  overflow: scroll;
 
-  .btn-fermeture{
-    position: relative;
-    top: 0;
-    right: 0;
-    background-color: blueviolet;
+  @include mobile-large{
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    border-radius: 0;
   }
+
+  h1{
+    font-size: 2.5rem;
+    margin-bottom: $moyenne-marge;
+  }
+}
+
+.formulaire{
+  display: flex;
+  flex-flow: column wrap;
+
+  .btn-principal{
+    font-size: 1rem;
+
+    @include mobile-large{
+      align-self: center;
+    }  
+  }
+
+  .champ-formulaire{
+    margin-bottom: $moyenne-marge;
+
+    input{
+      width: 100%;
+      line-height: 2rem;
+      padding: .3rem;
+      margin-top: $petite-marge;
+      border: none;
+      border-radius: .3rem;
+
+      &[placeholder]{
+        color: $couleur-neutre-intermediaire;
+      }
+    }
+
+    &:nth-child(4) > input{
+      height: 8rem;
+    }
+  }
+
 }
 
 // bouton de selection par option

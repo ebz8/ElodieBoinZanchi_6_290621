@@ -369,11 +369,30 @@ boutons
 ----------------------
 */
 .btn-fermeture {
-  display: block;
   z-index: 10;
   cursor: pointer;
-  position: relative;
-  right: 0;
+  background-color: transparent;
+  opacity: 1;
+  transform: scale(0.9);
+}
+.btn-fermeture::before, .btn-fermeture::after {
+  content: " ";
+  position: absolute;
+  width: 3px;
+  height: 2rem;
+  left: 15px;
+  background-color: #911d1d;
+}
+@media screen and (max-width: 544px) {
+  .btn-fermeture::before, .btn-fermeture::after {
+    height: 1.5rem;
+  }
+}
+.btn-fermeture::before {
+  transform: rotate(45deg);
+}
+.btn-fermeture::after {
+  transform: rotate(-45deg);
 }
 
 .tag-entree {
@@ -451,7 +470,6 @@ formulaires
   bottom: 0;
   left: 0;
   display: flex;
-  padding: 2.4rem;
   overflow-y: scroll;
   background-color: rgba(255, 255, 255, 0.75);
   transition: 0.2s;
@@ -460,19 +478,68 @@ formulaires
   visibility: hidden;
   opacity: 0;
 }
+.modale-formulaire .btn-fermeture {
+  position: absolute;
+  top: 1.5rem;
+  right: 2.5rem;
+}
+.modale-formulaire .btn-fermeture::before, .modale-formulaire .btn-fermeture::after {
+  background-color: white;
+}
 
 .formulaire-contenu {
-  flex: 1;
-  max-width: 48rem;
-  margin: auto;
-  padding: 2.4rem;
-  background-color: #db8876;
-}
-.formulaire-contenu .btn-fermeture {
   position: relative;
-  top: 0;
-  right: 0;
-  background-color: blueviolet;
+  width: 30rem;
+  height: max-content;
+  margin: 2.4rem auto;
+  padding: 1.5rem;
+  background-color: #db8876;
+  color: black;
+  font-size: 1.3rem;
+  border-radius: 0.5rem;
+  overflow: scroll;
+}
+@media screen and (max-width: 544px) {
+  .formulaire-contenu {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    border-radius: 0;
+  }
+}
+.formulaire-contenu h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.8rem;
+}
+
+.formulaire {
+  display: flex;
+  flex-flow: column wrap;
+}
+.formulaire .btn-principal {
+  font-size: 1rem;
+}
+@media screen and (max-width: 544px) {
+  .formulaire .btn-principal {
+    align-self: center;
+  }
+}
+.formulaire .champ-formulaire {
+  margin-bottom: 0.8rem;
+}
+.formulaire .champ-formulaire input {
+  width: 100%;
+  line-height: 2rem;
+  padding: 0.3rem;
+  margin-top: 0.3rem;
+  border: none;
+  border-radius: 0.3rem;
+}
+.formulaire .champ-formulaire input[placeholder] {
+  color: #c4c4c4;
+}
+.formulaire .champ-formulaire:nth-child(4) > input {
+  height: 8rem;
 }
 
 .trier-par {
@@ -805,7 +872,7 @@ TODO:
   justify-content: space-between;
   flex-flow: row wrap;
   margin-top: 2rem;
-  gap: 0.5rem;
+  gap: 0.8rem;
 }
 .profil-galerie .apercu-photo {
   width: 30vw;
@@ -828,7 +895,7 @@ TODO:
   height: 80%;
   object-fit: cover;
   border-radius: 0.3rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.8rem;
 }
 .profil-galerie figcaption {
   display: flex;

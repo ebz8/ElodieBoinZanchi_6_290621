@@ -104,10 +104,10 @@
     </main>
 
        <!-- formulaire de contact -->
-        <div
+        <section
           id="dialog" role="dialog"
           aria-labelledby="contact" aria-describedby="formulairecontact"
-          aria-modal="true" aria-hidden="true" tabindex="-1" 
+          aria-modal="true" aria-hidden="false" tabindex="-1" 
           class="modale-formulaire" >
           <h2 class="hidden">Formulaire de contact</h2>
 
@@ -115,13 +115,16 @@
 
                 <button type="button" aria-label="Fermer"
                 title="Fermer la modale" data-dismiss="dialog"
-                class="btn-fermeture">X
+                class="btn-fermeture">
                 </button>
 
+                <!-- titre perso du formulaire -->
+                <h1>Contactez moi
+                <br>Mimi Keel</h1>
 
-                <form method="post">
+                <form method="post" class="formulaire">
 
-                    <div class="champFormulaire">
+                    <div class="champ-formulaire">
                         <label for="prenom">Prénom</label>
                         <input
                         class="text-control"
@@ -134,7 +137,7 @@
                         <span class="erreur-saisie"></span>
                     </div>
 
-                    <div class="champFormulaire">
+                    <div class="champ-formulaire">
                         <label for="nom">Nom</label>
                         <input
                         class="text-control"
@@ -147,7 +150,7 @@
                         <span class="erreur-saisie"></span>
                     </div>
 
-                    <div class="champFormulaire">
+                    <div class="champ-formulaire">
                         <label for="email">Email</label>
                         <input
                         class="text-control"
@@ -160,7 +163,7 @@
                         <span class="erreur-saisie"></span>
                     </div>
 
-                    <div class="champFormulaire">
+                    <div class="champ-formulaire">
                         <label for="message">Message</label>
                         <input
                         class="text-control"
@@ -177,12 +180,12 @@
                       id="btn-envoi"
                       type="submit"
                       class="btn-principal"
-                      value="C'est parti"/>
+                      value="Envoyer"/>
 
                 </form>
 
             </div>
-        </div>
+        </section>
 
 
         <div class="lightbox">
