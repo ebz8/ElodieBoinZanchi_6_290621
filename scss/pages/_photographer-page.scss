@@ -32,11 +32,16 @@ TODO:
 
         .btn-principal{ // à corriger
             position: relative;
-            top: -10rem;
+            width: 12rem;
+            transform: translateY(-10rem);
             left: 100%; 
 
             @include tablet{
+                z-index: 5;
                 position: fixed;
+                left: 50%;
+                bottom: 1rem;
+                transform: translate(-50%, 0%);
             }
         }
 

@@ -319,7 +319,7 @@ button {
 
 body {
   max-width: 1400px;
-  margin: 30px 40px 50px 40px;
+  margin: 25px 30px 50px 30px;
   font-family: "DM Sans", sans-serif;
   color: #911d1d;
 }
@@ -340,6 +340,21 @@ body {
   left: 0;
   top: -10 0px;
   overflow: hidden;
+}
+
+/**
+----------------------
+banniere
+----------------------
+*/
+.logo {
+  width: 14vw;
+  min-width: 150px;
+}
+@media screen and (max-width: 544px) {
+  .logo {
+    flex-basis: 50%;
+  }
 }
 
 /**
@@ -714,12 +729,17 @@ TODO:
 }
 .banniere-photographe .photographe-profil .btn-principal {
   position: relative;
-  top: -10rem;
+  width: 12rem;
+  transform: translateY(-10rem);
   left: 100%;
 }
 @media screen and (max-width: 800px) {
   .banniere-photographe .photographe-profil .btn-principal {
+    z-index: 5;
     position: fixed;
+    left: 50%;
+    bottom: 1rem;
+    transform: translate(-50%, 0%);
   }
 }
 .banniere-photographe .photographe-profil .nom {

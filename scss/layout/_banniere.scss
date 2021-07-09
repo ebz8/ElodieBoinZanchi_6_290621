@@ -1,0 +1,14 @@
+/**
+----------------------
+banniere
+----------------------
+*/
+
+.logo{
+    width: 14vw;
+    min-width: 150px;
+
+    @include mobile-large{
+        flex-basis: 50%;
+    }
+}
