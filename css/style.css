@@ -625,11 +625,12 @@ TODO:
 
 .photographes-galerie {
   display: flex;
+  justify-content: space-between;
   text-align: center;
   flex-flow: row wrap;
-  gap: 1rem;
+  gap: 2rem;
   width: 100%;
-  margin-top: 8vw;
+  margin-top: 5vw;
   padding-left: 0;
 }
 .photographes-galerie .nav-par-tag {
@@ -637,13 +638,12 @@ TODO:
 }
 
 .photographe-profil {
-  flex-basis: 33.33%;
+  flex-basis: 30%;
   line-height: 1.3rem;
-  margin-bottom: 2rem;
 }
 @media screen and (max-width: 800px) {
   .photographe-profil {
-    flex-basis: 50%;
+    flex-basis: 46%;
   }
 }
 @media screen and (max-width: 544px) {
