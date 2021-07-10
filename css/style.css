@@ -627,26 +627,55 @@ lightbox
 ----------------------
 */
 .lightbox {
-  height: 100vh;
-  width: 70vw;
-  position: relative;
+  z-index: 50;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: white;
+}
+.lightbox[aria-hidden=true] {
+  visibility: hidden;
+  opacity: 0;
 }
 
+.lightbox__commandes .btn-fermeture {
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translate(200%, -50%);
+}
 .lightbox__commandes .gauche,
 .lightbox__commandes .droite {
+  position: absolute;
+  top: 50%;
   cursor: pointer;
   background-color: transparent;
   font-size: 2rem;
   color: #911d1d;
 }
+.lightbox__commandes .gauche {
+  left: 0;
+  transform: translate(-150%, -50%);
+}
+.lightbox__commandes .droite {
+  right: 0;
+  transform: translate(150%, -50%);
+}
 
 .lightbox__contenu {
-  margin: 5rem auto 5rem;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80vw;
+  height: 70vw;
 }
 .lightbox__contenu img {
-  object-fit: scale-down;
+  object-fit: cover;
   width: 100%;
-  height: 100%;
+  height: 70vw;
 }
 
 /**

@@ -188,7 +188,8 @@
         </section>
 
 
-        <div class="lightbox">
+        <div class="lightbox" aria-label="image closeup view"
+            aria-hidden="true">
                 <div class="lightbox__contenu">
                     <!-- contenu photographe -->
                     <img src="resources/img/photographers/Mimi/Animals_Rainbow.jpg" alt="Oiseau multicolor">
@@ -196,9 +197,9 @@
 
                     <!-- composants lightbox -->
                     <div class="lightbox__commandes">
-                        <button class="gauche"><i class="fas fa-chevron-left"></i> </button>
-                        <button class="droite"><i class="fas fa-chevron-right"></i></button>
-                        <button class="btn-fermeture"></button>
+                        <button class="gauche" aria-label="image précédente"><i class="fas fa-chevron-left"></i> </button>
+                        <button class="droite" aria-label="image suivante"><i class="fas fa-chevron-right"></i></button>
+                        <button class="btn-fermeture" aria-label="fermer la lightbox"></button>
                     </div>
                 </div>
             </div>
