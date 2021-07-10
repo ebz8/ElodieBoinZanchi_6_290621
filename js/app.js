@@ -1,12 +1,18 @@
 /**
 ----------------------
+lightbox
+----------------------
+*/
+
+/**
+----------------------
 formulaire de contact
 photographe
 ----------------------
 */
 
 document.addEventListener('DOMContentLoaded', () => {
-  const declencheurs = document.querySelectorAll('[aria-haspopup="dialog"]')
+  const declencheurs = document.querySelectorAll('.btn-formulaire[aria-haspopup="dialog"]')
   const docGeneral = document.querySelector('.js-document')
   const tableauElementsFocusables = [
     '[href]',
@@ -31,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
     dialog.setAttribute('aria-hidden', false)
     docGeneral.setAttribute('aria-hidden', true)
 
-    // return if no focusable element
+    // return si pas d'élément focusable
     if (!premierElementFocusable) {
       return
     }
@@ -39,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.setTimeout(() => {
       premierElementFocusable.focus()
 
-      // trapping focus inside the dialog
+      // focus à l'intérieur de la modale
       elementsFocusables.forEach((elementFocusable) => {
         if (elementFocusable.addEventListener) {
           elementFocusable.addEventListener('keydown', (e) => {

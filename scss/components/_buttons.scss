@@ -4,14 +4,6 @@ boutons
 ----------------------
 */
 
-// icône close
-// .btn-fermeture{
-//     display: block;
-//     z-index: 10;
-//     cursor: pointer;
-//     position: relative;
-//     right: 0;
-// }
 .btn-fermeture{
     z-index: 10;
     cursor: pointer;
@@ -61,6 +53,7 @@ boutons
 // Contactez-moi, menu etc
 //
 .btn-principal{
+    cursor: pointer;
     position: relative;
     z-index: 1;
     width: max-content;
