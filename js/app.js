@@ -17,22 +17,38 @@ const corpsContenuPage = document.querySelector('.js-document')
 const corpsFormulaire = document.querySelector('.modale-formulaire')
 const btnOuvrirFormulaire = document.querySelector('#btn-modale')
 const btnFermerFormulaire = document.querySelector('.modale-formulaire .btn-fermeture')
+// gestion clavier
+const touchesClavier = {
+      tab: 9,
+      enter: 13,
+      echap: 27
+    }
 
-// ouverture accessible du formulaire
-const formulaireOuverture = () => {
+// OUVERTURE accessible du formulaire
+function formulaireOuverture() {
   corpsContenuPage.setAttribute('aria-hidden', 'true')
   corpsFormulaire.setAttribute('aria-hidden','false')
   corpsBody.style.overflow = 'hidden'
+  btnFermerFormulaire.focus()
 }
 btnOuvrirFormulaire.addEventListener('click', formulaireOuverture);
 
-// fermeture accessible du formulaire
-const formulaireFermeture = () => {
+// FERMETURE accessible du formulaire
+function formulaireFermeture() {
   corpsContenuPage.setAttribute('aria-hidden', 'false')
   corpsFormulaire.setAttribute('aria-hidden','true')
   corpsBody.style.overflow = 'scroll'
+  btnOuvrirFormulaire.focus()
 }
 btnFermerFormulaire.addEventListener('click', formulaireFermeture);
+
+// gestion au clavier
+corpsFormulaire.addEventListener('keydown', (e) => {
+        if (e.which === touchesClavier.echap) {
+          formulaireFermeture()
+        }
+      })
+
 
 // document.addEventListener('DOMContentLoaded', () => {
 //   // éléments du DOM
