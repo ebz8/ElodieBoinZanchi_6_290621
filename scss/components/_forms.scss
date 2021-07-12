@@ -3,6 +3,9 @@
 
 formulaires
 
+TODO:
+- couleurs diff pour placeholder et saisie
+
 ----------------------
 */
 
@@ -61,6 +64,17 @@ formulaires
     font-size: 2.5rem;
     margin-bottom: $moyenne-marge;
   }
+
+  .erreur-saisie{
+    color: white;
+    font-size: .9rem;
+    opacity: 0;
+    transition: opacity .20s ease-in-out;
+  }
+  // animation message d'erreur
+  .erreur-saisie--active{
+    opacity: 1;
+  }
 }
 
 .formulaire{
@@ -103,7 +117,9 @@ formulaires
 
 }
 
+//
 // bouton de selection par option
+//
   .trier-par{
       display: flex;
       align-items: center;
