@@ -12,6 +12,7 @@ photographe
 */
 
 document.addEventListener('DOMContentLoaded', () => {
+  // éléments du DOM
   const declencheurs = document.querySelectorAll('.btn-formulaire[aria-haspopup="dialog"]')
   const docGeneral = document.querySelector('.js-document')
   const tableauElementsFocusables = [
@@ -22,12 +23,21 @@ document.addEventListener('DOMContentLoaded', () => {
     'textarea:not([disabled])',
     '[tabindex]:not([tabindex="-1"])'
   ]
+  const formPrenom = document.getElementById('prenom')
+  const formNom = document.getElementById('nom')
+  const formMail = document.getElementById('email')
+  const btnEnvoiFormulaire = document.getElementById('btn-envoi')
 
+  // contrôles clavier
   const touchesClavier = {
     tab: 9,
     enter: 13,
-    escape: 27
+    echap: 27
   }
+
+  // regex formulaire
+  const regexNom = /^(?=[a-zA-ZéèîïÉÎÏ\s]{2,25}$)(?=[a-zA-Z\s])(?:([\w\s*?])\1?(?!\1))+$/
+  const regexAdresseMail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
 
   const ouvrir = function (dialog) {
     const elementsFocusables = dialog.querySelectorAll(tableauElementsFocusables)
@@ -102,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // fermer diaolgue
 
     dialog.addEventListener('keydown', (e) => {
-      if (e.which === touchesClavier.escape) {
+      if (e.which === touchesClavier.echap) {
         close(dialog, declencheur)
       }
     })
@@ -122,5 +132,66 @@ document.addEventListener('DOMContentLoaded', () => {
         close(dialog)
       }
     })
+  })
+
+  // Vérification des champs de saisie et messages d'erreur
+  function validerPrenom () {
+    if (regexNom.test(formPrenom.value) == true) {
+      formPrenom.style.borderColor = 'black'
+      messageErreur[0].textContent = ' '
+      return true
+    } else if (!formPrenom.value) {
+      // message d'erreur de champ vide :
+      messageErreur[0].textContent = 'Ce champ est obligatoire.'
+      formPrenom.style.borderColor = '#ff0000'
+      return false
+    } else {
+      // message d'erreur de champ inccorect :
+      messageErreur[0].textContent = 'Veuillez saisir un prénom valide.'
+      formPrenom.style.borderColor = '#ff0000'
+      return false
+    }
+  }
+
+  function validerNom () {
+    if (regexNom.test(formNom.value) == true) {
+      formNom.style.borderColor = 'black'
+      messageErreur[0].textContent = ' '
+      return true
+    } else if (!formNom.value) {
+      // message d'erreur de champ vide :
+      messageErreur[0].textContent = 'Ce champ est obligatoire.'
+      formNom.style.borderColor = '#ff0000'
+      return false
+    } else {
+      // message d'erreur de champ inccorect :
+      messageErreur[0].textContent = 'Veuillez saisir un nom valide.'
+      formNom.style.borderColor = '#ff0000'
+      return false
+    }
+  }
+
+  // vérification des champs
+  btnEnvoiFormulaire.addEventListener('click', function (e) {
+    e.preventDefault()
+
+    const prenomValide = validerPrenom()
+    const nomValide = validerNom()
+    const mailValide = validerMail()
+
+    const champsTousValides = prenomValide && nomValide && mailValide &&
+    MessageValide
+
+    // affichage fenêtre de confirmation d'envoi
+    if (champsTousValides) {
+      modaleMessageConfirmation.style.display = 'flex'
+      modaleFormulaire.style.display = 'none'
+      console.log('Formulaire envoyé.')
+
+    // blocage de l'envoi du formulaire non valide
+    } else {
+      console.log('Formulaire non validé.')
+      return false
+    }
   })
 })

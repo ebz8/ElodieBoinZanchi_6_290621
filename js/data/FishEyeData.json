@@ -70,7 +70,8 @@
       "tags": ["fashion"],
       "likes": 62,
       "date": "2011-12-08",
-      "price": 55
+      "price": 55,
+      "description": "Une mannequin vêtue d'un survêtement jaune et de bottines à talons pose devant un terrain de basket bétonné en front de mer."
     },
     {
       "id": 8520927,
@@ -80,7 +81,8 @@
       "tags": ["fashion"],
       "likes": 11,
       "date": "2011-11-06",
-      "price": 55
+      "price": 55,
+      "description": "Une mannequin en combinaison imprimé jungle et sandales à talons pose au milieu d'un pont suspendu sans circulation, des gratte-ciels en arrière-plan."
     },
     {
       "id": 9025895,
@@ -90,7 +92,8 @@
       "tags": ["fashion"],
       "likes": 72,
       "date": "2013-08-12",
-      "price": 55
+      "price": 55,
+      "description": "Une mannequin en tenue inspirée des années soixante-dix adossée à un mur en damiers."
     },
     {
       "id": 9275938,
@@ -100,7 +103,8 @@
       "tags": ["events"],
       "likes": 69,
       "date": "2018-02-22",
-      "price": 55
+      "price": 55,
+      "description": "Autel de mariage romantique avec un kiosque à colonnes orné de fleurs et de draps blancs cerné d'arbres majestueux."
     },
     {
       "id": 2053494,
@@ -110,7 +114,8 @@
       "tags": ["events"],
       "likes": 2,
       "date": "2020-05-25",
-      "price": 55
+      "price": 55,
+      "description": "Deux jeunes mariés durant leur soirée de bal accueillis par des convives brandissent de grandes bougies magiques."
     },
     {
       "id": 7324238,
@@ -120,7 +125,8 @@
       "tags": ["events"],
       "likes": 33,
       "date": "2019-06-12",
-      "price": 55
+      "price": 55,
+      "description": "La salle d'un restaurarant moderne et chic décoré pour un anniversaire avec des chiffres en ballons."
     },
     {
       "id": 8328953,
@@ -130,7 +136,8 @@
       "tags": ["art"],
       "likes": 24,
       "date": "2011-12-08",
-      "price": 100
+      "price": 100,
+      "description": "Gros plan sur une sculpture constituée d'un assemblage de morceaux de bois imitant l'anatomie d'un cheval."
     },
     {
       "id": 7502053,
@@ -140,7 +147,8 @@
       "tags": ["art"],
       "likes": 88,
       "date": "2007-05-07",
-      "price": 55
+      "price": 55,
+      "description": "Un triangle blanc et le buste d'un homme en contre-plongée, jaune et bleu, peints sur des rangées de casiers en bois bleu."
     },
     {
       "id": 8523492,
@@ -150,7 +158,8 @@
       "tags": ["art"],
       "likes": 24,
       "date": "2018-05-05",
-      "price": 55
+      "price": 55,
+      "description": "Un couloir de métro aux murs intégralement recouverts de graffitis éclairé au néon, baigné dans une lumière rose."
     },
     {
       "id": 75902334,
@@ -160,7 +169,8 @@
       "tags": ["art"],
       "likes": 75,
       "date": "2019-11-25",
-      "price": 55
+      "price": 55,
+      "description": "Un mur recouvert pas le dessin de dizaines de pigeons rouges ou bleus constituant un motif."
     },
 
     {
@@ -171,7 +181,8 @@
       "tags": ["sport"],
       "likes": 52,
       "date": "2013-02-30",
-      "price": 70
+      "price": 70,
+      "description": "Vue plongeante sur les membres d'une équipe de sport nautique en train de ramer."
     },
     {
       "id": 92758372,
@@ -181,7 +192,8 @@
       "tags": ["fashion"],
       "likes": 58,
       "date": "2018-07-17",
-      "price": 70
+      "price": 70,
+      "description": "Un mur délabré, aux couleurs pastels, un sol de terre battue sur lequel se tiennent un homme et une femme dans des postures très chorégraphiées. "
     },
     {
       "id": 32958383,
@@ -191,7 +203,8 @@
       "tags": ["fashion"],
       "likes": 11,
       "date": "2019-08-12",
-      "price": 70
+      "price": 70,
+      "description": "Une mannequin en chaussures de ville déploie sa grande robe rouge en tulle dans un escalier urbain."
     },
     {
       "id": 928587383,
@@ -201,7 +214,8 @@
       "tags": ["events"],
       "likes": 2,
       "date": "2019-01-02",
-      "price": 70
+      "price": 70,
+      "description": "Réunion d'équipe dans un open space lumineux et minimaliste, ordinateurs sur la table et post-it au mur."
     },
     {
       "id": 725639493,
@@ -211,7 +225,8 @@
       "tags": ["events"],
       "likes": 3,
       "date": "2019-05-20",
-      "price": 70
+      "price": 70,
+      "description": "Équipe d'hommes qui assiste à la présentation d'un produit dans une grande pièce style usine réhabilitée."
     },
     {
       "id": 23394384,
@@ -231,7 +246,8 @@
       "tags": ["events"],
       "likes": 23,
       "date": "2018-02-22",
-      "price": 70
+      "price": 70,
+      "description": "Une jeune femme s'exprime au micro sur scène, sous la lumière d'un projecteur."
     },
     {
       "id": 593834784,
@@ -241,7 +257,8 @@
       "tags": ["animals"],
       "likes": 52,
       "date": "2017-03-13",
-      "price": 70
+      "price": 70,
+      "description": "Un cerf dans une prairie à la tombée du jour."
     },
     {
       "id": 83958935,
@@ -251,9 +268,9 @@
       "tags": ["animals"],
       "likes": 52,
       "date": "2016-06-12",
-      "price": 70
+      "price": 70,
+      "description": "Un chiot joue avec sa laisse sur la plage au soleil couchant."
     },
-
     {
       "id": 394583434,
       "photographerId": 527,
@@ -262,7 +279,8 @@
       "tags": ["travel"],
       "likes": 23,
       "date": "2017-03-18",
-      "price": 45
+      "price": 45,
+      "description": "Survol vertigineux du sommet d'une crête de montagnes desertiques."
     },
     {
       "id": 343423425,
@@ -272,7 +290,8 @@
       "tags": ["travel"],
       "likes": 101,
       "date": "2017-04-03",
-      "price": 45
+      "price": 45,
+      "description": "Source naturelle d'eau chaude thermale en extérieur avec baigneurs."
     },
     {
       "id": 73434243,
@@ -283,6 +302,8 @@
       "likes": 99,
       "date": "2018-04-30",
       "price": 45
+      ,
+      "description": "Route à perte de vue qui circule au sein d'une vaste étendue désertique."
     },
     {
       "id": 23425523,
@@ -292,7 +313,8 @@
       "tags": ["travel"],
       "likes": 34,
       "date": "2016-04-05",
-      "price": 45
+      "price": 45,
+      "description": "Pont haut perçant une forêt luxuriante d'arbres tropicaux."
     },
     {
       "id": 23134513,
@@ -302,7 +324,8 @@
       "tags": ["travel"],
       "likes": 23,
       "date": "2017-03-18",
-      "price": 45
+      "price": 45,
+      "description": "Vue depuis une belle barque en bois sur un lac entouré de montagnes."
     },
     {
       "id": 92352352,
@@ -312,7 +335,8 @@
       "tags": ["portrait"],
       "likes": 66,
       "date": "2018-05-24",
-      "price": 45
+      "price": 45,
+      "description": "Visage souriant d'une jeune femme baigné dans des couleurs chaudes et vides."
     },
     {
       "id": 34513453,
@@ -322,7 +346,8 @@
       "tags": ["portait"],
       "likes": 52,
       "date": "2017-04-21",
-      "price": 45
+      "price": 45,
+      "description": "Un jeune homme plongé dans le noir, le visage éclairé à la lumière d'un projecteur."
     },
     {
       "id": 23523533,
@@ -332,7 +357,8 @@
       "tags": ["portait"],
       "likes": 95,
       "date": "2018-11-02",
-      "price": 45
+      "price": 45,
+      "description": "Portrait d'une jeune femme en noir-et-blanc éclairé en studio de manière très artificielle."
     },
     {
       "id": 525834234,
@@ -342,7 +368,8 @@
       "tags": ["portait"],
       "likes": 25,
       "date": "2019-01-02",
-      "price": 45
+      "price": 45,
+      "description": "Portrait en noir-et-blanc d'un vieil homme fumant une cigarette."
     },
 
     {
