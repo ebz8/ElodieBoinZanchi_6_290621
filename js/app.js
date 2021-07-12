@@ -11,187 +11,210 @@ photographe
 ----------------------
 */
 
-document.addEventListener('DOMContentLoaded', () => {
-  // éléments du DOM
-  const declencheurs = document.querySelectorAll('.btn-formulaire[aria-haspopup="dialog"]')
-  const docGeneral = document.querySelector('.js-document')
-  const tableauElementsFocusables = [
-    '[href]',
-    'button:not([disabled])',
-    'input:not([disabled])',
-    'select:not([disabled])',
-    'textarea:not([disabled])',
-    '[tabindex]:not([tabindex="-1"])'
-  ]
-  const formPrenom = document.getElementById('prenom')
-  const formNom = document.getElementById('nom')
-  const formMail = document.getElementById('email')
-  const btnEnvoiFormulaire = document.getElementById('btn-envoi')
+// éléments du DOM
+const corpsBody = document.querySelector('.js-page')
+const corpsContenuPage = document.querySelector('.js-document')
+const corpsFormulaire = document.querySelector('.modale-formulaire')
+const btnOuvrirFormulaire = document.querySelector('#btn-modale')
+const btnFermerFormulaire = document.querySelector('.modale-formulaire .btn-fermeture')
 
-  // contrôles clavier
-  const touchesClavier = {
-    tab: 9,
-    enter: 13,
-    echap: 27
-  }
+// ouverture accessible du formulaire
+const formulaireOuverture = () => {
+  corpsContenuPage.setAttribute('aria-hidden', 'true')
+  corpsFormulaire.setAttribute('aria-hidden','false')
+  corpsBody.style.overflow = 'hidden'
+}
+btnOuvrirFormulaire.addEventListener('click', formulaireOuverture);
 
-  // regex formulaire
-  const regexNom = /^(?=[a-zA-ZéèîïÉÎÏ\s]{2,25}$)(?=[a-zA-Z\s])(?:([\w\s*?])\1?(?!\1))+$/
-  const regexAdresseMail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+// fermeture accessible du formulaire
+const formulaireFermeture = () => {
+  corpsContenuPage.setAttribute('aria-hidden', 'false')
+  corpsFormulaire.setAttribute('aria-hidden','true')
+  corpsBody.style.overflow = 'scroll'
+}
+btnFermerFormulaire.addEventListener('click', formulaireFermeture);
 
-  const ouvrir = function (dialog) {
-    const elementsFocusables = dialog.querySelectorAll(tableauElementsFocusables)
-    const premierElementFocusable = elementsFocusables[0]
-    const dernierElementFocusable = elementsFocusables[elementsFocusables.length - 1]
+// document.addEventListener('DOMContentLoaded', () => {
+//   // éléments du DOM
+//   const declencheurs = document.querySelectorAll('.btn-formulaire[aria-haspopup="dialog"]')
+//   const docGeneral = document.querySelector('.js-document')
+//   const tableauElementsFocusables = [
+//     '[href]',
+//     'button:not([disabled])',
+//     'input:not([disabled])',
+//     'select:not([disabled])',
+//     'textarea:not([disabled])',
+//     '[tabindex]:not([tabindex="-1"])'
+//   ]
+//   // const formPrenom = document.getElementById('prenom')
+//   // const formNom = document.getElementById('nom')
+//   // const formMail = document.getElementById('email')
+//   // const btnEnvoiFormulaire = document.getElementById('btn-envoi')
 
-    dialog.setAttribute('aria-hidden', false)
-    docGeneral.setAttribute('aria-hidden', true)
+//   // contrôles clavier
+//   const touchesClavier = {
+//     tab: 9,
+//     enter: 13,
+//     echap: 27
+//   }
 
-    // return si pas d'élément focusable
-    if (!premierElementFocusable) {
-      return
-    }
+//   // regex formulaire
+//   // const regexNom = /^(?=[a-zA-ZéèîïÉÎÏ\s]{2,25}$)(?=[a-zA-Z\s])(?:([\w\s*?])\1?(?!\1))+$/
+//   // const regexAdresseMail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
 
-    window.setTimeout(() => {
-      premierElementFocusable.focus()
+//   const ouvrir = function (dialog) {
+//     const elementsFocusables = dialog.querySelectorAll(tableauElementsFocusables)
+//     const premierElementFocusable = elementsFocusables[0]
+//     const dernierElementFocusable = elementsFocusables[elementsFocusables.length - 1]
 
-      // focus à l'intérieur de la modale
-      elementsFocusables.forEach((elementFocusable) => {
-        if (elementFocusable.addEventListener) {
-          elementFocusable.addEventListener('keydown', (e) => {
-            const tab = e.which === touchesClavier.tab
+//     dialog.setAttribute('aria-hidden', false)
+//     docGeneral.setAttribute('aria-hidden', true)
 
-            if (!tab) {
-              return
-            }
+//     // return si pas d'élément focusable
+//     if (!premierElementFocusable) {
+//       return
+//     }
 
-            if (e.shiftKey) {
-              if (e.target === premierElementFocusable) { // shift + tab
-                e.preventDefault()
+//     window.setTimeout(() => {
+//       premierElementFocusable.focus()
 
-                dernierElementFocusable.focus()
-              }
-            } else if (event.target === dernierElementFocusable) { // tab
-              event.preventDefault()
+//       // focus à l'intérieur de la modale
+//       elementsFocusables.forEach((elementFocusable) => {
+//         if (elementFocusable.addEventListener) {
+//           elementFocusable.addEventListener('keydown', (e) => {
+//             const tab = e.which === touchesClavier.tab
 
-              premierElementFocusable.focus()
-            }
-          })
-        }
-      })
-    }, 100)
-  }
+//             if (!tab) {
+//               return
+//             }
 
-  const fermer = function (dialog, declencheur) {
-    dialog.setAttribute('aria-hidden', true)
-    docGeneral.setAttribute('aria-hidden', false)
+//             if (e.shiftKey) {
+//               if (e.target === premierElementFocusable) { // shift + tab
+//                 e.preventDefault()
 
-    // restaurer le focus
-    declencheur.focus()
-  }
+//                 dernierElementFocusable.focus()
+//               }
+//             } else if (event.target === dernierElementFocusable) { // tab
+//               event.preventDefault()
 
-  declencheurs.forEach((declencheur) => {
-    const dialog = document.getElementById(declencheur.getAttribute('aria-controls'))
-    const rejetDeclencheurs = dialog.querySelectorAll('[data-dismiss]')
+//               premierElementFocusable.focus()
+//             }
+//           })
+//         }
+//       })
+//     }, 100)
+//   }
 
-    // ouvrir dialogue
-    declencheur.addEventListener('click', (e) => {
-      e.preventDefault()
+//   const fermer = function (dialog, declencheur) {
+//     dialog.setAttribute('aria-hidden', true)
+//     docGeneral.setAttribute('aria-hidden', false)
 
-      ouvrir(dialog)
-    })
+//     // restaurer le focus
+//     declencheur.focus()
+//   }
 
-    declencheur.addEventListener('keydown', (e) => {
-      if (e.which === touchesClavier.enter) {
-        e.preventDefault()
+//   declencheurs.forEach((declencheur) => {
+//     const dialog = document.getElementById(declencheur.getAttribute('aria-controls'))
+//     const rejetDeclencheurs = dialog.querySelectorAll('[data-dismiss]')
 
-        open(dialog)
-      }
-    })
+//     // ouvrir dialogue
+//     declencheur.addEventListener('click', (e) => {
+//       e.preventDefault()
 
-    // fermer diaolgue
+//       ouvrir(dialog)
+//     })
 
-    dialog.addEventListener('keydown', (e) => {
-      if (e.which === touchesClavier.echap) {
-        close(dialog, declencheur)
-      }
-    })
+//     declencheur.addEventListener('keydown', (e) => {
+//       if (e.which === touchesClavier.enter) {
+//         e.preventDefault()
 
-    rejetDeclencheurs.forEach((rejetDeclencheur) => {
-      const rejetDialog = document.getElementById(rejetDeclencheur.dataset.dismiss)
+//         open(dialog)
+//       }
+//     })
 
-      rejetDeclencheur.addEventListener('click', (e) => {
-        e.preventDefault()
+//     // fermer diaolgue
 
-        fermer(rejetDialog, declencheur)
-      })
-    })
+//     dialog.addEventListener('keydown', (e) => {
+//       if (e.which === touchesClavier.echap) {
+//         close(dialog, declencheur)
+//       }
+//     })
 
-    window.addEventListener('click', (e) => {
-      if (e.target === dialog) {
-        close(dialog)
-      }
-    })
-  })
+//     rejetDeclencheurs.forEach((rejetDeclencheur) => {
+//       const rejetDialog = document.getElementById(rejetDeclencheur.dataset.dismiss)
 
-  // Vérification des champs de saisie et messages d'erreur
-  function validerPrenom () {
-    if (regexNom.test(formPrenom.value) == true) {
-      formPrenom.style.borderColor = 'black'
-      messageErreur[0].textContent = ' '
-      return true
-    } else if (!formPrenom.value) {
-      // message d'erreur de champ vide :
-      messageErreur[0].textContent = 'Ce champ est obligatoire.'
-      formPrenom.style.borderColor = '#ff0000'
-      return false
-    } else {
-      // message d'erreur de champ inccorect :
-      messageErreur[0].textContent = 'Veuillez saisir un prénom valide.'
-      formPrenom.style.borderColor = '#ff0000'
-      return false
-    }
-  }
+//       rejetDeclencheur.addEventListener('click', (e) => {
+//         e.preventDefault()
 
-  function validerNom () {
-    if (regexNom.test(formNom.value) == true) {
-      formNom.style.borderColor = 'black'
-      messageErreur[0].textContent = ' '
-      return true
-    } else if (!formNom.value) {
-      // message d'erreur de champ vide :
-      messageErreur[0].textContent = 'Ce champ est obligatoire.'
-      formNom.style.borderColor = '#ff0000'
-      return false
-    } else {
-      // message d'erreur de champ inccorect :
-      messageErreur[0].textContent = 'Veuillez saisir un nom valide.'
-      formNom.style.borderColor = '#ff0000'
-      return false
-    }
-  }
+//         fermer(rejetDialog, declencheur)
+//       })
+//     })
 
-  // vérification des champs
-  btnEnvoiFormulaire.addEventListener('click', function (e) {
-    e.preventDefault()
+//     window.addEventListener('click', (e) => {
+//       if (e.target === dialog) {
+//         close(dialog)
+//       }
+//     })
+//   })
 
-    const prenomValide = validerPrenom()
-    const nomValide = validerNom()
-    const mailValide = validerMail()
+  // // Vérification des champs de saisie et messages d'erreur
+  // function validerPrenom () {
+  //   if (regexNom.test(formPrenom.value) == true) {
+  //     formPrenom.style.borderColor = 'black'
+  //     messageErreur[0].textContent = ' '
+  //     return true
+  //   } else if (!formPrenom.value) {
+  //     // message d'erreur de champ vide :
+  //     messageErreur[0].textContent = 'Ce champ est obligatoire.'
+  //     formPrenom.style.borderColor = '#ff0000'
+  //     return false
+  //   } else {
+  //     // message d'erreur de champ inccorect :
+  //     messageErreur[0].textContent = 'Veuillez saisir un prénom valide.'
+  //     formPrenom.style.borderColor = '#ff0000'
+  //     return false
+  //   }
+  // }
 
-    const champsTousValides = prenomValide && nomValide && mailValide &&
-    MessageValide
+  // function validerNom () {
+  //   if (regexNom.test(formNom.value) == true) {
+  //     formNom.style.borderColor = 'black'
+  //     messageErreur[0].textContent = ' '
+  //     return true
+  //   } else if (!formNom.value) {
+  //     // message d'erreur de champ vide :
+  //     messageErreur[0].textContent = 'Ce champ est obligatoire.'
+  //     formNom.style.borderColor = '#ff0000'
+  //     return false
+  //   } else {
+  //     // message d'erreur de champ inccorect :
+  //     messageErreur[0].textContent = 'Veuillez saisir un nom valide.'
+  //     formNom.style.borderColor = '#ff0000'
+  //     return false
+  //   }
+  // }
 
-    // affichage fenêtre de confirmation d'envoi
-    if (champsTousValides) {
-      modaleMessageConfirmation.style.display = 'flex'
-      modaleFormulaire.style.display = 'none'
-      console.log('Formulaire envoyé.')
+//   // vérification des champs
+//   btnEnvoiFormulaire.addEventListener('click', function (e) {
+//     e.preventDefault()
 
-    // blocage de l'envoi du formulaire non valide
-    } else {
-      console.log('Formulaire non validé.')
-      return false
-    }
-  })
-})
+//     const prenomValide = validerPrenom()
+//     const nomValide = validerNom()
+//     const mailValide = validerMail()
+
+//     const champsTousValides = prenomValide && nomValide && mailValide &&
+//     MessageValide
+
+//     // affichage fenêtre de confirmation d'envoi
+//     if (champsTousValides) {
+//       modaleMessageConfirmation.style.display = 'flex'
+//       modaleFormulaire.style.display = 'none'
+//       console.log('Formulaire envoyé.')
+
+//     // blocage de l'envoi du formulaire non valide
+//     } else {
+//       console.log('Formulaire non validé.')
+//       return false
+//     }
+//   })
+// })
