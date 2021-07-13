@@ -155,7 +155,10 @@ lightbox
 // éléments du DOM
 const photoVignette = document.querySelectorAll('.apercu-photo')
 const corpsLightbox = document.querySelector('.lightbox')
+const elementsLightbox = document.querySelectorAll('.lightbox-element')
 const btnFermerLightbox = document.querySelector('.lightbox .btn-fermeture')
+const btnPrecedent = document.querySelector('.gauche')
+const btnSuivant = document.querySelector('.droite')
 
 ///////////////////////////////////
 // OUVERTURE ACCESSIBLE LIGHTBOX //
@@ -167,6 +170,43 @@ function lightboxOuverture () {
   // premierElementFocusable.focus()
 }
 photoVignette[0].addEventListener('click', lightboxOuverture)
+
+/////////////////////////
+// NAVIGATION LIGHTBOX //
+/////////////////////////
+
+// photo suivante
+function elementSuivant () {
+  let index = 0
+
+  if (index < elementsLightbox.length) {
+    elementsLightbox[index].classList.remove('actif')
+    index++
+    elementsLightbox[index].classList.add('actif')
+  } else if (index === elementsLightbox.length) {
+    elementsLightbox[index].classList.remove('actif')
+    index = 0
+    elementsLightbox[index].classList.add('actif')
+    console.log(index)
+  }
+}
+btnSuivant.addEventListener('click', elementSuivant)
+
+// photo suivante
+function elementPrecedent () {
+  let index = 0
+
+  if (index > 0) {
+    elementsLightbox[index].classList.remove('actif')
+    index--
+    elementsLightbox[index].classList.add('actif')
+  } else if (index === 0) {
+    elementsLightbox[index].classList.remove('actif')
+    index = elementsLightbox.length
+    elementsLightbox[index].classList.add('actif')
+  }
+}
+btnPrecedent.addEventListener('click', elementPrecedent)
 
 ///////////////////////////////////
 // FERMETURE ACCESSIBLE LIGHTBOX //

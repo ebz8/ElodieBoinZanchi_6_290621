@@ -182,19 +182,34 @@
         </section>
 
 
-        <div class="lightbox" aria-label="image closeup view"
+        <div class="lightbox" aria-label="image plein écran"
             aria-hidden="true" role="dialog">
-                <div class="lightbox__contenu">
-                    <!-- contenu photographe -->
-                    <img src="resources/img/photographers/Mimi/Animals_Rainbow.jpg" alt="Oiseau multicolor">
-                    <div class="photo-titre">Arc-en-ciel</div>
-
+                <ul class="lightbox__contenu">
                     <!-- composants lightbox -->
                     <div class="lightbox__commandes">
                         <button class="gauche" aria-label="image précédente"><i class="fas fa-chevron-left"></i> </button>
                         <button class="droite" aria-label="image suivante"><i class="fas fa-chevron-right"></i></button>
                         <button class="btn-fermeture" aria-label="fermer la lightbox"></button>
                     </div>
+                    
+                    <li class="lightbox-element actif">
+                        <figure>
+                            <img src="resources/img/photographers/Mimi/Animals_Rainbow.jpg" alt="Oiseau multicolore">
+                            <figcaption class="photo-titre">Arc-en-ciel</figcaption>
+                        </figure>
+                    </li>
+                    <li class="lightbox-element">
+                        <figure>
+                            <img src="resources/img/photographers/Mimi/Event_BenevidesWedding.jpg" alt="Oiseau multicolore">
+                            <figcaption class="photo-titre">Arc-en-ciel</figcaption>
+                        </figure>
+                    </li>
+                    <li class="lightbox-element">
+                        <figure>
+                            <img src="resources/img/photographers/Mimi/Event_PintoWedding.jpg" alt="Oiseau multicolore">
+                            <figcaption class="photo-titre">Arc-en-ciel</figcaption>
+                        </figure>
+                    </li>                    
                 </div>
             </div>
     <script src="js/app.js"></script>
