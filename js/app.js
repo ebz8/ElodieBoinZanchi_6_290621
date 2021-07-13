@@ -1,39 +1,12 @@
 /**
 ----------------------
-lightbox
-----------------------
-*/
-///////////////
-// VARIABLES //
-///////////////
-// éléments du DOM
-const photoVignette = document.querySelectorAll('.apercu-photo')
-
-
-/**
-----------------------
-formulaire de contact
-photographe
+GÉNÉRAL
 ----------------------
 */
 
-///////////////
-// VARIABLES //
-///////////////
 // éléments du DOM
 const corpsBody = document.querySelector('.js-page')
 const corpsContenuPage = document.querySelector('.js-document')
-const corpsFormulaire = document.querySelector('.modale-formulaire')
-const contenuFormulaire = document.querySelector('.formulaire-contenu')
-const btnOuvrirFormulaire = document.querySelector('#btn-modale')
-const btnFermerFormulaire = document.querySelector('.modale-formulaire .btn-fermeture')
-
-const formChamps = document.forms['formulaire-contact']
-const btnEnvoiFormulaire = document.querySelector('#btn-envoi')
-const messageErreur = document.querySelector('.erreur-saisie')
-// expressions régulières
-const regexNom = /^(?=[a-zA-ZéèîïÉÎÏ\s]{2,25}$)(?=[a-zA-Z\s])(?:([\w\s*?])\1?(?!\1))+$/
-const regexMail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
 
 // éléments du clavier
 const touchesClavier = {
@@ -53,6 +26,31 @@ const tableauChampsFocusables = [
 const champsFocusables = contenuFormulaire.querySelectorAll(tableauChampsFocusables)
 const premierElementFocusable = champsFocusables[0]
 const dernierElementFocusable = champsFocusables[champsFocusables.length - 1]
+
+/**
+----------------------
+formulaire de contact
+photographe
+
+TODO :
+- Afficher ds la console
+les données envoyées
+----------------------
+*/
+
+// éléments du DOM
+const corpsFormulaire = document.querySelector('.modale-formulaire')
+const contenuFormulaire = document.querySelector('.formulaire-contenu')
+const btnOuvrirFormulaire = document.querySelector('#btn-modale')
+const btnFermerFormulaire = document.querySelector('.modale-formulaire .btn-fermeture')
+
+const formChamps = document.forms['formulaire-contact']
+const btnEnvoiFormulaire = document.querySelector('#btn-envoi')
+const messageErreur = document.querySelector('.erreur-saisie')
+
+// expressions régulières
+const regexNom = /^(?=[a-zA-ZéèîïÉÎÏ\s]{2,25}$)(?=[a-zA-Z\s])(?:([\w\s*?])\1?(?!\1))+$/
+const regexMail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
 
 /////////////////////////////////////
 // OUVERTURE ACCESSIBLE FORMULAIRE //
@@ -145,3 +143,43 @@ btnEnvoiFormulaire.addEventListener('click', function (e) {
     alert('Formulaire envoyé')
   }
 })
+
+
+/**
+----------------------
+lightbox
+----------------------
+*/
+
+// éléments du DOM
+const photoVignette = document.querySelectorAll('.apercu-photo')
+const corpsLightbox = document.querySelector('.lightbox')
+const btnFermerLightbox = document.querySelector('.lightbox .btn-fermeture')
+
+///////////////////////////////////
+// OUVERTURE ACCESSIBLE LIGHTBOX //
+///////////////////////////////////
+function lightboxOuverture () {
+  corpsContenuPage.setAttribute('aria-hidden', 'true')
+  corpsBody.style.overflow = 'hidden'
+  corpsLightbox.setAttribute('aria-hidden', 'false')
+  // premierElementFocusable.focus()
+}
+photoVignette[0].addEventListener('click', lightboxOuverture)
+
+///////////////////////////////////
+// FERMETURE ACCESSIBLE LIGHTBOX //
+///////////////////////////////////
+function lightboxFermeture () {
+  corpsContenuPage.setAttribute('aria-hidden', 'false')
+  corpsLightbox.setAttribute('aria-hidden','true')
+  corpsBody.style.overflow = 'scroll'
+  // photoVignette[0].focus()
+}
+btnFermerLightbox.addEventListener('click', lightboxFermeture);
+
+// corpsLightbox.addEventListener('keydown', (e) => {
+//   if (e.which === touchesClavier.echap) {
+//     lightboxFermeture()
+//   }
+// })
