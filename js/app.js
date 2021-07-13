@@ -29,9 +29,6 @@ const btnOuvrirFormulaire = document.querySelector('#btn-modale')
 const btnFermerFormulaire = document.querySelector('.modale-formulaire .btn-fermeture')
 
 const formChamps = document.forms['formulaire-contact']
-const formPrenom = document.querySelector('#prenom')
-const formNom = document.querySelector('#nom')
-const formMail = document.querySelector('#email')
 const btnEnvoiFormulaire = document.querySelector('#btn-envoi')
 const messageErreur = document.querySelector('.erreur-saisie')
 // expressions régulières
@@ -137,11 +134,9 @@ btnEnvoiFormulaire.addEventListener('click', function (e) {
   for (let i = 0; i < formChamps.length; i++) {
     if (!formChamps[i].value) {
       typeErreur = 'Veuillez renseigner tous les champs.'
-
-      console.log(`veuillez remplir le champ ${i}`)
     }
   }
-
+  // affichage des messages d'erreur
   if (typeErreur) {
     e.preventDefault()
     messageErreur.innerHTML = typeErreur;
