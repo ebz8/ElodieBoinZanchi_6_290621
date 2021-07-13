@@ -105,9 +105,9 @@ TODO:
       border: none;
       border-radius: .3rem;
 
-      &[placeholder]{
-        color: $couleur-neutre-intermediaire;
-      }
+      // &[placeholder]{
+      //   color: $couleur-neutre-intermediaire;
+      // }
     }
 
     &:nth-child(4) > input{

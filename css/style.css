@@ -552,9 +552,6 @@ TODO:
   border: none;
   border-radius: 0.3rem;
 }
-.formulaire .champ-formulaire input[placeholder] {
-  color: #c4c4c4;
-}
 .formulaire .champ-formulaire:nth-child(4) > input {
   height: 8rem;
 }

@@ -3,6 +3,12 @@
 lightbox
 ----------------------
 */
+///////////////
+// VARIABLES //
+///////////////
+// éléments du DOM
+const photoVignette = document.querySelectorAll('.apercu-photo')
+
 
 /**
 ----------------------
@@ -22,7 +28,7 @@ const contenuFormulaire = document.querySelector('.formulaire-contenu')
 const btnOuvrirFormulaire = document.querySelector('#btn-modale')
 const btnFermerFormulaire = document.querySelector('.modale-formulaire .btn-fermeture')
 
-const formChamps = document.querySelectorAll('.champ-formulaire')
+const formChamps = document.querySelectorAll('.text-control')
 const formPrenom = document.querySelector('#prenom')
 const formNom = document.querySelector('#nom')
 const formMail = document.querySelector('#email')
@@ -117,24 +123,23 @@ window.setTimeout(() => {
 //////////////////////////
 
 btnEnvoiFormulaire.addEventListener('click', function (e) {
-  // créer une variable pour les messages d'erreur :
+  // créer une variable pour les messages d'erreur ? :
   // intégrer nom de l'input concerné et case en rouge
+  let typeErreur
   e.preventDefault()
 
-  // si un des champs est vide :
-  if (!formChamps.value) {
-    messageErreur.textContent = 'Veuillez remplir tous les champs.'
-    messageErreur.classList.add('erreur-saisie--active')
-    return false
-  // si les noms ont des formats valides
-  } else if (regexNom.test(formChamps[0 - 1].value) !== true) {
-  	messageErreur.textContent = 'Veuillez remplir un nom / prénom valide.'
-  	return false
-  // si le mail est valide
-  } else if (regexMail.test(formChamps[2].value) !== true) {
-  	messageErreur.textContent = 'Veuillez remplir un email valide.'
-  } else{
-    messageErreur.textContent = ' '
-  	return true
+  for (let i = 0; i < formChamps.length; i++) {
+     if (!formChamps[i].value) {
+      typeErreur = "Veuillez renseigner tous les champs."
+
+      console.log(`veuillez remplir le champ ${i}`)
+    } if (i <= 1 && regexNom.test(i.value) == false) {
+      typeErreur = "Veuillez saisir un nom valide."  
+    }
+
+    if (typeErreur) {
+      messageErreur.innerHTML = typeErreur;
+      messageErreur.classList.add('erreur-saisie--active')
+    }
   }
 })
