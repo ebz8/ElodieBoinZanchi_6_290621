@@ -23,9 +23,6 @@ const tableauChampsFocusables = [
   'textarea:not([disabled])',
   '[tabindex]:not([tabindex="-1"])'
 ]
-const champsFocusables = contenuFormulaire.querySelectorAll(tableauChampsFocusables)
-const premierElementFocusable = champsFocusables[0]
-const dernierElementFocusable = champsFocusables[champsFocusables.length - 1]
 
 /**
 ----------------------
@@ -47,6 +44,10 @@ const btnFermerFormulaire = document.querySelector('.modale-formulaire .btn-ferm
 const formChamps = document.forms['formulaire-contact']
 const btnEnvoiFormulaire = document.querySelector('#btn-envoi')
 const messageErreur = document.querySelector('.erreur-saisie')
+
+const champsFocusables = contenuFormulaire.querySelectorAll(tableauChampsFocusables)
+const premierElementFocusable = champsFocusables[0]
+const dernierElementFocusable = champsFocusables[champsFocusables.length - 1]
 
 // expressions régulières
 const regexNom = /^(?=[a-zA-ZéèîïÉÎÏ\s]{2,25}$)(?=[a-zA-Z\s])(?:([\w\s*?])\1?(?!\1))+$/
