@@ -28,7 +28,7 @@ const contenuFormulaire = document.querySelector('.formulaire-contenu')
 const btnOuvrirFormulaire = document.querySelector('#btn-modale')
 const btnFermerFormulaire = document.querySelector('.modale-formulaire .btn-fermeture')
 
-const formChamps = document.querySelectorAll('.text-control')
+const formChamps = document.forms['formulaire-contact']
 const formPrenom = document.querySelector('#prenom')
 const formNom = document.querySelector('#nom')
 const formMail = document.querySelector('#email')
@@ -123,23 +123,30 @@ window.setTimeout(() => {
 //////////////////////////
 
 btnEnvoiFormulaire.addEventListener('click', function (e) {
-  // créer une variable pour les messages d'erreur ? :
   // intégrer nom de l'input concerné et case en rouge
   let typeErreur
-  e.preventDefault()
-
+  // vérifier la validité des infos saisies
+  if (regexNom.test(formChamps.prenom.value) === false) {
+    typeErreur = 'Veuillez saisir un prénom valide.'
+  } else if (regexNom.test(formChamps.nom.value) === false) {
+    typeErreur = 'Veuillez saisir un nom valide.'
+  } else if (regexMail.test(formChamps.email.value) === false) {
+    typeErreur = 'Veuillez saisir un email valide.'
+  }
+  // vérifier que les champs ne sont pas vides
   for (let i = 0; i < formChamps.length; i++) {
-     if (!formChamps[i].value) {
-      typeErreur = "Veuillez renseigner tous les champs."
+    if (!formChamps[i].value) {
+      typeErreur = 'Veuillez renseigner tous les champs.'
 
       console.log(`veuillez remplir le champ ${i}`)
-    } if (i <= 1 && regexNom.test(i.value) == false) {
-      typeErreur = "Veuillez saisir un nom valide."  
     }
+  }
 
-    if (typeErreur) {
-      messageErreur.innerHTML = typeErreur;
-      messageErreur.classList.add('erreur-saisie--active')
-    }
+  if (typeErreur) {
+    e.preventDefault()
+    messageErreur.innerHTML = typeErreur;
+    messageErreur.classList.add('erreur-saisie--active')
+  } else {
+    alert('Formulaire envoyé')
   }
 })
