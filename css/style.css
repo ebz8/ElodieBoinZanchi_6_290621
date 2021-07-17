@@ -304,9 +304,6 @@ a {
   text-decoration: none;
   color: #911d1d;
 }
-a:hover {
-  color: #bb2525;
-}
 
 ul {
   list-style-type: none;
@@ -406,6 +403,13 @@ boutons
   font-size: 0.85rem;
   border: 1px solid #c4c4c4;
   border-radius: 0.9rem;
+}
+.tag-entree:hover, .tag-entree:focus {
+  background-color: #911d1d;
+  border: 1px solid #911d1d;
+}
+.tag-entree:hover a, .tag-entree:focus a {
+  color: white;
 }
 
 .btn-principal {

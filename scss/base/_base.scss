@@ -14,10 +14,6 @@ h1, h2, h3, h4, h5, p{
 a{
     text-decoration: none;
     color: $couleur-primaire;
-
-    &:hover{
-        color: lighten($couleur-primaire, 10%);
-    }
 }
 
 ul{

@@ -45,6 +45,16 @@ boutons
     border: 1px solid $couleur-neutre-intermediaire;
     border-radius: .9rem;
 
+    &:hover,
+    &:focus{
+        background-color: $couleur-primaire;
+        border: 1px solid $couleur-primaire;
+
+        a{
+            color: white;
+        }
+    }
+
     // &::before{
     //     content: "#";
     // }
