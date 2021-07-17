@@ -53,12 +53,19 @@
             <div class="trier-par">
                 <p tabindex="0">Trier par</p>
                 <div class="select" tabindex="0">
-                    <input class="selectopt" name="test" type="radio" id="popularite" checked>
-                    <label for="popularite" class="option">Popularité</label>
-                    <input class="selectopt" name="test" type="radio" id="date" >
-                    <label for="date" class="option">Date</label>
-                    <input class="selectopt" name="test" type="radio" id="titre">
-                    <label for="titre" class="option">Titre</label>
+                    <button></button>
+                    <div class="options">
+                        <input id="popularite" name="select" type="radio" value="popularite" checked>
+                        <label for="popularite" style="--index: 1">Popularité</label>
+                        <input id="date" name="select" type="radio" value="date">
+                        <label for="date" style="--index: 2">Date</label>
+                        <input id="titre" name="select" type="radio" value="titre">
+                        <label for="titre" style="--index: 3">Titre</label>
+
+                        <svg viewBox="0 0 24 24">
+                            <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"></path>
+                        </svg>
+                    </div>
                 </div>
             </div>
 
@@ -71,9 +78,9 @@
                         <p class="photo-titre" tabindex="0">Arc en ciel</p>
                         <div class="likes" tabindex="0">
                             <p class="likes__nombre">12</p>
-                            <span class="icone-like" aria-label="j'aime">
+                            <button class="icone-like" aria-label="j'aime">
                                 <i class="fas fa-heart" ></i>
-                            </span> 
+                            </button> 
                         </div>
                     </figcaption>
                 </figure>

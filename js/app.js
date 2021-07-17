@@ -153,7 +153,7 @@ lightbox
 */
 
 // éléments du DOM
-const photoVignette = document.querySelectorAll('.apercu-photo')
+const photoVignette = document.querySelectorAll('.apercu-photo img')
 const corpsLightbox = document.querySelector('.lightbox')
 const elementsLightbox = document.querySelectorAll('.lightbox-element')
 const btnFermerLightbox = document.querySelector('.lightbox .btn-fermeture')
