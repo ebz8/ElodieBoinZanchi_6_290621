@@ -22,15 +22,18 @@
         <main>
             <div class="banniere-photographe">
                 <div class="photographe-profil">
-                        <h1 class="nom">Mimi Keel</h1>
-                        <p class="localisation">London, UK</p>
-                        <p class="accroche">Voir le beau dans le quotidien</p>
+                        <h1 class="nom" tabindex="0">Mimi Keel</h1>
+                        <div tabindex="0">
+                            <p class="localisation">London, UK</p>
+                            <p class="accroche">Voir le beau dans le quotidien</p>
+                        </div>
+                        
 
                         <ul class="nav-par-tag">
-                            <li class="tag-entree"><a href="#">Portrait</a></li>
-                            <li class="tag-entree"><a href="#">Events</a></li>
-                            <li class="tag-entree"><a href="#">Animals</a></li>
-                            <li class="tag-entree"><a href="#">Art</a></li>
+                            <li class="tag-entree"><a href="#"><span aria-label="hashtag">#</span>Portrait</a></li>
+                            <li class="tag-entree"><a href="#"><span aria-label="hashtag">#</span>Events</a></li>
+                            <li class="tag-entree"><a href="#"><span aria-label="hashtag">#</span>Animals</a></li>
+                            <li class="tag-entree"><a href="#"><span aria-label="hashtag">#</span>Art</a></li>
                         </ul>
 
                         <button type="button"
@@ -39,20 +42,20 @@
                             Contactez-moi
                         </button>
                 </div>
-                    <img class="vignette" src="resources/img/photographers/IDphotos/MimiKeel.jpg" alt="Mimi Keel"/>
+                    <img class="vignette" src="resources/img/photographers/IDphotos/MimiKeel.jpg" alt="" tabindex="0"/>
             </div>
 
-            <div class="bloc-fixe">
+            <div class="bloc-fixe" tabindex="0">
                 <p class="compteur-likes">297 081 <span class="icone-like"><i class="fas fa-heart"></i></span></p>
                 <span class="tarif">300€ /jour</span>
             </div>
 
             <div class="trier-par">
-                <p>Trier par</p>
-                <div class="select" tabindex="1">
+                <p tabindex="0">Trier par</p>
+                <div class="select" tabindex="0">
                     <input class="selectopt" name="test" type="radio" id="popularite" checked>
                     <label for="popularite" class="option">Popularité</label>
-                    <input class="selectopt" name="test" type="radio" id="date">
+                    <input class="selectopt" name="test" type="radio" id="date" >
                     <label for="date" class="option">Date</label>
                     <input class="selectopt" name="test" type="radio" id="titre">
                     <label for="titre" class="option">Titre</label>
@@ -65,10 +68,12 @@
                         <img src="resources/img/photographers/Mimi/Animals_Rainbow.jpg" alt="Oiseau multicolor">
                     </a>
                     <figcaption>
-                        <p class="photo-titre">Arc en ciel</p>
-                        <div class="likes">
-                        <p class="likes__nombre">12</p>
-                        <span class="icone-like"><i class="fas fa-heart"></i></span> 
+                        <p class="photo-titre" tabindex="0">Arc en ciel</p>
+                        <div class="likes" tabindex="0">
+                            <p class="likes__nombre">12</p>
+                            <span class="icone-like" aria-label="j'aime">
+                                <i class="fas fa-heart" ></i>
+                            </span> 
                         </div>
                     </figcaption>
                 </figure>
@@ -76,12 +81,14 @@
                 <figure class="apercu-photo">
                     <a href="#">
                         <img src="resources/img/photographers/Mimi/Animals_Rainbow.jpg" alt="Oiseau multicolor">
-                    </a>                
+                    </a>
                     <figcaption>
-                        <p class="photo-titre">Arc en ciel</p>
-                        <div class="likes">
-                        <p class="likes__nombre">12</p>
-                        <span class="icone-like"><i class="fas fa-heart"></i></span> 
+                        <p class="photo-titre" tabindex="0">Arc en ciel</p>
+                        <div class="likes" tabindex="0">
+                            <p class="likes__nombre">12</p>
+                            <span class="icone-like" aria-label="j'aime">
+                                <i class="fas fa-heart" ></i>
+                            </span> 
                         </div>
                     </figcaption>
                 </figure>
@@ -89,12 +96,29 @@
                 <figure class="apercu-photo">
                     <a href="#">
                         <img src="resources/img/photographers/Mimi/Animals_Rainbow.jpg" alt="Oiseau multicolor">
-                    </a>                
+                    </a>
                     <figcaption>
-                        <p class="photo-titre">Arc en ciel</p>
-                        <div class="likes">
-                        <p class="likes__nombre">12</p>
-                        <span class="icone-like"><i class="fas fa-heart"></i></span> 
+                        <p class="photo-titre" tabindex="0">Arc en ciel</p>
+                        <div class="likes" tabindex="0">
+                            <p class="likes__nombre">12</p>
+                            <span class="icone-like" aria-label="j'aime">
+                                <i class="fas fa-heart" ></i>
+                            </span> 
+                        </div>
+                    </figcaption>
+                </figure>
+
+                <figure class="apercu-photo">
+                    <a href="#">
+                        <img src="resources/img/photographers/Mimi/Animals_Rainbow.jpg" alt="Oiseau multicolor">
+                    </a>
+                    <figcaption>
+                        <p class="photo-titre" tabindex="0">Arc en ciel</p>
+                        <div class="likes" tabindex="0">
+                            <p class="likes__nombre">12</p>
+                            <span class="icone-like" aria-label="j'aime">
+                                <i class="fas fa-heart" ></i>
+                            </span> 
                         </div>
                     </figcaption>
                 </figure>
