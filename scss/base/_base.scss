@@ -29,7 +29,7 @@ button{
 // Accessibilité
 //
 *:focus{
-    outline: 2px solid $couleur-primaire;
+    outline: .2rem dotted $couleur-neutre-intermediaire;
 }
 
 //

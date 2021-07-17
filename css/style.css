@@ -315,7 +315,7 @@ button {
 }
 
 *:focus {
-  outline: 2px solid #911d1d;
+  outline: 0.2rem dotted #c4c4c4;
 }
 
 body {
@@ -404,11 +404,11 @@ boutons
   border: 1px solid #c4c4c4;
   border-radius: 0.9rem;
 }
-.tag-entree:hover, .tag-entree:focus {
+.tag-entree:hover, .tag-entree:active {
   background-color: #911d1d;
   border: 1px solid #911d1d;
 }
-.tag-entree:hover a, .tag-entree:focus a {
+.tag-entree:hover a, .tag-entree:active a {
   color: white;
 }
 

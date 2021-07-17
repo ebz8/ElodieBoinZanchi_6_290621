@@ -46,7 +46,7 @@ boutons
     border-radius: .9rem;
 
     &:hover,
-    &:focus{
+    &:active{
         background-color: $couleur-primaire;
         border: 1px solid $couleur-primaire;
 
