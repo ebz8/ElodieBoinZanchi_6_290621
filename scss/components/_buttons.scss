@@ -45,9 +45,9 @@ boutons
     border: 1px solid $couleur-neutre-intermediaire;
     border-radius: .9rem;
 
-    &::before{
-        content: "#";
-    }
+    // &::before{
+    //     content: "#";
+    // }
 }
 
 // Contactez-moi, menu etc

@@ -30,6 +30,13 @@ button{
 }
 
 //
+// Accessibilité
+//
+*:focus{
+    outline: 2px solid $couleur-primaire;
+}
+
+//
 //styles textuels
 //
 
@@ -42,6 +49,8 @@ body{
     @include tablet{
         margin: 8vw 5vw;
     }
+
+    
 }
 
 //
