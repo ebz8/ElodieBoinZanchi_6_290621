@@ -51,7 +51,7 @@ const dernierElementFocusable = champsFocusables[champsFocusables.length - 1]
 
 // expressions régulières
 const regexNom = /^(?=[a-zA-ZéèîïÉÎÏ\s]{2,25}$)(?=[a-zA-Z\s])(?:([\w\s*?])\1?(?!\1))+$/
-const regexMail = /"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"/
+const regexMail = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
 
 /////////////////////////////////////
 // OUVERTURE ACCESSIBLE FORMULAIRE //
