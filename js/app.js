@@ -51,7 +51,7 @@ const dernierElementFocusable = champsFocusables[champsFocusables.length - 1]
 
 // expressions régulières
 const regexNom = /^(?=[a-zA-ZéèîïÉÎÏ\s]{2,25}$)(?=[a-zA-Z\s])(?:([\w\s*?])\1?(?!\1))+$/
-const regexMail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+const regexMail = /"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"/
 
 /////////////////////////////////////
 // OUVERTURE ACCESSIBLE FORMULAIRE //
@@ -178,16 +178,21 @@ photoVignette[0].addEventListener('click', lightboxOuverture)
 // photo suivante
 function elementSuivant () {
   let index = 0
+  // console.log(elementsLightbox.length)
+  console.log(index)
 
   if (index < elementsLightbox.length) {
     elementsLightbox[index].classList.remove('actif')
     index++
     elementsLightbox[index].classList.add('actif')
+
+    console.log("peut aller au suivant")
   } else if (index === elementsLightbox.length) {
     elementsLightbox[index].classList.remove('actif')
     index = 0
     elementsLightbox[index].classList.add('actif')
-    console.log(index)
+    console.log("peut retourner au premier")
+
   }
 }
 btnSuivant.addEventListener('click', elementSuivant)
@@ -200,9 +205,9 @@ function elementPrecedent () {
     elementsLightbox[index].classList.remove('actif')
     index--
     elementsLightbox[index].classList.add('actif')
-  } else if (index === 0) {
+  } else if (index === elementsLightbox.length) {
     elementsLightbox[index].classList.remove('actif')
-    index = elementsLightbox.length
+    index = 0
     elementsLightbox[index].classList.add('actif')
   }
 }
