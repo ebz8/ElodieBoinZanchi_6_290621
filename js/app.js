@@ -133,7 +133,6 @@ btnEnvoiFormulaire.addEventListener('click', function (e) {
   for (let i = 0; i < formChamps.length; i++) {
     if (!formChamps[i].value) {
       typeErreur = 'Veuillez renseigner tous les champs.'
-      console.log(formChamps)
     }
   }
   // affichage des messages d'erreur
@@ -143,8 +142,12 @@ btnEnvoiFormulaire.addEventListener('click', function (e) {
     messageErreur.classList.add('erreur-saisie--active')
   } else {
   // afficher le contenu des champs
-    console.log(formChamps.prenom.value, console.log(formChamps.nom.value),
-      formChamps.email.value, formChamps.message.value)
+    console.log(formChamps.prenom.value)
+    console.log(formChamps.nom.value)
+    console.log(formChamps.email.value)
+    console.log(formChamps.message.value)
+    // console.log(formChamps.prenom.value, console.log(formChamps.nom.value),
+    //   formChamps.email.value, formChamps.message.value)
     // message de confirmation
     alert('Formulaire envoyé')
   }
