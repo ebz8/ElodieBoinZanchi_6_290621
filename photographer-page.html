@@ -36,6 +36,7 @@
                             <li class="tag-entree"><a href="#"><span aria-label="hashtag">#</span>Art</a></li>
                         </ul>
 
+                        <!-- bouton de contact -->
                         <button type="button"
                         aria-haspopup="dialog" aria-controls="dialog"
                         id="btn-modale" class="btn-formulaire btn-principal">
@@ -130,6 +131,24 @@
                         </div>
                     </figcaption>
                 </figure>
+
+                <figure class="apercu-photo">
+                    <a href="#">
+                        <video>
+                            <source src="resources/video/photographers/Mimi/Animals_Wild_Horses_in_the_mountains.mp4" alt="Chevaux dans la montagne">
+                            <!-- <video alt="Chevaux dans la montagne" autoplay="" controls="" loop=""> -->
+                        </video>
+                    </a>
+                    <figcaption>
+                        <p class="photo-titre" tabindex="0">Wild horses in the mountains</p>
+                        <div class="likes" tabindex="0">
+                            <p class="likes__nombre">12</p>
+                            <span class="icone-like" aria-label="j'aime">
+                                <i class="fas fa-heart" ></i>
+                            </span> 
+                        </div>
+                    </figcaption>
+                </figure>
             </div>
 
 
@@ -139,7 +158,7 @@
        <!-- formulaire de contact -->
         <section
           id="dialog" role="dialog"
-          aria-label="formulaire de contact"
+          aria-labelledby="titre-formulaire"
           aria-modal="true" aria-hidden="true" 
           class="modale-formulaire" >
           <!-- <h2 class="hidden">Formulaire de contact</h2> -->
@@ -152,8 +171,11 @@
                 </button>
 
                 <!-- titre perso du formulaire -->
-                <h1>Contactez moi
-                <br>Mimi Keel</h1>
+                <div id="titre-formulaire">
+                    <h1>Contactez moi
+                    <br>Mimi Keel</h1>
+                </div>
+                
 
                 <form action="/" method="GET" class="formulaire" name="formulaire-contact">
 
@@ -205,7 +227,7 @@
                         
 
                     </div>
-                    
+
                     <!-- bouton d'envoi -->
                     <input
                       id="btn-envoi"

@@ -113,7 +113,7 @@ TODO:
 .profil-galerie{
     display: flex;
     width: 100%;
-    justify-content: space-between;
+    // justify-content: space-between;
     flex-flow: row wrap;
     margin-top: $grande-marge;
     gap: $moyenne-marge;
@@ -133,7 +133,7 @@ TODO:
         }
     }
 
-    img{
+    img, video{
         width: 100%;
         height: 80%;
         object-fit: cover;

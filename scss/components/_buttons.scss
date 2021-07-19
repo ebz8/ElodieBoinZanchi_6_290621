@@ -4,6 +4,23 @@ boutons
 ----------------------
 */
 
+.btn-contenu-principal{
+    display: block;
+    position: fixed;
+    top: 2rem;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: max-content;
+    padding: $petite-marge;
+    background-color: $couleur-secondaire;
+    color: black;
+    border-radius: .5rem;
+
+    &[aria-hidden]{
+        display: none;
+    }
+}
+
 .btn-fermeture{
     z-index: 10;
     cursor: pointer;

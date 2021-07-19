@@ -1,3 +1,5 @@
+// // Import des composants JS
+// import {btnRetourContenuPrincipal} from 'components/retourcontenuprincipal'
 /**
 ----------------------
 GÉNÉRAL
@@ -235,3 +237,21 @@ btnFermerLightbox.addEventListener('click', lightboxFermeture)
 //     lightboxFermeture()
 //   }
 // })
+
+/**
+-------------------------------------
+BOUTON RETOUR AU CONTENU PRINCIPAL
+-------------------------------------
+*/
+
+const btnRetourContenuPrincipal = document.querySelector('.btn-contenu-principal')
+
+function apparitionAuScroll () {
+  if (window.scrollY > 100) {
+    btnRetourContenuPrincipal.setAttribute('aria-hidden', 'false')
+    // btnRetourContenuPrincipal.style.display = 'block'
+  } else {
+    btnRetourContenuPrincipal.setAttribute('aria-hidden', 'true')
+  }
+}
+window.addEventListener('scroll', apparitionAuScroll)

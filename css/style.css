@@ -369,6 +369,22 @@ animations CSS
 boutons
 ----------------------
 */
+.btn-contenu-principal {
+  display: block;
+  position: fixed;
+  top: 2rem;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: max-content;
+  padding: 0.3rem;
+  background-color: #d3573c;
+  color: black;
+  border-radius: 0.5rem;
+}
+.btn-contenu-principal[aria-hidden] {
+  display: none;
+}
+
 .btn-fermeture {
   z-index: 10;
   cursor: pointer;
@@ -520,6 +536,7 @@ TODO:
   color: white;
   font-size: 0.9rem;
   opacity: 0;
+  padding-top: 0.5rem;
   transition: opacity 0.2s ease-in-out;
 }
 .formulaire-contenu .erreur-saisie--active {
@@ -534,8 +551,9 @@ TODO:
   cursor: pointer;
   font-size: 1rem;
 }
-.formulaire .btn-principal:hover {
-  background-color: #a62121;
+.formulaire .btn-principal:hover, .formulaire .btn-principal:focus {
+  background-color: white;
+  color: #911d1d;
 }
 @media screen and (max-width: 544px) {
   .formulaire .btn-principal {
@@ -926,7 +944,6 @@ TODO:
 .profil-galerie {
   display: flex;
   width: 100%;
-  justify-content: space-between;
   flex-flow: row wrap;
   margin-top: 2rem;
   gap: 0.8rem;
@@ -947,7 +964,7 @@ TODO:
     height: 60vw;
   }
 }
-.profil-galerie img {
+.profil-galerie img, .profil-galerie video {
   width: 100%;
   height: 80%;
   object-fit: cover;
