@@ -380,7 +380,8 @@
       "tags": ["travel"],
       "likes": 88,
       "date": "2019-02-03",
-      "price": 45
+      "price": 45,
+      "description": "Paysage de montagnes verdoyantes au coucher du soleil."
     },
     {
       "id": 625025343,
@@ -390,7 +391,8 @@
       "tags": ["travel"],
       "likes": 85,
       "date": "2019-04-03",
-      "price": 45
+      "price": 45,
+      "description": "Portrait en noir-et-blanc d'un vieil homme fumant une cigarette."
     },
     {
       "id": 2525345343,
@@ -400,7 +402,8 @@
       "tags": ["portait"],
       "likes": 34,
       "date": "2019-04-07",
-      "price": 45
+      "price": 45,
+      "description": "Maisons colorées dans un village perché sur une falaise en bord de mer"
     },
     {
       "id": 2523434634,
@@ -410,7 +413,8 @@
       "tags": ["portait"],
       "likes": 63,
       "date": "2019-04-07",
-      "price": 45
+      "price": 45,
+      "description": "Jeune femme à travers une vitrine, accoudée à un fauteuil en cuir rouge, éclairée au néon d'une enseigne."
     },
     {
       "id": 398847109,
@@ -420,7 +424,8 @@
       "tags": ["portait"],
       "likes": 55,
       "date": "2019-06-20",
-      "price": 45
+      "price": 45,
+      "description": "Portrait studio en noir-et-blanc d'une jeune femme."
     },
     {
       "id": 2534342,
@@ -430,7 +435,8 @@
       "tags": ["events"],
       "likes": 25,
       "date": "2019-06-21",
-      "price": 45
+      "price": 45,
+      "description": "Table de mariage joliement dressée sur une plage."
     },
     {
       "id": 65235234,
@@ -440,7 +446,8 @@
       "tags": ["events"],
       "likes": 52,
       "date": "2019-06-25",
-      "price": 45
+      "price": 45,
+      "description": "Couple en habits de mariés se tiennent à la taille, encerclés par de grandes roches."
     },
     {
       "id": 23523434,
@@ -450,7 +457,8 @@
       "tags": ["events"],
       "likes": 77,
       "date": "2019-06-28",
-      "price": 45
+      "price": 45,
+      "description": "Couple de mariés devant l'autel de cérémonie, décoré de nombreuses guirlandes lumineuses."
     },
     {
       "id": 5234343,
@@ -470,7 +478,8 @@
       "tags": ["animals"],
       "likes": 59,
       "date": "2019-07-02",
-      "price": 60
+      "price": 60,
+      "description": "Gros plan sur un passereau multicolore posé sur une branche."
     },
 
     {
@@ -481,7 +490,8 @@
       "tags": ["travel"],
       "likes": 25,
       "date": "2019-04-03",
-      "price": 60
+      "price": 60,
+      "description": "Deux femmes en kimono de dos, dans une rue traditionnelle japonaise donnant sur un temple."
     },
     {
       "id": 2523434,
@@ -491,7 +501,8 @@
       "tags": ["travel"],
       "likes": 53,
       "date": "2019-05-06",
-      "price": 60
+      "price": 60,
+      "description": "Portrait en noir-et-blanc d'un vieil homme fumant une cigarette."
     },
     {
       "id": 95293534,
@@ -501,7 +512,8 @@
       "tags": ["travel"],
       "likes": 33,
       "date": "2019-05-12",
-      "price": 60
+      "price": 60,
+      "description": "Péniches naviguant sur la lagune de venise, à la lumière d'un ciel rose-orangé."
     },
     {
       "id": 356234343,
@@ -511,7 +523,8 @@
       "tags": ["travel"],
       "likes": 53,
       "date": "2019-06-20",
-      "price": 60
+      "price": 60,
+      "description": "Portrait en noir-et-blanc d'un vieil homme fumant une cigarette."
     },
     {
       "id": 235234343,
@@ -521,7 +534,8 @@
       "tags": ["travel"],
       "likes": 63,
       "date": "2019-06-26",
-      "price": 60
+      "price": 60,
+      "description": "Murs en pierre richement ornementés avec ouverture laissant admirer une ville en contrebas."
     },
     {
       "id": 6234234343,
@@ -531,7 +545,8 @@
       "tags": ["architecture"],
       "likes": 52,
       "date": "2019-06-30",
-      "price": 60
+      "price": 60,
+      "description": "Vue resserée sur les toits sphériques sombres aux structures dorées."
     },
     {
       "id": 6525666253,
@@ -541,7 +556,8 @@
       "tags": ["architecture"],
       "likes": 63,
       "date": "2019-07-20",
-      "price": 60
+      "price": 60,
+      "description": "Village sur une falaise au milieu d'un désert de montagnes."
     },
     {
       "id": 98252523433,
@@ -551,7 +567,8 @@
       "tags": ["architecture"],
       "likes": 88,
       "date": "2020-01-05",
-      "price": 60
+      "price": 60,
+      "description": "Contre-plongée sur les cinq derniers étages d'un bâtiment antique circulaire à colonnes."
     },
     {
       "id": 9259398453,
@@ -561,7 +578,8 @@
       "tags": ["architecture"],
       "likes": 57,
       "date": "2020-01-20",
-      "price": 65
+      "price": 65,
+      "description": "Vue aérienne zénitale sur un gigantesque circuit de routes traversant une ville ."
     },
     {
       "id": 3523523534,
@@ -571,7 +589,8 @@
       "tags": ["architecture"],
       "likes": 54,
       "date": "2020-05-05",
-      "price": 60
+      "price": 60,
+      "description": "Derniers étages et série de cheminées sur le toit d'un immeuble en briques."
     },
 
     {
@@ -582,7 +601,8 @@
       "tags": ["sport"],
       "likes": 150,
       "date": "2018-02-30",
-      "price": 70
+      "price": 70,
+      "description": " "
     },
     {
       "id": 235234343,
@@ -592,7 +612,8 @@
       "tags": ["sport"],
       "likes": 101,
       "date": "2018-03-05",
-      "price": 65
+      "price": 65,
+      "description": "Haut mur en pierres naturel escaladé par une femme."
     },
     {
       "id": 235343222,
@@ -602,7 +623,8 @@
       "tags": ["sport"],
       "likes": 103,
       "date": "2018-03-10",
-      "price": 70
+      "price": 70,
+      "description": "Surfeur au coeur d'une vague."
     },
     {
       "id": 7775342343,
@@ -612,7 +634,8 @@
       "tags": ["sport"],
       "likes": 77,
       "date": "2018-04-16",
-      "price": 50
+      "price": 50,
+      "description": "Un sol enneigné et un skieur sautant dans les airs, sous un grand ciel bleu."
     },
     {
       "id": 9253445784,
@@ -622,7 +645,8 @@
       "tags": ["sport"],
       "likes": 88,
       "date": "2018-04-22",
-      "price": 65
+      "price": 65,
+      "description": "Femmes lancées à toute vitesse dans une course d'athlétisme en stade."
     },
     {
       "id": 22299394,
@@ -632,7 +656,8 @@
       "tags": ["sport"],
       "likes": 95,
       "date": "2018-04-27",
-      "price": 70
+      "price": 70,
+      "description": "Skateurs réalisant des figures dans un skate-park bétonné en front de mer."
     },
     {
       "id": 3452342633,
@@ -642,7 +667,8 @@
       "tags": ["architecture"],
       "likes": 52,
       "date": "2018-05-03",
-      "price": 75
+      "price": 75,
+      "description": "Dôme intérieur vitré dans un bâtiment entièrement blanc."
     },
     {
       "id": 939234243,
@@ -652,7 +678,8 @@
       "tags": ["architecture"],
       "likes": 55,
       "date": "2018-05-10",
-      "price": 72
+      "price": 72,
+      "description": "Toit d'un bâtiment d'architecte contemporain au coucher du soleil."
     },
     {
       "id": 222959233,
@@ -662,7 +689,8 @@
       "tags": ["architecture"],
       "likes": 85,
       "date": "2018-05-15",
-      "price": 71
+      "price": 71,
+      "description": "Contre-plongée zénithale sur la façade anguleuse d'un building."
     },
     {
       "id": 965933434,
@@ -672,7 +700,8 @@
       "tags": ["architecture"],
       "likes": 66,
       "date": "2018-05-20",
-      "price": 58
+      "price": 58,
+      "description": "Façade vitrée à structure en métal."
     },
     {
       "id": 777723343,
@@ -682,7 +711,8 @@
       "tags": ["architecture"],
       "likes": 79,
       "date": "2018-05-21",
-      "price": 80
+      "price": 80,
+      "description": "Façade d'un bâtiment moderne."
     }
   ]
 }

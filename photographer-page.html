@@ -4,22 +4,22 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>FishEye : page photographe</title>
+        <title>FishEye : Mimi Keel</title>
         <meta data-year=2021 name="FishEye" content="Page photographe" />
         <script src="https://kit.fontawesome.com/573c3b0e03.js" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="css/style.css" />
     </head>
 
     <body class="js-page">
-    <div class="js-document" aria-hidden="false">
+    
 
         <header class="banniere">
             <a href="index.html">
-                <img class="logo" src="resources/img/logo.png" alt="FishEye : Mimi Keel">
+                <img class="logo" src="resources/img/logo.png" alt="FishEye : page d'accueil">
             </a>
         </header>
 
-        <main>
+        <main class="js-document" aria-hidden="false">
             <div class="banniere-photographe">
                 <div class="photographe-profil">
                         <h1 class="nom" tabindex="0">Mimi Keel</h1>
@@ -29,7 +29,7 @@
                         </div>
                         
 
-                        <ul class="nav-par-tag">
+                        <ul class="nav-par-tag" aria-label="navigation par catégorie"">
                             <li class="tag-entree"><a href="#"><span aria-label="hashtag">#</span>Portrait</a></li>
                             <li class="tag-entree"><a href="#"><span aria-label="hashtag">#</span>Events</a></li>
                             <li class="tag-entree"><a href="#"><span aria-label="hashtag">#</span>Animals</a></li>
@@ -46,7 +46,7 @@
             </div>
 
             <div class="bloc-fixe" tabindex="0">
-                <p class="compteur-likes">297 081 <span class="icone-like"><i class="fas fa-heart"></i></span></p>
+                <p class="compteur-likes">297 081 <span class="icone-like" aria-label="j'aime"><i class="fas fa-heart"></i></span></p>
                 <span class="tarif">300€ /jour</span>
             </div>
 
@@ -55,7 +55,8 @@
                 <div class="select" tabindex="0">
                     <button></button>
                     <div class="options">
-                        <input id="popularite" name="select" type="radio" value="popularite" checked>
+                        <input id="popularite" name="select" type="radio" value="popularite"
+                        aria-checked="ok" checked>
                         <label for="popularite" style="--index: 1">Popularité</label>
                         <input id="date" name="select" type="radio" value="date">
                         <label for="date" style="--index: 2">Date</label>
@@ -76,10 +77,10 @@
                     </a>
                     <figcaption>
                         <p class="photo-titre" tabindex="0">Arc en ciel</p>
-                        <div class="likes" tabindex="0">
-                            <p class="likes__nombre">12</p>
+                        <div class="likes">
+                            <p class="likes__nombre" tabindex="0">12</p>
                             <button class="icone-like" aria-label="j'aime">
-                                <i class="fas fa-heart" ></i>
+                                <i class="fas fa-heart" tabindex="-1"></i>
                             </button> 
                         </div>
                     </figcaption>
@@ -133,22 +134,20 @@
 
 
     
-        </main>
-
-</div>      
+        </main>     
 
        <!-- formulaire de contact -->
         <section
           id="dialog" role="dialog"
-          aria-labelledby="contact" aria-describedby="formulairecontact"
-          aria-modal="true" aria-hidden="true" tabindex="-1" 
+          aria-label="formulaire de contact"
+          aria-modal="true" aria-hidden="true" 
           class="modale-formulaire" >
-          <h2 class="hidden">Formulaire de contact</h2>
+          <!-- <h2 class="hidden">Formulaire de contact</h2> -->
 
             <div role="document" class="formulaire-contenu">
 
-                <button type="button" aria-label="Fermer la modale"
-                title="Fermer la modale" data-dismiss="dialog"
+                <button type="button" aria-label="Fermer la fenêtre de dialogue"
+                data-dismiss="dialog"
                 class="btn-fermeture">
                 </button>
 
@@ -165,6 +164,8 @@
                         type="text"
                         id="prenom"
                         name="prenom"
+                        title="Renseignez votre prénom."
+                        aria-required="true"
                         />
                     </div>
 
@@ -175,6 +176,8 @@
                         type="text"
                         id="nom"
                         name="nom"
+                        title="Renseignez votre nom."
+                        aria-required="true"
                         />
                     </div>
 
@@ -185,27 +188,37 @@
                         type="email"
                         id="email"
                         name="email"
+                        title="Renseignez votre email."
+                        aria-required="true"
                         />
                     </div>
 
                     <div class="champ-formulaire">
                         <label for="message">Message</label>
-                        <input
+                        <textarea
                         class="text-control"
-                        type="text-area"
                         id="message"
                         name="message"
-                        />
+                        title="Rédigez ici votre message adressé au photographe."
+                        aria-required="true">
+                        </textarea>
+                        
 
-                        <span class="erreur-saisie"></span>
                     </div>
+
+                    <!-- message d'erreur -->
+                    <span id= "erreur-saisie" class="erreur-saisie"
+                        role="alert" tabindex="0"></span>
 
                     <!-- bouton d'envoi -->
                     <input
                       id="btn-envoi"
                       type="submit"
                       class="btn-principal"
-                      value="Envoyer"/>
+                      value="Envoyer"
+                      aria-label="Envoyer"
+                      aria-describedby="erreur-saisie"/>
+                        
 
                 </form>
 

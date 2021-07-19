@@ -53,31 +53,31 @@ const dernierElementFocusable = champsFocusables[champsFocusables.length - 1]
 const regexNom = /^(?=[a-zA-ZéèîïÉÎÏ\s]{2,25}$)(?=[a-zA-Z\s])(?:([\w\s*?])\1?(?!\1))+$/
 const regexMail = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
 
-/////////////////////////////////////
+// //////////////////////////////////
 // OUVERTURE ACCESSIBLE FORMULAIRE //
-/////////////////////////////////////
-function formulaireOuverture() {
+// //////////////////////////////////
+function formulaireOuverture () {
+  corpsFormulaire.setAttribute('aria-hidden', 'false')
   corpsContenuPage.setAttribute('aria-hidden', 'true')
-  corpsFormulaire.setAttribute('aria-hidden','false')
   corpsBody.style.overflow = 'hidden'
   premierElementFocusable.focus()
 }
-btnOuvrirFormulaire.addEventListener('click', formulaireOuverture);
+btnOuvrirFormulaire.addEventListener('click', formulaireOuverture)
 
-/////////////////////////////////////
+// //////////////////////////////////
 // FERMETURE ACCESSIBLE FORMULAIRE //
-/////////////////////////////////////
-function formulaireFermeture() {
+// //////////////////////////////////
+function formulaireFermeture () {
+  corpsFormulaire.setAttribute('aria-hidden', 'true')
   corpsContenuPage.setAttribute('aria-hidden', 'false')
-  corpsFormulaire.setAttribute('aria-hidden','true')
   corpsBody.style.overflow = 'scroll'
   btnOuvrirFormulaire.focus()
 }
-btnFermerFormulaire.addEventListener('click', formulaireFermeture);
+btnFermerFormulaire.addEventListener('click', formulaireFermeture)
 
-///////////////////////////
+// ////////////////////////
 // NAVIGATION AU CLAVIER //
-///////////////////////////
+// ////////////////////////
 
 // quitter avec échap
 corpsFormulaire.addEventListener('keydown', (e) => {
@@ -114,37 +114,41 @@ window.setTimeout(() => {
   })
 }, 100)
 
-//////////////////////////
+// ///////////////////////
 // GESTION DE LA SAISIE //
-//////////////////////////
+// ///////////////////////
 
 btnEnvoiFormulaire.addEventListener('click', function (e) {
   // intégrer nom de l'input concerné et case en rouge
   let typeErreur
   // vérifier la validité des infos saisies
   if (regexNom.test(formChamps.prenom.value) === false) {
-    typeErreur = 'Veuillez saisir un prénom valide.'
+    typeErreur = 'Veuillez saisir un prénom valide : deux caractères minimum et chiffres interdits.'
   } else if (regexNom.test(formChamps.nom.value) === false) {
-    typeErreur = 'Veuillez saisir un nom valide.'
+    typeErreur = 'Veuillez saisir un nom valide : deux caractères minimum et chiffres interdits.'
   } else if (regexMail.test(formChamps.email.value) === false) {
-    typeErreur = 'Veuillez saisir un email valide.'
+    typeErreur = 'Veuillez saisir un email valide : doit correspondre au format mail@mail.com.'
   }
   // vérifier que les champs ne sont pas vides
   for (let i = 0; i < formChamps.length; i++) {
     if (!formChamps[i].value) {
       typeErreur = 'Veuillez renseigner tous les champs.'
+      console.log(formChamps)
     }
   }
   // affichage des messages d'erreur
   if (typeErreur) {
     e.preventDefault()
-    messageErreur.innerHTML = typeErreur;
+    messageErreur.innerHTML = typeErreur
     messageErreur.classList.add('erreur-saisie--active')
   } else {
+  // afficher le contenu des champs
+    console.log(formChamps.prenom.value, console.log(formChamps.nom.value),
+      formChamps.email.value, formChamps.message.value)
+    // message de confirmation
     alert('Formulaire envoyé')
   }
 })
-
 
 /**
 ----------------------
@@ -160,9 +164,9 @@ const btnFermerLightbox = document.querySelector('.lightbox .btn-fermeture')
 const btnPrecedent = document.querySelector('.gauche')
 const btnSuivant = document.querySelector('.droite')
 
-///////////////////////////////////
+// ////////////////////////////////
 // OUVERTURE ACCESSIBLE LIGHTBOX //
-///////////////////////////////////
+// ////////////////////////////////
 function lightboxOuverture () {
   corpsContenuPage.setAttribute('aria-hidden', 'true')
   corpsBody.style.overflow = 'hidden'
@@ -171,9 +175,9 @@ function lightboxOuverture () {
 }
 photoVignette[0].addEventListener('click', lightboxOuverture)
 
-/////////////////////////
+// //////////////////////
 // NAVIGATION LIGHTBOX //
-/////////////////////////
+// //////////////////////
 
 // photo suivante
 function elementSuivant () {
@@ -186,13 +190,12 @@ function elementSuivant () {
     index++
     elementsLightbox[index].classList.add('actif')
 
-    console.log("peut aller au suivant")
+    console.log('peut aller au suivant')
   } else if (index === elementsLightbox.length) {
     elementsLightbox[index].classList.remove('actif')
     index = 0
     elementsLightbox[index].classList.add('actif')
-    console.log("peut retourner au premier")
-
+    console.log('peut retourner au premier')
   }
 }
 btnSuivant.addEventListener('click', elementSuivant)
@@ -213,16 +216,16 @@ function elementPrecedent () {
 }
 btnPrecedent.addEventListener('click', elementPrecedent)
 
-///////////////////////////////////
+// ////////////////////////////////
 // FERMETURE ACCESSIBLE LIGHTBOX //
-///////////////////////////////////
+// ////////////////////////////////
 function lightboxFermeture () {
   corpsContenuPage.setAttribute('aria-hidden', 'false')
-  corpsLightbox.setAttribute('aria-hidden','true')
+  corpsLightbox.setAttribute('aria-hidden', 'true')
   corpsBody.style.overflow = 'scroll'
   // photoVignette[0].focus()
 }
-btnFermerLightbox.addEventListener('click', lightboxFermeture);
+btnFermerLightbox.addEventListener('click', lightboxFermeture)
 
 // corpsLightbox.addEventListener('keydown', (e) => {
 //   if (e.which === touchesClavier.echap) {

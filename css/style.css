@@ -431,7 +431,7 @@ boutons
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: #db8876;
+  background-color: #d3573c;
   border-radius: 0.4rem;
   opacity: 0;
   transition: opacity 220ms;
@@ -496,7 +496,7 @@ TODO:
   height: max-content;
   margin: 2.4rem auto;
   padding: 1.5rem;
-  background-color: #db8876;
+  background-color: #d3573c;
   color: black;
   font-size: 1.3rem;
   border-radius: 0.5rem;
@@ -543,7 +543,7 @@ TODO:
 .formulaire .champ-formulaire {
   margin-bottom: 0.8rem;
 }
-.formulaire .champ-formulaire input {
+.formulaire .champ-formulaire input, .formulaire .champ-formulaire textarea {
   width: 100%;
   line-height: 2rem;
   padding: 0.3rem;
@@ -800,7 +800,7 @@ TODO:
 .photographe-profil .nom {
   padding: 0.5rem 0;
   font-size: 1.8rem;
-  color: #db8876;
+  color: #d3573c;
 }
 .photographe-profil .localisation {
   font-size: 0.9rem;
@@ -904,7 +904,7 @@ TODO:
   right: 0;
   padding: 1rem;
   margin-right: 1rem;
-  background-color: #db8876;
+  background-color: #d3573c;
   color: black;
   border-radius: 0.3rem 0.3rem 0 0;
 }
@@ -915,6 +915,7 @@ TODO:
 }
 .bloc-fixe .icone-like {
   font-size: 0.8rem;
+  color: black;
 }
 .bloc-fixe .tarif {
   margin-left: 2rem;
