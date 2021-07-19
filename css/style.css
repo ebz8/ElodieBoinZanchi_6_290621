@@ -372,6 +372,8 @@ boutons
 .btn-fermeture {
   z-index: 10;
   cursor: pointer;
+  width: 2rem;
+  height: 3rem;
   background-color: transparent;
   opacity: 1;
   transform: scale(0.9);
@@ -483,8 +485,8 @@ TODO:
 }
 .modale-formulaire .btn-fermeture {
   position: absolute;
-  top: 1.5rem;
-  right: 2.5rem;
+  top: 0rem;
+  right: 1rem;
 }
 .modale-formulaire .btn-fermeture::before, .modale-formulaire .btn-fermeture::after {
   background-color: white;
