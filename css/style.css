@@ -45,8 +45,6 @@ html {
 html {
   line-height: 1.15;
   /* 1 */
-  -webkit-text-size-adjust: 100%;
-  /* 2 */
 }
 
 /*
@@ -339,7 +337,7 @@ body {
   height: 1px;
   position: absolute;
   left: 0;
-  top: -10 0px;
+  top: -10000px;
   overflow: hidden;
 }
 
