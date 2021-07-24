@@ -3,23 +3,22 @@
 const corpsBody = document.querySelector('.js-page')
 const corpsContenuPage = document.querySelector('.js-document')
 
-
-
 // essai 2
 async function recupData () {
   const reponse = await fetch('js/data/fisheyedata.json')
   const data = await reponse.json()
 
-  const newLi = document.createElement('li')
-  const newTitre = document.createElement('h2')
-  console.log('coucou depuis fonction recupData')
+  console.log('tableau de data.photographers dans recupData')
   console.log(data.photographers)
 
   for (let i = 0; i < data.photographers.length; i++) {
-    newTitre.innerText = 'nom: ' + data.photographers[i].name
+    const newLi = document.createElement('li')
+    const newTitre = document.createElement('h2')
+
+    newTitre.innerText = 'nom : ' + data.photographers[i].name
     newLi.appendChild(newTitre)
     corpsContenuPage.appendChild(newLi)
-    console.log('coucou depuis la boucle data json')
+    console.log('execution de la boucle for recupData')
   }
 }
 
