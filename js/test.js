@@ -16,9 +16,10 @@ async function recupData () {
     const newTitre = document.createElement('h2')
 
     newTitre.innerText = 'nom : ' + data.photographers[i].name
+    newTitre.classList.add('nom')
     newLi.appendChild(newTitre)
+    newLi.classList.add('photographe-profil')
     corpsContenuPage.appendChild(newLi)
-    console.log('execution de la boucle for recupData')
   }
 }
 
