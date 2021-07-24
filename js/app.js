@@ -1,18 +1,19 @@
 // // Import des composants JS
-// import {btnRetourContenuPrincipal} from 'components/retourcontenuprincipal'
+// import { btnRetourMain } from 'components/retourmain.js'
+
 /**
 ----------------------
 GÉNÉRAL
 ----------------------
 */
 
-// récupération des données JSON
-fetch('js/data/fisheyedata.json')
-  .then(reponse => reponse.json())
-  .then(data => console.log(data))
-  .catch(function () {
-    console.log('Erreur dans le chargement des données')
-  })
+// // récupération des données JSON
+// fetch('js/data/fisheyedata.json')
+//   .then(reponse => reponse.json())
+//   .then(data => console.log(data))
+//   .catch(function () {
+//     console.log('Erreur dans le chargement des données')
+//   })
 
 // éléments du DOM
 const corpsBody = document.querySelector('.js-page')
