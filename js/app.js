@@ -6,6 +6,14 @@ GÉNÉRAL
 ----------------------
 */
 
+// récupération des données JSON
+fetch('js/data/fisheyedata.json')
+  .then(reponse => reponse.json())
+  .then(data => console.log(data))
+  .catch(function () {
+    console.log('Erreur dans le chargement des données')
+  })
+
 // éléments du DOM
 const corpsBody = document.querySelector('.js-page')
 const corpsContenuPage = document.querySelector('.js-document')
@@ -17,14 +25,6 @@ const touchesClavier = {
   echap: 27
 }
 
-const tableauChampsFocusables = [
-  '[href]',
-  'button:not([disabled])',
-  'input:not([disabled])',
-  'select:not([disabled])',
-  'textarea:not([disabled])',
-  '[tabindex]:not([tabindex="-1"])'
-]
 
 /**
 ----------------------
@@ -47,6 +47,15 @@ const formChamps = document.forms['formulaire-contact']
 const btnEnvoiFormulaire = document.querySelector('#btn-envoi')
 const messageErreur = document.querySelector('.erreur-saisie')
 
+const tableauChampsFocusables = [
+  '[href]',
+  'button:not([disabled])',
+  'input:not([disabled])',
+  'select:not([disabled])',
+  'textarea:not([disabled])',
+  '[tabindex]:not([tabindex="-1"])'
+]
+
 const champsFocusables = contenuFormulaire.querySelectorAll(tableauChampsFocusables)
 const premierElementFocusable = champsFocusables[0]
 const dernierElementFocusable = champsFocusables[champsFocusables.length - 1]
@@ -63,6 +72,7 @@ function formulaireOuverture () {
   corpsContenuPage.setAttribute('aria-hidden', 'true')
   corpsBody.style.overflow = 'hidden'
   premierElementFocusable.focus()
+  console.log(corpsFormulaire)
 }
 btnOuvrirFormulaire.addEventListener('click', formulaireOuverture)
 
@@ -148,8 +158,6 @@ btnEnvoiFormulaire.addEventListener('click', function (e) {
     console.log(formChamps.nom.value)
     console.log(formChamps.email.value)
     console.log(formChamps.message.value)
-    // console.log(formChamps.prenom.value, console.log(formChamps.nom.value),
-    //   formChamps.email.value, formChamps.message.value)
     // message de confirmation
     alert('Formulaire envoyé')
   }
@@ -244,14 +252,14 @@ BOUTON RETOUR AU CONTENU PRINCIPAL
 -------------------------------------
 */
 
-const btnRetourContenuPrincipal = document.querySelector('.btn-contenu-principal')
+// const btnRetourContenuPrincipal = document.querySelector('.btn-contenu-principal')
 
-function apparitionAuScroll () {
-  if (window.scrollY > 100) {
-    btnRetourContenuPrincipal.setAttribute('aria-hidden', 'false')
-    // btnRetourContenuPrincipal.style.display = 'block'
-  } else {
-    btnRetourContenuPrincipal.setAttribute('aria-hidden', 'true')
-  }
-}
-window.addEventListener('scroll', apparitionAuScroll)
+// function apparitionAuScroll () {
+//   if (window.scrollY > 100) {
+//     btnRetourContenuPrincipal.setAttribute('aria-hidden', 'false')
+//     // btnRetourContenuPrincipal.style.display = 'block'
+//   } else {
+//     btnRetourContenuPrincipal.setAttribute('aria-hidden', 'true')
+//   }
+// }
+// window.addEventListener('scroll', apparitionAuScroll)
