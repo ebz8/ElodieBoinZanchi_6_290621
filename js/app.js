@@ -132,7 +132,8 @@ window.setTimeout(() => {
 // ///////////////////////
 
 btnEnvoiFormulaire.addEventListener('click', function (e) {
-  // intégrer nom de l'input concerné et case en rouge
+  e.preventDefault()
+
   let typeErreur
   // vérifier la validité des infos saisies
   if (regexNom.test(formChamps.prenom.value) === false) {
@@ -148,19 +149,21 @@ btnEnvoiFormulaire.addEventListener('click', function (e) {
       typeErreur = 'Veuillez renseigner tous les champs.'
     }
   }
-  // affichage des messages d'erreur
+  // si erreur de saisie, affichage message d'erreur spécifique
   if (typeErreur) {
     e.preventDefault()
     messageErreur.innerHTML = typeErreur
     messageErreur.classList.add('erreur-saisie--active')
   } else {
-  // afficher le contenu des champs
-    console.log(formChamps.prenom.value)
-    console.log(formChamps.nom.value)
-    console.log(formChamps.email.value)
-    console.log(formChamps.message.value)
-    // message de confirmation
-    alert('Formulaire envoyé')
+    // afficher les données saisies puis effacer le formulaire
+    for (let i = 0; i < formChamps.length - 1; i++) {
+      console.log(formChamps[i].value)
+      formChamps[i].value = ''
+    }
+    messageErreur.innerHTML = ' '
+    // message de confirmation et fermeture de la fenêtre
+    alert('Votre message a bien été envoyé.')
+    formulaireFermeture()
   }
 })
 
