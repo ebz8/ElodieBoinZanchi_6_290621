@@ -1,6 +1,5 @@
 
 // éléments du DOM
-const corpsBody = document.querySelector('.js-page')
 const corpsContenuPage = document.querySelector('.js-document')
 
 // essai 2
