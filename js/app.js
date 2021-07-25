@@ -7,14 +7,6 @@ GÉNÉRAL
 ----------------------
 */
 
-// // récupération des données JSON
-// fetch('js/data/fisheyedata.json')
-//   .then(reponse => reponse.json())
-//   .then(data => console.log(data))
-//   .catch(function () {
-//     console.log('Erreur dans le chargement des données')
-//   })
-
 // éléments du DOM
 const corpsBody = document.querySelector('.js-page')
 const corpsContenuPage = document.querySelector('.js-document')
@@ -25,7 +17,6 @@ const touchesClavier = {
   enter: 13,
   echap: 27
 }
-
 
 /**
 ----------------------
@@ -73,7 +64,6 @@ function formulaireOuverture () {
   corpsContenuPage.setAttribute('aria-hidden', 'true')
   corpsBody.style.overflow = 'hidden'
   premierElementFocusable.focus()
-  console.log(corpsFormulaire)
 }
 btnOuvrirFormulaire.addEventListener('click', formulaireOuverture)
 
