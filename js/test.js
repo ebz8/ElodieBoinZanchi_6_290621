@@ -3,54 +3,143 @@
 const corpsContenuPage = document.querySelector('.js-document')
 const photographesGalerie = document.querySelector('.photographes-galerie')
 
-// récupération des données JSON (essai 2)
-async function recupData () {
-  const reponse = await fetch('js/data/fisheyedata.json')
-  const data = await reponse.json()
+// récupération des données JSON (essai 5)
+// tentative pour récuperer le fetch dans une variable
+const fishEyeData = async function recupData () {
+  try {
+    const resultat = await fetch('js/data/fisheyedata.json')
+    const data = await resultat.json()
+    console.log(data.photographers)
+    // console.log('tableau de data.photographers dans recupData:')
+    // console.log(data.photographers)
 
-  console.log('tableau de data.photographers dans recupData:')
-  console.log(data.photographers)
+    // function creerFichePhotographe () {
+    //   const newUl = document.createElement('ul')
 
-  for (let i = 0; i < data.photographers.length; i++) {
-    const newLi = document.createElement('li')
-    const newImg = document.createElement('img')
-    const newTitre = document.createElement('h2')
-    const newDiv = document.createElement('div')
-    const newPara = document.createElement('p')
-    const newSpan = document.createElement('p')
+    //   newUl.innerHTML = ` <li class="photographe-profil">
+    //     <a href="photographer-page.html">
+    //         <img class="vignette" src="resources/img/photographers/IDphotos/${data.photographers.portrait}" alt=" "/>
+    //         <h2 class="nom">${data.photographers.name}</h2>
+    //     </a>
+    //     <div tabindex="0">
+    //         <p class="localisation">${data.photographers.city}</p>
+    //         <p class="accroche">${data.photographers.tagline}</p>
+    //         <span class="tarif">${data.photographers.price}€</span><span class="tarif" aria-label="par jour">/jour</span>
+    //     </div>
+    // </li>`
+    //   photographesGalerie.appendChild(newUl)
+    // }
+    return data
+  } catch (erreur) {
+    console.log('Erreur dans le chargement des données. ' + ('( ') + erreur + (' )'))
+  }}
 
-    newTitre.innerText = data.photographers[i].name
-    newTitre.classList.add('nom')
-    // vignette
-    newLi.appendChild(newImg)
-    newImg.src = 'resources/img/photographers/IDphotos/' + data.photographers[i].portrait
-    newImg.classList.add('vignette')
-    // nom
-    newLi.appendChild(newTitre)
-    // bloc infos :
-    newLi.appendChild(newDiv)
-    // ville
-    newDiv.appendChild(newPara)
-    newPara.innerText = data.photographers[i].city
-    newPara.classList.add('localisation')
-    // accroche
-    newDiv.appendChild(newPara)
-    newPara.innerText = data.photographers[i].tagline
-    newPara.classList.add('accroche')
-    // prix
-    newDiv.appendChild(newSpan)
-    newSpan.innerText = data.photographers[i].price + '€ /jour'
-    newSpan.classList.add('tarif')
+console.log(fishEyeData)
 
-    // fiche photographe
-    newLi.classList.add('photographe-profil')
-    photographesGalerie.appendChild(newLi)
-  }
-}
 
-recupData().catch(erreur => {
-  console.log('Erreur dans le chargement des données. ' + ('( ') + erreur + (' )'))
-})
+// tentative pour récuperer le fetch dans une variable
+// const fishEyeData = async function recupData () {
+//   try {
+//     const resultat = await fetch('js/data/fisheyedata.json')
+//     const data = await resultat.json()
+//     console.log(data.photographers)
+//     return fishEyeData
+//     // console.log('tableau de data.photographers dans recupData:')
+//     // console.log(data.photographers)
+//   } catch (erreur) {
+//     console.log('Erreur dans le chargement des données. ' + ('( ') + erreur + (' )'))
+//   }
+// }
+// console.log(fishEyeData)
+
+
+
+
+// const listeFichesPhotographes = async () => {
+//   await fishEyeData()
+
+//   // for (let i = 0; i < data.photographers.length; i++) {
+//     data.photographers.map(photographeFiche {
+//     photographesGalerie.innerHTML = `<li class="photographe-profil">
+//   <a href="photographer-page.html">
+//       <img class="vignette" src="resources/img/photographers/IDphotos/MimiKeel.jpg" alt=" "/>
+//       <h2 class="nom">${data.photographers.name}</h2>
+//   </a>
+//   <div tabindex="0">
+//       <p class="localisation">${data.photographers.city}</p>
+//       <p class="accroche">${data.photographers.tagline}</p>
+//       <span class="tarif">${data.photographers.price}€</span><span class="tarif" aria-label="par jour">/jour</span>
+//   </div>
+
+// </li>`
+// ).join('')
+// }
+//   // }
+// }
+
+// listeFichesPhotographes()
+
+// async function recupData () {
+//   try {
+//     const reponse = await fetch('js/data/fisheyedata.json')
+//     const data = await reponse.json()
+
+//     console.log('tableau de data.photographers dans recupData:')
+//     console.log(data.photographers)
+
+//     for (let i = 0; i < data.photographers.length; i++) {
+//       const newLi = document.createElement('li')
+//       const newImg = document.createElement('img')
+//       const newTitre = document.createElement('h2')
+//       const newDiv = document.createElement('div')
+//       const newPara = document.createElement('p')
+//       const newSpan = document.createElement('p')
+
+//       newTitre.innerText = data.photographers[i].name
+//       newTitre.classList.add('nom')
+//       // vignette
+//       newLi.appendChild(newImg)
+//       newImg.src = 'resources/img/photographers/IDphotos/' + data.photographers[i].portrait
+//       newImg.classList.add('vignette')
+//       // nom
+//       newLi.appendChild(newTitre)
+//       // bloc infos :
+//       newLi.appendChild(newDiv)
+//       // ville
+//       newDiv.appendChild(newPara)
+//       newPara.innerText = data.photographers[i].city
+//       newPara.classList.add('localisation')
+//       // accroche
+//       newDiv.appendChild(newPara)
+//       newPara.innerText = data.photographers[i].tagline
+//       newPara.classList.add('accroche')
+//       // prix
+//       newDiv.appendChild(newSpan)
+//       newSpan.innerText = data.photographers[i].price + '€ /jour'
+//       newSpan.classList.add('tarif')
+
+//       // fiche photographe
+//       newLi.classList.add('photographe-profil')
+//       photographesGalerie.appendChild(newLi)
+//     }
+//   } catch (erreur) {
+//     console.log('Erreur dans le chargement des données. ' + ('( ') + erreur + (' )'))
+//   }
+// }
+
+// recupData()
+
+// version catch dans l'appel de la fonction
+// recupData().catch(erreur => {
+//   console.log('Erreur dans le chargement des données. ' + ('( ') + erreur + (' )'))
+// })
+
+
+
+
+
+
+
 
 // essai 1
 // const getPhotographes = async () => {
