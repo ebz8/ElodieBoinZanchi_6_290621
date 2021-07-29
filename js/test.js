@@ -34,7 +34,7 @@ const fishEyeData = async function recupData () {
     console.log('Erreur dans le chargement des données. ' + ('( ') + erreur + (' )'))
   }}
 
-console.log(fishEyeData)
+console.log(data)
 
 
 // tentative pour récuperer le fetch dans une variable
