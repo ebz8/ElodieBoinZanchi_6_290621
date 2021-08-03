@@ -52,58 +52,54 @@ const templateHeader = () => {
   corpsPage.appendChild(header)
   console.log('templateHeader généré')
 }
+templateHeader()
 
-const templateMain = () => {
-  const main = document.createElement('main')
-  main.classList.add('js-document')
-  main.setAttribute('id', 'contenu-principal')
-  // main.innerHTML = `
-  // <main id="contenu-principal" class="js-document">
-  // <ul class="photographes-galerie">
-  // </ul>
-  // </main>`
-  corpsPage.appendChild(main)
-  // ajouter les fiches photographes (?)
-  // main.appendChild(fichePhotographe)
-  console.log('templateMain généré')
-}
+// const templateMain = () => {
+//   const main = document.createElement('main')
+//   main.classList.add('js-document')
+//   main.setAttribute('id', 'contenu-principal')
+//   corpsPage.appendChild(main)
+//   // main.innerHTML = `
+//   // <ul class="photographes-galerie">
+//   // </ul>`
+//   // ajouter les fiches photographes (?)
+//   // main.appendChild(fichePhotographe)
+//   console.log('templateMain généré')
+// }
 
 const fichePhotographe = (data) => {
   const photographesGalerie = document.createElement('ul')
   photographesGalerie.classList.add('photographes-galerie')
   corpsContenuPage.appendChild(photographesGalerie)
-  const listePhotographes = data.photographers
 
-  listePhotographes.forEach((data) => {
-    console.log(`génération fiche de ${data.name}`)
-    // const fichePhotographe = document.createElement('li')
-    // fichePhotographe.classList.add('photographe-profil')
-    // photographesGalerie.appendChild(fichePhotographe)
-    // fichePhotographe.innerHtml = `
-    //   <a href="photographer${data.id}.html">
-    //                   <img class="vignette" src="resources/img/photographers/IDphotos/${data.name}.jpg" alt=" "/>
-    //                   <h2 class="nom">${data.name}</h2>
-    //               </a>
-    //               <div tabindex="0">
-    //                   <p class="localisation">${data.photographers.city}, ${data.photographers.country}</p>
-    //                   <p class="accroche">${data.tagline}</p>
-    //                   <span class="tarif">${data.price}€</span><span class="tarif" aria-label="par jour">/jour</span>
-    //               </div>
-    //               <ul class="nav-par-tag" >
-    //                   <li class="tag-entree"><a href="#"><span aria-label="hashtag">#</span>Portrait</a></li>
-    //                   <li class="tag-entree"><a href="#"><span aria-label="hashtag">#</span>Art</a></li>
-    //               </ul>`
-  })
+  const contenuFichePhotographe = data.photographers.map(function (photographe) {
+    return `<li class="photographe-profil">
+    <a href="photographer${photographe.id}.html">
+                      <img class="vignette" src="resources/img/photographers/IDphotos/${photographe.portrait}" alt=" "/>
+                      <h2 class="nom">${photographe.name}</h2>
+                  </a>
+                  <div tabindex="0">
+                      <p class="localisation">${photographe.city}, ${photographe.country}</p>
+                      <p class="accroche">${photographe.tagline}</p>
+                      <span class="tarif">${photographe.price}€</span><span class="tarif" aria-label="par jour">/jour</span>
+                  </div>
+                  <ul class="nav-par-tag" >
+                      <li class="tag-entree"><a href="#"><span aria-label="hashtag">#</span>Portrait</a></li>
+                      <li class="tag-entree"><a href="#"><span aria-label="hashtag">#</span>Art</a></li>
+                  </ul>
+    </li>`
+  }).join('')
+
+  photographesGalerie.innerHTML = contenuFichePhotographe
 }
 
 // 5 - Générer entièrement l'index
-function templateIndex () {
-  templateHeader()
-  templateMain()
-  fichePhotographe()
-  console.log('Index généré')
-}
-templateIndex()
+// function templateIndex () {
+//   templateHeader()
+//   fichePhotographe()
+//   console.log('Index généré')
+// }
+// templateIndex()
 
 // tentatives:
 
@@ -184,7 +180,6 @@ templateIndex()
 // photographesGalerie.appendChild(newLi)
 // }
 // creerFichePhotographe()
-
 
 // function fichePhotographe (data) {
 //   console.log(data)
