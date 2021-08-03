@@ -1,19 +1,22 @@
 
 // TODO :
 // Pour créer la PAGE INDEX :
+// Récupérer les données json
 // Générer le header (logo / nav par tags / title)
 // Générer le main (ul / fiches photographes)
 // Générer le bouton de retour vers le contenu principal
 // (evenement) Créer la fonction tri par tag
 
 // éléments du DOM
+const corpsPage = document.querySelector('.js-page')
 const corpsContenuPage = document.querySelector('.js-document')
-const photographesGalerie = document.querySelector('.photographes-galerie')
+// const photographesGalerie = document.querySelector('.photographes-galerie')
 
-// récupération des données JSON
+// 1 - récupération des données JSON
+const apiUrl = 'js/data/fisheyedata.json'
 const jsonData = async () => {
   try {
-    const reponse = await fetch('js/data/fisheyedata.json')
+    const reponse = await fetch(apiUrl)
     const data = await reponse.json()
     return data
   } catch (erreur) {
@@ -21,64 +24,165 @@ const jsonData = async () => {
   }
 }
 
-// chargement des données JSON au chargement de la page
+// 2 - chargement des données JSON au chargement de la page
 const chargementData = async () => {
   const data = await jsonData()
   console.log(data)
-  creerFichePhotographe(data)
+  fichePhotographe(data)
 }
 document.addEventListener('DOMContentLoaded', chargementData)
 
-function creerFichePhotographe (data) {
-  console.log(data)
+// 3 - stocker data.photographers dans une constante (?)
+// const dataPhotographes = jsonData()
+// console.log(dataPhotographes)
 
-  for (let i = 0; i < data.photographers.length; i++) {
-    const newLi = document.createElement('li')
-    const newImg = document.createElement('img')
-    const newTitre = document.createElement('h2')
-    const newDiv = document.createElement('div')
-    const newPara = document.createElement('p')
-    const newSpan = document.createElement('p')
+// 4 - Générer les éléments HTML
+const templateHeader = () => {
+  const header = document.createElement('header')
+  header.classList.add('banniere')
+  header.innerHTML = `
+        <a href="index.html">
+            <img class="logo" src="resources/img/logo.png" alt="FishEye : page d'accueil">
+        </a>
 
-    newTitre.innerText = data.photographers[i].name
-    newTitre.classList.add('nom')
-    // vignette
-    newLi.appendChild(newImg)
-    newImg.src = 'resources/img/photographers/IDphotos/' + data.photographers[i].portrait
-    newImg.classList.add('vignette')
-    // nom
-    newLi.appendChild(newTitre)
-    // bloc infos :
-    newLi.appendChild(newDiv)
-    // ville
-    newDiv.appendChild(newPara)
-    newPara.innerText = data.photographers[i].city
-    newPara.classList.add('localisation')
-    // accroche
-    newDiv.appendChild(newPara)
-    newPara.innerText = data.photographers[i].tagline
-    newPara.classList.add('accroche')
-    // prix
-    newDiv.appendChild(newSpan)
-    newSpan.innerText = data.photographers[i].price + '€ /jour'
-    newSpan.classList.add('tarif')
-
-    // fiche photographe
-    newLi.classList.add('photographe-profil')
-    photographesGalerie.appendChild(newLi)
-  }
+        <nav aria-label="trier les photographes par categories">
+            <ul class="nav-par-tag" >
+            </ul>
+        </nav>
+        <h1 tabindex="0">Nos photographes</h1>
+`
+  corpsPage.appendChild(header)
 }
 
-// async function testAffichage(){
-//     await
-//     console.log(photographeInfos)
+const templateMain = () => {
+  const main = document.createElement('main')
+  main.classList.add('js-document')
+  main.setAttribute('id', 'contenu-principal')
+  main.innerHTML = `
+  <ul class="photographes-galerie">
+  </ul>`
+  corpsPage.appendChild(main)
+  // ajouter les fiches photographes (?)
+  // main.appendChild(fichePhotographe)
+}
+
+const fichePhotographe = (data) => {
+  const listePhotographes = data.photographers
+  // const photographesGalerie = document.createElement('ul')
+  // photographesGalerie.classList.add('photographes-galerie')
+  // corpsContenuPage.appendChild(photographesGalerie)
+
+  listePhotographes.forEach((data) => {
+    console.log(`fiche de ${data.name}`)
+    const fichePhotographe = document.createElement('li')
+    fichePhotographe.classList.add('photographe-profil')
+    fichePhotographe.innerHtml = `
+      <a href="photographer${data.id}.html">
+                      <img class="vignette" src="resources/img/photographers/IDphotos/${data.name}.jpg" alt=" "/>
+                      <h2 class="nom">${data.name}</h2>
+                  </a>
+                  <div tabindex="0">
+                      <p class="localisation">${data.photographers.city}, ${data.photographers.country}</p>
+                      <p class="accroche">${data.tagline}</p>
+                      <span class="tarif">${data.price}€</span><span class="tarif" aria-label="par jour">/jour</span>
+                  </div>
+                  <ul class="nav-par-tag" >
+                      <li class="tag-entree"><a href="#"><span aria-label="hashtag">#</span>Portrait</a></li>
+                      <li class="tag-entree"><a href="#"><span aria-label="hashtag">#</span>Art</a></li>
+                  </ul>`
+    console.log(fichePhotographe)
+  })
+}
+
+function templateIndex () {
+  templateHeader()
+  templateMain()
+  fichePhotographe()
+}
+templateIndex()
+
+// tentatives
+// const tableauPhotographes = (data) => {
+//   return data.photographers
 // }
 
-// const photographeInfos = await data
-
-// async function testJson () {
-//   await recupData()
-//   console.log(data.photographers)
+// const Photographe = (data) => {
+//   this.name = data.photographers.name
+//   this.id = data.photographers.id
+//   this.city = data.photographers.city
+//   this.country = data.photographers.country
+//   this.tags = data.photographers.tags
+//   this.tagline = data.photographers.tagline
+//   this.price = data.photographers.price
+//   this.portrait = data.photographers.portrait
+//   console.log(data)
 // }
 
-// testJson()
+// function fichePhotographe (data) {
+//   let listePhotographes = data.photographers
+
+//   let photographesGalerie = document.createElement('ul')
+//   photographesGalerie.classList.add('photographes-galerie')
+//   console.log(listePhotographes)
+
+//   listePhotographes.forEach((data) => {
+//     let fichePhotographe = document.createElement('li')
+//     const contenuFiche = `
+//     <li class="photographe-profil">
+//       <a href="photographer-page.html">
+//                       <img class="vignette" src="resources/img/photographers/IDphotos/${data.photographers.name}.jpg" alt=" "/>
+//                       <h2 class="nom">${data.photographers.name}</h2>
+//                   </a>
+//                   <div tabindex="0">
+//                       <p class="localisation">${data.photographers.location}</p>
+//                       <p class="accroche">${data.photographers.tagline}</p>
+//                       <span class="tarif">${data.photographers.price}€</span><span class="tarif" aria-label="par jour">/jour</span>
+//                   </div>
+//                   <ul class="nav-par-tag" >
+//                       <li class="tag-entree"><a href="#"><span aria-label="hashtag">#</span>Portrait</a></li>
+//                       <li class="tag-entree"><a href="#"><span aria-label="hashtag">#</span>Art</a></li>
+//                   </ul>
+//                   </li>
+//                   `
+//     fichePhotographe.innerHTML = contenuFiche
+//     photographesGalerie.appendChild(fichePhotographe)
+//   })
+// }
+
+// fichePhotographe()
+
+// const Photographe = (data) => {
+//   this.name = data.photographers.name
+//   this.location = data.photographers.location
+// }
+// const photograhe = new Photograph()
+
+// const creerFichePhotographe = (data) => {
+// const newLi = document.createElement('li')
+// newLi.classList.add('photographe-profil')
+// newLi.innerHTML = `
+//   <a href="photographer-page.html">
+//                   <img class="vignette" src="resources/img/photographers/IDphotos/${data.photographers.name}.jpg" alt=" "/>
+//                   <h2 class="nom">${data.photographers.name}</h2>
+//               </a>
+//               <div tabindex="0">
+//                   <p class="localisation">${data.photographers.city}</p>
+//                   <p class="accroche">${data.photographers.tagline}</p>
+//                   <span class="tarif">${data.photographers.price}€</span><span class="tarif" aria-label="par jour">/jour</span>
+//               </div>
+
+//               <ul class="nav-par-tag" >
+//                   <li class="tag-entree"><a href="#"><span aria-label="hashtag">#</span>Portrait</a></li>
+//                   <li class="tag-entree"><a href="#"><span aria-label="hashtag">#</span>Art</a></li>
+//               </ul>
+//               `
+// photographesGalerie.appendChild(newLi)
+// }
+// creerFichePhotographe()
+
+
+// function fichePhotographe (data) {
+//   console.log(data)
+//   data.photographers.map(creerFichePhotographe)
+// }
+// fichePhotographe()
