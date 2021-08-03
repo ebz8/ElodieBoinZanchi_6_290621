@@ -67,6 +67,7 @@ templateHeader()
 //   console.log('templateMain généré')
 // }
 
+// génération de la liste des fiches photographe
 const fichesPhotographe = (data) => {
   const photographesGalerie = document.createElement('ul')
   photographesGalerie.classList.add('photographes-galerie')
@@ -84,7 +85,7 @@ const fichesPhotographe = (data) => {
                       <span class="tarif">${photographe.price}€</span><span class="tarif" aria-label="par jour">/jour</span>
                   </div>
                   <ul class="nav-par-tag" >
-                      <li class="tag-entree"><a href="#"><span aria-label="hashtag">#</span>${photographe.tags}</a></li>
+                      <li class="tag-entree"><a href="#"><span aria-label="hashtag">#</span>${photographe.tags[0]}</a></li>
                       <li class="tag-entree"><a href="#"><span aria-label="hashtag">#</span>Art</a></li>
                   </ul>
     </li>`
