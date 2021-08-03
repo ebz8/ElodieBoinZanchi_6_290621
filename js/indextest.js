@@ -44,8 +44,7 @@ const templateHeader = () => {
         </a>
 
         <nav aria-label="trier les photographes par categories">
-            <ul class="nav-par-tag" >
-            </ul>
+        
         </nav>
         <h1 tabindex="0">Nos photographes</h1>
 `
@@ -53,6 +52,16 @@ const templateHeader = () => {
   console.log('templateHeader généré')
 }
 templateHeader()
+
+// // navigation par tag
+// function navTag (tags) {
+//   return `
+//   <ul class="nav-par-tag" >
+//   ${tags.map((tag) =>
+//    `<li class="tag-entree"><a href="#"><span aria-label="hashtag">#</span>${tag}</a></li>`
+//   ).join('')}
+//   </ul>`
+// }
 
 // const templateMain = () => {
 //   const main = document.createElement('main')
@@ -68,7 +77,7 @@ templateHeader()
 // }
 
 // génération de la liste des fiches photographe
-function templateFiche (photographe) {
+const templateFiche = (photographe) => {
   return `<li class="photographe-profil">
     <a href="photographer${photographe.id}.html">
                       <img class="vignette" src="resources/img/photographers/IDphotos/${photographe.portrait}" alt=" "/>
@@ -81,14 +90,13 @@ function templateFiche (photographe) {
                   </div>
                   ${listeTag(photographe.tags)}
     </li>`
-  // <li class="tag-entree"><a href="#"><span aria-label="hashtag">#</span>${templateTag}</a></li>
 }
 
 // affichage hashtags par photographe
-function listeTag (tags) {
+const listeTag = (tags) => {
   return `
   <ul class="nav-par-tag" >
-  ${tags.map((tag) => 
+  ${tags.map((tag) =>
    `<li class="tag-entree"><a href="#"><span aria-label="hashtag">#</span>${tag}</a></li>`
   ).join('')}
   </ul>`
