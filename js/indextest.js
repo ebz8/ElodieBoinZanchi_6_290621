@@ -68,13 +68,8 @@ templateHeader()
 // }
 
 // génération de la liste des fiches photographe
-const fichesPhotographe = (data) => {
-  const photographesGalerie = document.createElement('ul')
-  photographesGalerie.classList.add('photographes-galerie')
-  corpsContenuPage.append(photographesGalerie)
-
-  const dataFiche = data.photographers.map(function (photographe) {
-    return `<li class="photographe-profil">
+function templateFiche (photographe) {
+  return `<li class="photographe-profil">
     <a href="photographer${photographe.id}.html">
                       <img class="vignette" src="resources/img/photographers/IDphotos/${photographe.portrait}" alt=" "/>
                       <h2 class="nom">${photographe.name}</h2>
@@ -84,12 +79,27 @@ const fichesPhotographe = (data) => {
                       <p class="accroche">${photographe.tagline}</p>
                       <span class="tarif">${photographe.price}€</span><span class="tarif" aria-label="par jour">/jour</span>
                   </div>
-                  <ul class="nav-par-tag" >
-                      <li class="tag-entree"><a href="#"><span aria-label="hashtag">#</span>${photographe.tags[0]}</a></li>
-                      <li class="tag-entree"><a href="#"><span aria-label="hashtag">#</span>Art</a></li>
-                  </ul>
+                  ${listeTag(photographe.tags)}
     </li>`
-  }).join('')
+  // <li class="tag-entree"><a href="#"><span aria-label="hashtag">#</span>${templateTag}</a></li>
+}
+
+// affichage hashtags par photographe
+function listeTag (tags) {
+  return `
+  <ul class="nav-par-tag" >
+  ${tags.map((tag) => 
+   `<li class="tag-entree"><a href="#"><span aria-label="hashtag">#</span>${tag}</a></li>`
+  ).join('')}
+  </ul>`
+}
+
+const fichesPhotographe = (data) => {
+  const photographesGalerie = document.createElement('ul')
+  photographesGalerie.classList.add('photographes-galerie')
+  corpsContenuPage.append(photographesGalerie)
+
+  const dataFiche = data.photographers.map(templateFiche).join('')
 
   photographesGalerie.innerHTML = dataFiche
   console.log('fiches photographes générées')
