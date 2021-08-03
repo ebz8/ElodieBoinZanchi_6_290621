@@ -1,10 +1,10 @@
 
 // TODO :
 // Pour créer la PAGE INDEX :
-// Récupérer les données json
+// Récupérer les données json et les stocker
+// Générer le bouton de retour vers le contenu principal
 // Générer le header (logo / nav par tags / title)
 // Générer le main (ul / fiches photographes)
-// Générer le bouton de retour vers le contenu principal
 // (evenement) Créer la fonction tri par tag
 
 // éléments du DOM
@@ -30,11 +30,26 @@ const chargementData = async () => {
 }
 document.addEventListener('DOMContentLoaded', chargementData)
 
-// 3 - stocker data.photographers dans une constante (?)
+// 3 - Stocker data.photographers dans une constante (?)
 // const dataPhotographes = jsonData()
 // console.log(dataPhotographes)
 
 // 4 - Générer les éléments HTML individuellement
+//
+// BTN CONTENU-PRINCIPAL
+// display seulement si scroll(x)
+//
+// const btnRetourMain = () => {
+//   const btnRetour = document.createElement('a')
+//   btnRetour.innerHTML = `
+//   <a class="btn-contenu-principal" href="#contenu-principal" aria-hidden="true">Passer au contenu</a>
+//   `
+//   corpsPage.prepend(btnRetour)
+// }
+
+//
+// HEADER
+//
 const templateHeader = () => {
   const header = document.createElement('header')
   header.classList.add('banniere')
@@ -57,11 +72,15 @@ templateHeader()
 // function navTag (tags) {
 //   return `
 //   <ul class="nav-par-tag" >
-//   ${tags.map((tag) =>
+//   ${tags.filter().map((tag) =>
 //    `<li class="tag-entree"><a href="#"><span aria-label="hashtag">#</span>${tag}</a></li>`
 //   ).join('')}
 //   </ul>`
 // }
+
+//
+// MAIN
+//
 
 // const templateMain = () => {
 //   const main = document.createElement('main')
@@ -92,7 +111,7 @@ const templateFiche = (photographe) => {
     </li>`
 }
 
-// affichage hashtags par photographe
+// hashtags des fiches photographe
 const listeTag = (tags) => {
   return `
   <ul class="nav-par-tag" >
@@ -110,99 +129,7 @@ const fichesPhotographe = (data) => {
   const dataFiche = data.photographers.map(templateFiche).join('')
 
   photographesGalerie.innerHTML = dataFiche
-  console.log('fiches photographes générées')
+  console.log('fiches photographe générées')
 }
 
-// 5 - Générer entièrement l'index
-// function templateIndex () {
-//   templateHeader()
-//   fichePhotographe()
-//   console.log('Index généré')
-// }
-// templateIndex()
-
-// tentatives:
-
-// const tableauPhotographes = (data) => {
-//   return data.photographers
-// }
-
-// const Photographe = (data) => {
-//   this.name = data.photographers.name
-//   this.id = data.photographers.id
-//   this.city = data.photographers.city
-//   this.country = data.photographers.country
-//   this.tags = data.photographers.tags
-//   this.tagline = data.photographers.tagline
-//   this.price = data.photographers.price
-//   this.portrait = data.photographers.portrait
-//   console.log(data)
-// }
-
-// function fichePhotographe (data) {
-//   let listePhotographes = data.photographers
-
-//   let photographesGalerie = document.createElement('ul')
-//   photographesGalerie.classList.add('photographes-galerie')
-//   console.log(listePhotographes)
-
-//   listePhotographes.forEach((data) => {
-//     let fichePhotographe = document.createElement('li')
-//     const contenuFiche = `
-//     <li class="photographe-profil">
-//       <a href="photographer-page.html">
-//                       <img class="vignette" src="resources/img/photographers/IDphotos/${data.photographers.name}.jpg" alt=" "/>
-//                       <h2 class="nom">${data.photographers.name}</h2>
-//                   </a>
-//                   <div tabindex="0">
-//                       <p class="localisation">${data.photographers.location}</p>
-//                       <p class="accroche">${data.photographers.tagline}</p>
-//                       <span class="tarif">${data.photographers.price}€</span><span class="tarif" aria-label="par jour">/jour</span>
-//                   </div>
-//                   <ul class="nav-par-tag" >
-//                       <li class="tag-entree"><a href="#"><span aria-label="hashtag">#</span>Portrait</a></li>
-//                       <li class="tag-entree"><a href="#"><span aria-label="hashtag">#</span>Art</a></li>
-//                   </ul>
-//                   </li>
-//                   `
-//     fichePhotographe.innerHTML = contenuFiche
-//     photographesGalerie.appendChild(fichePhotographe)
-//   })
-// }
-
-// fichePhotographe()
-
-// const Photographe = (data) => {
-//   this.name = data.photographers.name
-//   this.location = data.photographers.location
-// }
-// const photograhe = new Photograph()
-
-// const creerFichePhotographe = (data) => {
-// const newLi = document.createElement('li')
-// newLi.classList.add('photographe-profil')
-// newLi.innerHTML = `
-//   <a href="photographer-page.html">
-//                   <img class="vignette" src="resources/img/photographers/IDphotos/${data.photographers.name}.jpg" alt=" "/>
-//                   <h2 class="nom">${data.photographers.name}</h2>
-//               </a>
-//               <div tabindex="0">
-//                   <p class="localisation">${data.photographers.city}</p>
-//                   <p class="accroche">${data.photographers.tagline}</p>
-//                   <span class="tarif">${data.photographers.price}€</span><span class="tarif" aria-label="par jour">/jour</span>
-//               </div>
-
-//               <ul class="nav-par-tag" >
-//                   <li class="tag-entree"><a href="#"><span aria-label="hashtag">#</span>Portrait</a></li>
-//                   <li class="tag-entree"><a href="#"><span aria-label="hashtag">#</span>Art</a></li>
-//               </ul>
-//               `
-// photographesGalerie.appendChild(newLi)
-// }
-// creerFichePhotographe()
-
-// function fichePhotographe (data) {
-//   console.log(data)
-//   data.photographers.map(creerFichePhotographe)
-// }
-// fichePhotographe()
+// 5 - Fonctionnalité trier par tag

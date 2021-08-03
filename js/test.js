@@ -158,3 +158,97 @@ templateIndex()
 //     this.portrait = portrait
 //   }
 // }
+
+// 5 - Générer entièrement l'index
+// function templateIndex () {
+//   templateHeader()
+//   fichePhotographe()
+//   console.log('Index généré')
+// }
+// templateIndex()
+
+// tentatives:
+
+// const tableauPhotographes = (data) => {
+//   return data.photographers
+// }
+
+// const Photographe = (data) => {
+//   this.name = data.photographers.name
+//   this.id = data.photographers.id
+//   this.city = data.photographers.city
+//   this.country = data.photographers.country
+//   this.tags = data.photographers.tags
+//   this.tagline = data.photographers.tagline
+//   this.price = data.photographers.price
+//   this.portrait = data.photographers.portrait
+//   console.log(data)
+// }
+
+// function fichePhotographe (data) {
+//   let listePhotographes = data.photographers
+
+//   let photographesGalerie = document.createElement('ul')
+//   photographesGalerie.classList.add('photographes-galerie')
+//   console.log(listePhotographes)
+
+//   listePhotographes.forEach((data) => {
+//     let fichePhotographe = document.createElement('li')
+//     const contenuFiche = `
+//     <li class="photographe-profil">
+//       <a href="photographer-page.html">
+//                       <img class="vignette" src="resources/img/photographers/IDphotos/${data.photographers.name}.jpg" alt=" "/>
+//                       <h2 class="nom">${data.photographers.name}</h2>
+//                   </a>
+//                   <div tabindex="0">
+//                       <p class="localisation">${data.photographers.location}</p>
+//                       <p class="accroche">${data.photographers.tagline}</p>
+//                       <span class="tarif">${data.photographers.price}€</span><span class="tarif" aria-label="par jour">/jour</span>
+//                   </div>
+//                   <ul class="nav-par-tag" >
+//                       <li class="tag-entree"><a href="#"><span aria-label="hashtag">#</span>Portrait</a></li>
+//                       <li class="tag-entree"><a href="#"><span aria-label="hashtag">#</span>Art</a></li>
+//                   </ul>
+//                   </li>
+//                   `
+//     fichePhotographe.innerHTML = contenuFiche
+//     photographesGalerie.appendChild(fichePhotographe)
+//   })
+// }
+
+// fichePhotographe()
+
+// const Photographe = (data) => {
+//   this.name = data.photographers.name
+//   this.location = data.photographers.location
+// }
+// const photograhe = new Photograph()
+
+// const creerFichePhotographe = (data) => {
+// const newLi = document.createElement('li')
+// newLi.classList.add('photographe-profil')
+// newLi.innerHTML = `
+//   <a href="photographer-page.html">
+//                   <img class="vignette" src="resources/img/photographers/IDphotos/${data.photographers.name}.jpg" alt=" "/>
+//                   <h2 class="nom">${data.photographers.name}</h2>
+//               </a>
+//               <div tabindex="0">
+//                   <p class="localisation">${data.photographers.city}</p>
+//                   <p class="accroche">${data.photographers.tagline}</p>
+//                   <span class="tarif">${data.photographers.price}€</span><span class="tarif" aria-label="par jour">/jour</span>
+//               </div>
+
+//               <ul class="nav-par-tag" >
+//                   <li class="tag-entree"><a href="#"><span aria-label="hashtag">#</span>Portrait</a></li>
+//                   <li class="tag-entree"><a href="#"><span aria-label="hashtag">#</span>Art</a></li>
+//               </ul>
+//               `
+// photographesGalerie.appendChild(newLi)
+// }
+// creerFichePhotographe()
+
+// function fichePhotographe (data) {
+//   console.log(data)
+//   data.photographers.map(creerFichePhotographe)
+// }
+// fichePhotographe()
