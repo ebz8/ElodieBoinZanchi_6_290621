@@ -26,7 +26,7 @@ const jsonData = async () => {
 // 2 - chargement des données JSON au chargement de la page
 const chargementData = async () => {
   const data = await jsonData()
-  fichePhotographe(data)
+  fichesPhotographe(data)
 }
 document.addEventListener('DOMContentLoaded', chargementData)
 
@@ -49,7 +49,7 @@ const templateHeader = () => {
         </nav>
         <h1 tabindex="0">Nos photographes</h1>
 `
-  corpsPage.appendChild(header)
+  corpsPage.prepend(header)
   console.log('templateHeader généré')
 }
 templateHeader()
@@ -67,12 +67,12 @@ templateHeader()
 //   console.log('templateMain généré')
 // }
 
-const fichePhotographe = (data) => {
+const fichesPhotographe = (data) => {
   const photographesGalerie = document.createElement('ul')
   photographesGalerie.classList.add('photographes-galerie')
-  corpsContenuPage.appendChild(photographesGalerie)
+  corpsContenuPage.append(photographesGalerie)
 
-  const contenuFichePhotographe = data.photographers.map(function (photographe) {
+  const dataFiche = data.photographers.map(function (photographe) {
     return `<li class="photographe-profil">
     <a href="photographer${photographe.id}.html">
                       <img class="vignette" src="resources/img/photographers/IDphotos/${photographe.portrait}" alt=" "/>
@@ -84,13 +84,14 @@ const fichePhotographe = (data) => {
                       <span class="tarif">${photographe.price}€</span><span class="tarif" aria-label="par jour">/jour</span>
                   </div>
                   <ul class="nav-par-tag" >
-                      <li class="tag-entree"><a href="#"><span aria-label="hashtag">#</span>Portrait</a></li>
+                      <li class="tag-entree"><a href="#"><span aria-label="hashtag">#</span>${photographe.tags}</a></li>
                       <li class="tag-entree"><a href="#"><span aria-label="hashtag">#</span>Art</a></li>
                   </ul>
     </li>`
   }).join('')
 
-  photographesGalerie.innerHTML = contenuFichePhotographe
+  photographesGalerie.innerHTML = dataFiche
+  console.log('fiches photographes générées')
 }
 
 // 5 - Générer entièrement l'index
