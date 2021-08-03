@@ -5,7 +5,7 @@ const contenuMain = document.getElementById('contenu-principal')
 const photographesGalerie = document.querySelector('.photographes-galerie')
 
 // récupération des données JSON
-const apiUrl = '/js/data/fisheyedata.json'
+const apiUrl = './js/data/fisheyedata.json'
 const jsonData = async () => {
   try {
     const reponse = await fetch(apiUrl)
