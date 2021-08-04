@@ -12,7 +12,8 @@ const corpsPage = document.querySelector('.js-page')
 const corpsContenuPage = document.querySelector('.js-document')
 
 // 1 - récupération des données JSON
-const apiUrl = 'js/data/fisheyedata.json'
+
+let apiUrl = 'js/data/fisheyedata.json'
 const jsonData = async () => {
   try {
     const reponse = await fetch(apiUrl)
@@ -24,6 +25,7 @@ const jsonData = async () => {
 }
 
 // 2 - chargement des données JSON au chargement de la page
+
 const chargementData = async () => {
   const data = await jsonData()
   fichesPhotographe(data)
@@ -31,11 +33,12 @@ const chargementData = async () => {
 document.addEventListener('DOMContentLoaded', chargementData)
 
 // 3 - Stocker data.photographers dans une constante (?)
+
 // const dataPhotographes = jsonData()
 // console.log(dataPhotographes)
 
 // 4 - Générer les éléments HTML individuellement
-//
+
 // BTN CONTENU-PRINCIPAL
 // display seulement si scroll(x)
 //
@@ -45,6 +48,12 @@ document.addEventListener('DOMContentLoaded', chargementData)
 //   <a class="btn-contenu-principal" href="#contenu-principal" aria-hidden="true">Passer au contenu</a>
 //   `
 //   corpsPage.prepend(btnRetour)
+//   window.addEve ntListener('scroll', () =>{
+//   corpsPage.scrollTop <= 200 ? button.classList.add('hidden') : button.classList.remove('hidden')
+// })
+//   btnRetour.addEventListener('click', () => {
+//  corpsPage.scrollTop = 0
+// })
 // }
 
 //
@@ -95,7 +104,17 @@ templateHeader()
 //   console.log('templateMain généré')
 // }
 
-// génération de la liste des fiches photographe
+// hashtags des fiches photographe
+const listeTag = (tags) => {
+  return `
+  <ul class="nav-par-tag" >
+  ${tags.map((tag) =>
+   `<li class="tag-entree"><a href="#"><span aria-label="hashtag">#</span>${tag}</a></li>`
+  ).join('')}
+  </ul>`
+}
+
+// template complet d'une fiche photographe
 const templateFiche = (photographe) => {
   return `<li class="photographe-profil">
     <a href="photographer${photographe.id}.html">
@@ -111,23 +130,16 @@ const templateFiche = (photographe) => {
     </li>`
 }
 
-// hashtags des fiches photographe
-const listeTag = (tags) => {
-  return `
-  <ul class="nav-par-tag" >
-  ${tags.map((tag) =>
-   `<li class="tag-entree"><a href="#"><span aria-label="hashtag">#</span>${tag}</a></li>`
-  ).join('')}
-  </ul>`
-}
-
 const fichesPhotographe = (data) => {
+  // création du conteneur ul
   const photographesGalerie = document.createElement('ul')
   photographesGalerie.classList.add('photographes-galerie')
   corpsContenuPage.append(photographesGalerie)
 
+  // appel du template de la fiche pour chaque photographe
   const dataFiche = data.photographers.map(templateFiche).join('')
 
+  // ajout de chaque fiche au conteneur
   photographesGalerie.innerHTML = dataFiche
   console.log('fiches photographe générées')
 }
