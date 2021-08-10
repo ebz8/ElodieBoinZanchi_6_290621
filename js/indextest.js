@@ -28,7 +28,8 @@ const jsonData = async () => {
 
 const chargementData = async () => {
   const data = await jsonData()
-  fichesPhotographe(data)
+  constructeurIndex(data)
+  console.log(data.photographers.tags)
 }
 document.addEventListener('DOMContentLoaded', chargementData)
 
@@ -42,50 +43,55 @@ document.addEventListener('DOMContentLoaded', chargementData)
 // BTN CONTENU-PRINCIPAL
 // display seulement si scroll(x)
 //
-// const btnRetourMain = () => {
-//   const btnRetour = document.createElement('a')
-//   btnRetour.innerHTML = `
-//   <a class="btn-contenu-principal" href="#contenu-principal" aria-hidden="true">Passer au contenu</a>
-//   `
-//   corpsPage.prepend(btnRetour)
-//   window.addEve ntListener('scroll', () =>{
-//   corpsPage.scrollTop <= 200 ? button.classList.add('hidden') : button.classList.remove('hidden')
-// })
-//   btnRetour.addEventListener('click', () => {
-//  corpsPage.scrollTop = 0
-// })
-// }
+const btnRetourMain = () => {
+  // création du bouton
+  console.log('execution btnRetourMain')
+  const btnRetour = document.createElement('a')
+  btnRetour.classList.add('btn-contenu-principal')
+  btnRetour.setAttribute('href', '#contenu-principal')
+  btnRetour.innerText = 'Passer au contenu'
+  corpsPage.prepend(btnRetour)
+
+  // gestion du scroll
+  window.addEventListener('scroll', () => {
+    window.scrollTop < 100 ? btnRetour.setAttribute('aria-hidden', 'true') : btnRetour.removeAttribute('aria-hidden')
+  })
+
+  // gestion du clic
+  btnRetour.addEventListener('click', () => {
+    window.scrollTop = 0
+  })
+}
 
 //
 // HEADER
 //
-const templateHeader = () => {
+// navigation par tag
+const templateTags = (tags) => {
+  console.log('execution de templateTag')
+  return `
+    <ul class="nav-par-tag" >
+    ${tags.filters((tag) => (tags === 'tags').map((tag)=>
+    `<li class="tag-entree"><a href="#"><span aria-label="hashtag">#</span>${tag}</a></li>`
+    ).join(''))}
+    </ul>`
+}
+
+const templateHeader = (data) => {
   const header = document.createElement('header')
   header.classList.add('banniere')
   header.innerHTML = `
         <a href="index.html">
             <img class="logo" src="resources/img/logo.png" alt="FishEye : page d'accueil">
         </a>
-
         <nav aria-label="trier les photographes par categories">
-        
+          ${templateTags(data)}
         </nav>
         <h1 tabindex="0">Nos photographes</h1>
 `
   corpsPage.prepend(header)
   console.log('templateHeader généré')
 }
-templateHeader()
-
-// // navigation par tag
-// function navTag (tags) {
-//   return `
-//   <ul class="nav-par-tag" >
-//   ${tags.filter().map((tag) =>
-//    `<li class="tag-entree"><a href="#"><span aria-label="hashtag">#</span>${tag}</a></li>`
-//   ).join('')}
-//   </ul>`
-// }
 
 //
 // MAIN
@@ -105,7 +111,7 @@ templateHeader()
 // }
 
 // hashtags des fiches photographe
-const listeTag = (tags) => {
+const tagsParPhotographe = (tags) => {
   return `
   <ul class="nav-par-tag" >
   ${tags.map((tag) =>
@@ -126,7 +132,7 @@ const templateFiche = (photographe) => {
                       <p class="accroche">${photographe.tagline}</p>
                       <span class="tarif">${photographe.price}€</span><span class="tarif" aria-label="par jour">/jour</span>
                   </div>
-                  ${listeTag(photographe.tags)}
+                  ${tagsParPhotographe(photographe.tags)}
     </li>`
 }
 
@@ -144,4 +150,11 @@ const fichesPhotographe = (data) => {
   console.log('fiches photographe générées')
 }
 
-// 5 - Fonctionnalité trier par tag
+// 5 - Génération générale de l'index
+const constructeurIndex = (data) => {
+  btnRetourMain()
+  // templateHeader(data)
+  fichesPhotographe(data)
+}
+
+// 6 - Fonctionnalité trier par tag
