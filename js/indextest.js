@@ -67,30 +67,38 @@ const btnRetourMain = () => {
 // HEADER
 //
 // navigation par tag
+// const templateTags = (tag) => {
+//   console.log('execution de templateTag')
+//   console.log(tag)
+//   return `<li class="tag-entree"><a href="#"><span aria-label="hashtag">#</span>${tag}</a></li>`
+// }
+
 const templateTags = (tags) => {
-  console.log('execution de templateTag')
   return `
-    <ul class="nav-par-tag" >
-    ${tags.filters((tag) => (tags === 'tags').map((tag)=>
-    `<li class="tag-entree"><a href="#"><span aria-label="hashtag">#</span>${tag}</a></li>`
-    ).join(''))}
-    </ul>`
+  <ul class="nav-par-tag" >
+  ${tags.map((tag) =>
+   `<li class="tag-entree"><a href="#"><span aria-label="hashtag">#</span>${tag}</a></li>`
+  ).join('')}
+  </ul>`
 }
 
 const templateHeader = (data) => {
   const header = document.createElement('header')
   header.classList.add('banniere')
   header.innerHTML = `
+  <ul class="nav-par-tag" >
         <a href="index.html">
             <img class="logo" src="resources/img/logo.png" alt="FishEye : page d'accueil">
         </a>
         <nav aria-label="trier les photographes par categories">
-          ${templateTags(data)}
+          ${data.photographers.tags.map(templateTags).join('')}
         </nav>
         <h1 tabindex="0">Nos photographes</h1>
+  </ul>
 `
   corpsPage.prepend(header)
   console.log('templateHeader généré')
+  console.log(data.photographers.tag[0])
 }
 
 //
@@ -153,7 +161,7 @@ const fichesPhotographe = (data) => {
 // 5 - Génération générale de l'index
 const constructeurIndex = (data) => {
   btnRetourMain()
-  // templateHeader(data)
+  templateHeader(data)
   fichesPhotographe(data)
 }
 
