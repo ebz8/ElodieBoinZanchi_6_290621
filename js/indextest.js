@@ -73,16 +73,15 @@ const btnRetourMain = () => {
 //   return `<li class="tag-entree"><a href="#"><span aria-label="hashtag">#</span>${tag}</a></li>`
 // }
 
-const templateTags = (tags) => {
+const templateNavTags = (tag) => {
   return `
-  <ul class="nav-par-tag" >
-  ${tags.map((tag) =>
-   `<li class="tag-entree"><a href="#"><span aria-label="hashtag">#</span>${tag}</a></li>`
-  ).join('')}
-  </ul>`
+  <li class="tag-entree"><a href="#"><span aria-label="hashtag">#</span>${tag}</a></li>`
 }
 
 const templateHeader = (data) => {
+  const allTags = data.photographers.map(tag => `${tag.tags}`)
+  console.log(allTags)
+
   const header = document.createElement('header')
   header.classList.add('banniere')
   header.innerHTML = `
@@ -91,14 +90,13 @@ const templateHeader = (data) => {
             <img class="logo" src="resources/img/logo.png" alt="FishEye : page d'accueil">
         </a>
         <nav aria-label="trier les photographes par categories">
-          ${data.photographers.tags.map(templateTags).join('')}
+          ${allTags.map(templateNavTags).join('')}
         </nav>
         <h1 tabindex="0">Nos photographes</h1>
   </ul>
 `
   corpsPage.prepend(header)
   console.log('templateHeader généré')
-  console.log(data.photographers.tag[0])
 }
 
 //
