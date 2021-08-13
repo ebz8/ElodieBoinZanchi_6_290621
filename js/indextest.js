@@ -51,10 +51,12 @@ const btnRetourMain = () => {
   btnRetour.setAttribute('href', '#contenu-principal')
   btnRetour.innerText = 'Passer au contenu'
   corpsPage.prepend(btnRetour)
+  btnRetour.setAttribute('aria-hidden', 'true')
 
   // gestion du scroll
   window.addEventListener('scroll', () => {
-    window.scrollTop < 100 ? btnRetour.setAttribute('aria-hidden', 'true') : btnRetour.removeAttribute('aria-hidden')
+    console.log(window.scrollY)
+    window.scrollY > 200 ? btnRetour.removeAttribute('aria-hidden') : btnRetour.setAttribute('aria-hidden', 'true')
   })
 
   // gestion du clic
