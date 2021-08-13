@@ -55,7 +55,7 @@ const btnRetourMain = () => {
 
   // gestion du scroll
   window.addEventListener('scroll', () => {
-    console.log(window.scrollY)
+    // console.log(window.scrollY)
     window.scrollY > 200 ? btnRetour.removeAttribute('aria-hidden') : btnRetour.setAttribute('aria-hidden', 'true')
   })
 
@@ -137,7 +137,7 @@ const tagsParPhotographe = (tags) => {
 // template complet d'une fiche photographe
 const templateFiche = (photographe) => {
   return `<li class="photographe-profil">
-    <a href="photographer${photographe.id}.html">
+    <a href="testpagephotographe.html?id=${photographe.id}">
                       <img class="vignette" src="resources/img/photographers/IDphotos/${photographe.portrait}" alt=" "/>
                       <h2 class="nom">${photographe.name}</h2>
                   </a>
