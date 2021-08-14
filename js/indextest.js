@@ -81,27 +81,30 @@ const templateNavTags = (tag) => {
 }
 
 const templateHeader = (data) => {
-  const tableauTags = data.photographers.map(tag => `${tag.tags}`)
+  let tableauTags = []
+  data.photographers.map(tag => {
+    tag.tags.map(tag => tableauTags.push(tag))
+  })
   // const tagUnique = new Set(tableauTags)
   // const listeTags = [...tagUnique]
 
-  const listeTags = tableauTags.filter((item, index) => tableauTags.indexOf(item) !== index)
+  let listeTags = tableauTags.filter((item, index) => tableauTags.indexOf(item) !== index)
 
-  console.log(tableauTags)
   console.log(listeTags)
 
   const header = document.createElement('header')
   header.classList.add('banniere')
   header.innerHTML = `
-  <ul class="nav-par-tag" >
         <a href="index.html">
             <img class="logo" src="resources/img/logo.png" alt="FishEye : page d'accueil">
         </a>
         <nav aria-label="trier les photographes par categories">
-          ${tableauTags.map(templateNavTags).join('')}
+        <ul class="nav-par-tag" >
+
+          ${listeTags.map(templateNavTags).join('')}
+        </ul>
         </nav>
         <h1 tabindex="0">Nos photographes</h1>
-  </ul>
 `
   corpsPage.prepend(header)
   console.log('templateHeader généré')
