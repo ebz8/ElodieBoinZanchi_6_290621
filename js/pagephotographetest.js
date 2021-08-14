@@ -77,7 +77,7 @@ const tagsParPhotographe = (tags) => {
   </ul>`
 }
 
-// création du bouton de contact 
+// création du bouton de contact
 // <!-- bouton de contact -->
 //           <button type="button"
 //           aria-haspopup="dialog" aria-controls="dialog"
@@ -86,7 +86,7 @@ const tagsParPhotographe = (tags) => {
 //           </button>
 
 const templateBannierePhotographe = (photographe) => {
-  return `<div class="banniere-photographe">
+  return `
   <div class="photographe-profil">
           <h1 class="nom" tabindex="0">${photographe.name}</h1>
           <div tabindex="0">
@@ -97,9 +97,16 @@ const templateBannierePhotographe = (photographe) => {
 
           ${tagsParPhotographe(photographe.tags)}
 
+          <!-- bouton de contact -->
+          <button type="button"
+          aria-haspopup="dialog" aria-controls="dialog"
+          id="btn-modale" class="btn-formulaire btn-principal">
+              Contactez-moi
+          </button>
+
   </div>
       <img class="vignette" src="resources/img/photographers/IDphotos/MimiKeel.jpg" alt="" tabindex="0"/>
-</div>`
+`
 }
 
 const bannierePhotographe = (currentPhotographe) => {
