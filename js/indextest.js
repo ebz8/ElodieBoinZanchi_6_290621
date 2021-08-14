@@ -81,16 +81,15 @@ const templateNavTags = (tag) => {
 }
 
 const templateHeader = (data) => {
+  // récupération des tags dans un tableau vide
   let tableauTags = []
   data.photographers.map(tag => {
     tag.tags.map(tag => tableauTags.push(tag))
   })
+
+  // tri et suppression des doublons :
   const tagUnique = new Set(tableauTags)
   const listeTags = [...tagUnique]
-
-  // let listeTags = tableauTags.filter((item, index) => tableauTags.indexOf(item) !== index)
-
-  console.log(listeTags)
 
   const header = document.createElement('header')
   header.classList.add('banniere')
