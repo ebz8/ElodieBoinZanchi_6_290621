@@ -24,31 +24,30 @@ const jsonData = async () => {
   }
 }
 // 3 - récupération de l'ID
-
 const queryString = window.location.search
 const urlParams = new URLSearchParams(queryString)
 const photographeID = urlParams.get('id')
-console.log(photographeID)
+console.log(`récupération de l'ID : ${photographeID}`)
 
 // 2 - chargement des données JSON au chargement de la page
+// stockées dans currentPhotographe et currentPhotographeMedias
 
 const chargementData = async () => {
   const data = await jsonData()
-  console.log(data)
+  const photographe = data.photographers
+  const mediasPhotographe = data.media
 
-  const photographer = data.photographers
-  const mediasPhotographer = data.media
-
-  for (const i in photographer) {
-    if (photographer[i].id == photographeID) {
-      for (const j in mediasPhotographer) {
-        if (mediasPhotographer[j].photographerId == photographeID) {
-          const currentPhotographeMedias = mediasPhotographer[j]
+  for (const i in photographe) {
+    if (photographe[i].id == photographeID) {
+      for (const j in mediasPhotographe) {
+        if (mediasPhotographe[j].photographerId == photographeID) {
+          const currentPhotographeMedias = mediasPhotographe[j]
           console.log(currentPhotographeMedias)
         }
       }
-      const currentPhotographe = photographer[i]
-    //   constructeurPagePhotographe(currentPhotographe, currentPhotographeMedias)
+      const currentPhotographe = photographe[i]
+      console.log(`photographe actuel : ${photographeID}`)
+      //   constructeurPagePhotographe(currentPhotographe, currentPhotographeMedias)
     }
   }
 }
