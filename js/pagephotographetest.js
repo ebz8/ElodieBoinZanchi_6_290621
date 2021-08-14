@@ -1,3 +1,12 @@
+
+// TODO :
+// Pour créer les PAGES PHOTOGRAPHE :
+// Récupérer les données json et les stocker
+// Générer les composants de la bannière (dont formulaire)
+// Générer la bannière
+// Bouton trier par + fonctionnalité de tri
+// Générer les composants de profil-galerie (afficher medias et composant lightbox)
+
 // éléments du DOM
 const corpsPage = document.querySelector('.js-page')
 const corpsContenuPage = document.querySelector('.js-document')
