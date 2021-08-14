@@ -85,10 +85,10 @@ const templateHeader = (data) => {
   data.photographers.map(tag => {
     tag.tags.map(tag => tableauTags.push(tag))
   })
-  // const tagUnique = new Set(tableauTags)
-  // const listeTags = [...tagUnique]
+  const tagUnique = new Set(tableauTags)
+  const listeTags = [...tagUnique]
 
-  let listeTags = tableauTags.filter((item, index) => tableauTags.indexOf(item) !== index)
+  // let listeTags = tableauTags.filter((item, index) => tableauTags.indexOf(item) !== index)
 
   console.log(listeTags)
 
