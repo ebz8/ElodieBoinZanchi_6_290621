@@ -752,6 +752,7 @@ TODO:
 .banniere nav .nav-par-tag {
   width: 100%;
   flex-flow: row wrap;
+  text-transform: capitalize;
 }
 .banniere h1 {
   display: inline;

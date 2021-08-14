@@ -102,7 +102,7 @@ const templateHeader = (data) => {
         <ul class="nav-par-tag" >
 
           ${listeTags.map(templateNavTags).join('')}
-        </ul>
+          </ul>
         </nav>
         <h1 tabindex="0">Nos photographes</h1>
 `
