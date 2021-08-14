@@ -105,7 +105,7 @@ const templateBannierePhotographe = (photographe) => {
           </button>
 
   </div>
-      <img class="vignette" src="resources/img/photographers/IDphotos/MimiKeel.jpg" alt="" tabindex="0"/>
+      <img class="vignette" src="resources/img/photographers/IDphotos/${photographe.portrait}" alt="" tabindex="0"/>
 `
 }
 
