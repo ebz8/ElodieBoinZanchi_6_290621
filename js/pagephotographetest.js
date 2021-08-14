@@ -119,8 +119,21 @@ const bannierePhotographe = (currentPhotographe) => {
   // ajout du composant au conteneur
 }
 
+const blocFixe = (photographe) => {
+  const conteneurBlocFixe = document.createElement('div')
+  conteneurBlocFixe.classList.add('bloc-fixe')
+  corpsContenuPage.appendChild(conteneurBlocFixe)
+  conteneurBlocFixe.innerHTML = `
+  <div class="bloc-fixe" tabindex="0">
+                <p class="compteur-likes">297 081 <span class="icone-like" aria-label="j'aime"><i class="fas fa-heart"></i></span></p>
+                <span class="tarif">${photographe.price}€ /jour</span>
+          </div>
+  `
+}
+
 // 4 - Génération de la page
 const constructeurPagePhotographe = (currentPhotographe) => {
   templateHeader()
   bannierePhotographe(currentPhotographe)
+  blocFixe(currentPhotographe)
 }
