@@ -333,7 +333,6 @@ const formulaireTemplate = (photographe) => {
   const corpsFormulaire = document.querySelector('.modale-formulaire')
   const contenuFormulaire = document.querySelector('.formulaire-contenu')
   const btnOuvrirFormulaire = document.querySelector('#btn-modale')
-  console.log(btnOuvrirFormulaire)
   const btnFermerFormulaire = document.querySelector('.modale-formulaire .btn-fermeture')
 
   const formChamps = document.forms['formulaire-contact']
@@ -374,89 +373,89 @@ const formulaireTemplate = (photographe) => {
   function formulaireFermeture () {
     corpsFormulaire.setAttribute('aria-hidden', 'true')
     corpsContenuPage.setAttribute('aria-hidden', 'false')
-    corpsBody.style.overflow = 'scroll'
+    corpsPage.style.overflow = 'scroll'
     btnOuvrirFormulaire.focus()
   }
   btnFermerFormulaire.addEventListener('click', formulaireFermeture)
 
   // ////////////////////////
-// NAVIGATION AU CLAVIER //
-// ////////////////////////
+  // NAVIGATION AU CLAVIER //
+  // ////////////////////////
 
-// quitter avec échap
-corpsFormulaire.addEventListener('keydown', (e) => {
-  if (e.which === touchesClavier.echap) {
-    formulaireFermeture()
-  }
-})
-
-// gestion du focus avec tab
-window.setTimeout(() => {
-  // focus à l'intérieur de la modale
-  champsFocusables.forEach((champsFocusable) => {
-    if (champsFocusable.addEventListener) {
-      champsFocusable.addEventListener('keydown', (e) => {
-        const tab = e.which === touchesClavier.tab
-
-        if (!tab) {
-          return
-        }
-
-        if (e.touchesClavier) {
-          if (e.target === premierElementFocusable) { // shift + tab
-            e.preventDefault()
-
-            dernierElementFocusable.focus()
-          }
-        } else if (e.target === dernierElementFocusable) { // tab
-          e.preventDefault()
-
-          premierElementFocusable.focus()
-        }
-      })
+  // quitter avec échap
+  corpsFormulaire.addEventListener('keydown', (e) => {
+    if (e.which === touchesClavier.echap) {
+      formulaireFermeture()
     }
   })
-}, 100)
 
-// ///////////////////////
-// GESTION DE LA SAISIE //
-// ///////////////////////
+  // gestion du focus avec tab
+  window.setTimeout(() => {
+  // focus à l'intérieur de la modale
+    champsFocusables.forEach((champsFocusable) => {
+      if (champsFocusable.addEventListener) {
+        champsFocusable.addEventListener('keydown', (e) => {
+          const tab = e.which === touchesClavier.tab
 
-btnEnvoiFormulaire.addEventListener('click', function (e) {
-  e.preventDefault()
+          if (!tab) {
+            return
+          }
 
-  let typeErreur
-  // vérifier la validité des infos saisies
-  if (regexNom.test(formChamps.prenom.value) === false) {
-    typeErreur = 'Veuillez saisir un prénom valide : deux caractères minimum et chiffres interdits.'
-  } else if (regexNom.test(formChamps.nom.value) === false) {
-    typeErreur = 'Veuillez saisir un nom valide : deux caractères minimum et chiffres interdits.'
-  } else if (regexMail.test(formChamps.email.value) === false) {
-    typeErreur = 'Veuillez saisir un email valide : doit correspondre au format mail@mail.com.'
-  }
-  // vérifier que les champs ne sont pas vides
-  for (let i = 0; i < formChamps.length; i++) {
-    if (!formChamps[i].value) {
-      typeErreur = 'Veuillez renseigner tous les champs.'
-    }
-  }
-  // si erreur de saisie, affichage message d'erreur spécifique
-  if (typeErreur) {
+          if (e.touchesClavier) {
+            if (e.target === premierElementFocusable) { // shift + tab
+              e.preventDefault()
+
+              dernierElementFocusable.focus()
+            }
+          } else if (e.target === dernierElementFocusable) { // tab
+            e.preventDefault()
+
+            premierElementFocusable.focus()
+          }
+        })
+      }
+    })
+  }, 100)
+
+  // ///////////////////////
+  // GESTION DE LA SAISIE //
+  // ///////////////////////
+
+  btnEnvoiFormulaire.addEventListener('click', function (e) {
     e.preventDefault()
-    messageErreur.innerHTML = typeErreur
-    messageErreur.classList.add('erreur-saisie--active')
-  } else {
-    // afficher les données saisies puis effacer le formulaire
-    for (let i = 0; i < formChamps.length - 1; i++) {
-      console.log(formChamps[i].value)
-      formChamps[i].value = ''
+
+    let typeErreur
+    // vérifier la validité des infos saisies
+    if (regexNom.test(formChamps.prenom.value) === false) {
+      typeErreur = 'Veuillez saisir un prénom valide : deux caractères minimum et chiffres interdits.'
+    } else if (regexNom.test(formChamps.nom.value) === false) {
+      typeErreur = 'Veuillez saisir un nom valide : deux caractères minimum et chiffres interdits.'
+    } else if (regexMail.test(formChamps.email.value) === false) {
+      typeErreur = 'Veuillez saisir un email valide : doit correspondre au format mail@mail.com.'
     }
-    messageErreur.innerHTML = ' '
-    // message de confirmation et fermeture de la fenêtre
-    alert('Votre message a bien été envoyé.')
-    formulaireFermeture()
-  }
-})
+    // vérifier que les champs ne sont pas vides
+    for (let i = 0; i < formChamps.length; i++) {
+      if (!formChamps[i].value) {
+        typeErreur = 'Veuillez renseigner tous les champs.'
+      }
+    }
+    // si erreur de saisie, affichage message d'erreur spécifique
+    if (typeErreur) {
+      e.preventDefault()
+      messageErreur.innerHTML = typeErreur
+      messageErreur.classList.add('erreur-saisie--active')
+    } else {
+    // afficher les données saisies puis effacer le formulaire
+      for (let i = 0; i < formChamps.length - 1; i++) {
+        console.log(formChamps[i].value)
+        formChamps[i].value = ''
+      }
+      messageErreur.innerHTML = ' '
+      // message de confirmation et fermeture de la fenêtre
+      alert('Votre message a bien été envoyé.')
+      formulaireFermeture()
+    }
+  })
 
 }
 
