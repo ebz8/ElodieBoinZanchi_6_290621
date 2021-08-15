@@ -34,24 +34,29 @@ console.log(`récupération de l'ID : ${photographeID}`)
 
 const chargementData = async () => {
   const data = await jsonData()
-  const photographe = data.photographers
+  const photographes = data.photographers
   const mediasPhotographe = data.media
   // const currentPhotographeMedias = []
 
-  for (const i in photographe) {
-    if (photographe[i].id == photographeID) {
-      for (const x in mediasPhotographe) {
-        if (mediasPhotographe[x].photographerId == photographeID) {
-          const currentPhotographeMedias = mediasPhotographe[x]
-          console.log(currentPhotographeMedias)
-        }
-      }
-      const currentPhotographe = photographe[i]
-      console.log(`photographe actuel : ${photographeID}`)
-            // constructeurPagePhotographe(currentPhotographe, currentPhotographeMedias)
+  const currentPhotographe = photographes.find((photographe) => photographe.id == photographeID)
+  console.log(currentPhotographe)
+
+  const 
+
+  // for (let i in photographe) {
+  //   if (photographe[i].id == photographeID) {
+  //     for (let x in mediasPhotographe) {
+  //       if (mediasPhotographe[x].photographerId == photographeID) {
+  //         const currentPhotographeMedias = mediasPhotographe[x]
+  //         // console.log(currentPhotographeMedias)
+  //       }
+  //     }
+      // const currentPhotographe = photographe[i]
+      // console.log(`photographe actuel : ${photographeID}`)
+      // constructeurPagePhotographe(currentPhotographe, currentPhotographeMedias)
       constructeurPagePhotographe(currentPhotographe)
-    }
-  }
+  //   }
+  // }
 }
 document.addEventListener('DOMContentLoaded', chargementData)
 
