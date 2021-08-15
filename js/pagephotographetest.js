@@ -1,3 +1,4 @@
+/* eslint-disable eqeqeq */
 
 // TODO :
 // Pour créer les PAGES PHOTOGRAPHE :
@@ -23,7 +24,8 @@ const jsonData = async () => {
     console.log('Erreur dans le chargement des données. ' + ('( ') + erreur + (' )'))
   }
 }
-// 3 - récupération de l'ID
+// 3 - récupération de l'ID du photographe en cours
+
 const queryString = window.location.search
 const urlParams = new URLSearchParams(queryString)
 const photographeID = urlParams.get('id')
@@ -39,16 +41,15 @@ const chargementData = async () => {
 
   // récupération du photographe en cours
   const currentPhotographe = photographes.find((photographe) => photographe.id == photographeID)
-  console.log(currentPhotographe)
+  // console.log(currentPhotographe)
 
   // récupération des médias associés au photographe
   const currentPhotographeMedias = mediasPhotographe.filter((media) => media.photographerId == photographeID)
-  console.log(currentPhotographeMedias)
+  // console.log(currentPhotographeMedias)
 
-  constructeurPagePhotographe(currentPhotographe)
-  //   }
-  // }
+  constructeurPagePhotographe(currentPhotographe, currentPhotographeMedias)
 }
+// appel de la fonction de chargement des données au chargement de la page
 document.addEventListener('DOMContentLoaded', chargementData)
 
 // 3 - Génération des composants de la page
@@ -72,14 +73,6 @@ const tagsParPhotographe = (tags) => {
   ).join('')}
   </ul>`
 }
-
-// création du bouton de contact
-// <!-- bouton de contact -->
-//           <button type="button"
-//           aria-haspopup="dialog" aria-controls="dialog"
-//           id="btn-modale" class="btn-formulaire btn-principal">
-//               Contactez-moi
-//           </button>
 
 const templateBannierePhotographe = (photographe) => {
   return `
@@ -121,15 +114,53 @@ const blocFixe = (photographe) => {
   corpsContenuPage.appendChild(conteneurBlocFixe)
   conteneurBlocFixe.innerHTML = `
   <div class="bloc-fixe" tabindex="0">
-                <p class="compteur-likes">297 081 <span class="icone-like" aria-label="j'aime"><i class="fas fa-heart"></i></span></p>
-                <span class="tarif">${photographe.price}€ /jour</span>
-          </div>
+    <p class="compteur-likes">297 081 <span class="icone-like" aria-label="j'aime"><i class="fas fa-heart"></i></span></p>
+    <span class="tarif">${photographe.price}€ /jour</span>
+  </div>
   `
 }
 
+const templateItemGalerie = (figure) => {
+  console.log('template Item Galerie')
+  console.log(figure)
+  return `
+  <figure class="apercu-photo">
+                    <a href="#">
+                        <img src="resources/img/photographers/Mimi/${figure.image}" alt="${figure.description}">
+                    </a>
+                    <figcaption>
+                        <p class="photo-titre" tabindex="0">${figure.title}</p>
+                        <div class="likes">
+                            <p class="likes__nombre" tabindex="0">12</p>
+                            <button class="icone-like" aria-label="j'aime">
+                                <i class="fas fa-heart" tabindex="-1"></i>
+                            </button> 
+                        </div>
+                    </figcaption>
+                </figure>
+`
+}
+
+const photographeGalerie = (photographe, figure) => {
+  // création du conteneur div
+  const conteneurGalerie = document.createElement('div')
+  conteneurGalerie.classList.add('profil-galerie')
+  corpsContenuPage.appendChild(conteneurGalerie)
+
+  // appel du template de la fiche pour chaque photographe
+  const dataFiche = figure.map(templateItemGalerie).join('')
+
+  // ajout de chaque fiche au conteneur
+  conteneurGalerie.innerHTML = dataFiche
+}
+
 // 4 - Génération de la page
-const constructeurPagePhotographe = (currentPhotographe) => {
+const constructeurPagePhotographe = (currentPhotographe, currentPhotographeMedias) => {
   templateHeader()
   bannierePhotographe(currentPhotographe)
   blocFixe(currentPhotographe)
+  photographeGalerie(currentPhotographe, currentPhotographeMedias)
+
+  console.log('chargement général')
+  console.log(currentPhotographeMedias)
 }
