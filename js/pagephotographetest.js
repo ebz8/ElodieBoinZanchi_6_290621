@@ -133,7 +133,7 @@ const templateItemGalerie = (figure) => {
                     <figcaption>
                         <p class="photo-titre" tabindex="0">${figure.title}</p>
                         <div class="likes">
-                            <p class="likes__nombre" tabindex="0">12</p>
+                            <p class="likes__nombre" tabindex="0">${figure.likes}</p>
                             <button class="icone-like" aria-label="j'aime">
                                 <i class="fas fa-heart" tabindex="-1"></i>
                             </button> 
@@ -154,7 +154,7 @@ const templateItemGalerie = (figure) => {
                     <figcaption>
                         <p class="photo-titre" tabindex="0">Wild horses in the mountains</p>
                         <div class="likes" tabindex="0">
-                            <p class="likes__nombre">12</p>
+                            <p class="likes__nombre">${figure.likes}</p>
                             <span class="icone-like" aria-label="j'aime">
                                 <i class="fas fa-heart" ></i>
                             </span> 
