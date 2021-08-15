@@ -12,7 +12,17 @@
 const corpsPage = document.querySelector('.js-page')
 const corpsContenuPage = document.querySelector('.js-document')
 
-// 1 - récupération des données JSON
+const touchesClavier = {
+  tab: 9,
+  enter: 13,
+  echap: 27
+}
+
+/**
+---------------------------------------
+1 - récupération des donnée JSON
+---------------------------------------
+*/
 
 const apiUrl = 'js/data/fisheyedata.json'
 const jsonData = async () => {
@@ -24,7 +34,12 @@ const jsonData = async () => {
     console.log('Erreur dans le chargement des données. ' + ('( ') + erreur + (' )'))
   }
 }
-// 3 - récupération de l'ID du photographe en cours
+
+/**
+----------------------------------------------------
+2 - récupération de l'ID du photographe en cours
+----------------------------------------------------
+*/
 
 const queryString = window.location.search
 const urlParams = new URLSearchParams(queryString)
@@ -52,7 +67,11 @@ const chargementData = async () => {
 // appel de la fonction de chargement des données au chargement de la page
 document.addEventListener('DOMContentLoaded', chargementData)
 
-// 3 - Génération des composants de la page
+/**
+----------------------------------------------------
+3 - Composants de la page
+----------------------------------------------------
+*/
 
 const templateHeader = (data) => {
   const header = document.createElement('header')
@@ -120,8 +139,32 @@ const blocFixe = (photographe) => {
   `
 }
 
-// ici rajouter une condition : if jpg ... ou if vidéo
-// const isImage = (media) => media.image !== undefined;
+const sectionTrierPar = (photographe, figure) => {
+  // création du conteneur div
+  const conteneurSection = document.createElement('div')
+  conteneurSection.classList.add('trier-par')
+  corpsContenuPage.appendChild(conteneurSection)
+
+  // ajout de chaque fiche au conteneur
+  conteneurSection.innerHTML = `<p tabindex="0">Trier par</p>
+  <div class="select" tabindex="0">
+      <button></button>
+      <div class="options">
+          <input id="popularite" name="select" type="radio" value="popularite"
+          aria-checked="ok" checked>
+          <label for="popularite" style="--index: 1">Popularité</label>
+          <input id="date" name="select" type="radio" value="date">
+          <label for="date" style="--index: 2">Date</label>
+          <input id="titre" name="select" type="radio" value="titre">
+          <label for="titre" style="--index: 3">Titre</label>
+  
+          <svg viewBox="0 0 24 24">
+              <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"></path>
+          </svg>
+      </div>
+  </div>`
+}
+
 const templateItemGalerie = (figure) => {
   // si image :
   if (figure.image !== undefined) {
@@ -141,7 +184,7 @@ const templateItemGalerie = (figure) => {
                     </figcaption>
                 </figure>
 `
-// si vidéo :
+  // si vidéo :
   } else {
     return `
   <figure class="apercu-photo">
@@ -178,12 +221,259 @@ const photographeGalerie = (photographe, figure) => {
   conteneurGalerie.innerHTML = dataFiche
 }
 
-// 4 - Génération de la page
+/**
+----------------------------------------------------
+3.1 - Formulaire et fonctionnalités
+----------------------------------------------------
+*/
+// formulaire
+
+const formulaireTemplate = (photographe) => {
+  // création du conteneur div
+  const sectionFormulaire = document.createElement('section')
+  sectionFormulaire.classList.add('modale-formulaire')
+  sectionFormulaire.setAttribute('id', 'dialog')
+  sectionFormulaire.setAttribute('role', 'dialog')
+  sectionFormulaire.setAttribute('aria-labelledby', 'titre-formulaire')
+  sectionFormulaire.setAttribute('aria-modal', 'true')
+  sectionFormulaire.setAttribute('aria-hidden', 'true')
+
+
+  corpsContenuPage.appendChild(sectionFormulaire)
+  
+  // ajout de chaque fiche au conteneur
+  sectionFormulaire.innerHTML = `
+          <!-- <h2 class="hidden">Formulaire de contact</h2> -->
+
+            <div role="document" class="formulaire-contenu">
+
+                <button type="button" aria-label="Fermer la fenêtre de dialogue"
+                data-dismiss="dialog"
+                class="btn-fermeture">
+                </button>
+
+                <!-- titre perso du formulaire -->
+                <div id="titre-formulaire">
+                    <h1>Contactez moi
+                    <br>${photographe.name}</h1>
+                </div>
+                
+
+                <form action="/" method="GET" class="formulaire" name="formulaire-contact">
+
+                    <div class="champ-formulaire">
+                        <label for="prenom">Prénom</label>
+                        <input
+                        class="text-control"
+                        type="text"
+                        id="prenom"
+                        name="prenom"
+                        title="Renseignez votre prénom."
+                        aria-required="true"
+                        autofocus
+                        />
+                    </div>
+
+                    <div class="champ-formulaire">
+                        <label for="nom">Nom</label>
+                        <input
+                        class="text-control"
+                        type="text"
+                        id="nom"
+                        name="nom"
+                        title="Renseignez votre nom."
+                        aria-required="true"
+                        />
+                    </div>
+
+                    <div class="champ-formulaire">
+                        <label for="email">Email</label>
+                        <input
+                        class="text-control"
+                        type="email"
+                        id="email"
+                        name="email"
+                        title="Renseignez votre email."
+                        aria-required="true"
+                        />
+                    </div>
+
+                    <div class="champ-formulaire">
+                        <label for="message">Message</label>
+                        <textarea
+                        class="text-control"
+                        id="message"
+                        name="message"
+                        title="Rédigez ici votre message adressé au photographe."
+                        aria-required="true">
+                        </textarea>
+                        
+
+                    </div>
+
+                    <!-- bouton d'envoi -->
+                    <input
+                      id="btn-envoi"
+                      type="submit"
+                      class="btn-principal"
+                      value="Envoyer"
+                      aria-label="Envoyer"
+                      aria-describedby="erreur-saisie"/>
+                      
+                      <!-- message d'erreur -->
+                    <span id= "erreur-saisie" class="erreur-saisie"
+                        role="alert" tabindex="0"></span>
+                        
+
+                </form>
+
+            </div>`
+
+  // éléments du DOM
+  const corpsFormulaire = document.querySelector('.modale-formulaire')
+  const contenuFormulaire = document.querySelector('.formulaire-contenu')
+  const btnOuvrirFormulaire = document.querySelector('#btn-modale')
+  console.log(btnOuvrirFormulaire)
+  const btnFermerFormulaire = document.querySelector('.modale-formulaire .btn-fermeture')
+
+  const formChamps = document.forms['formulaire-contact']
+  const btnEnvoiFormulaire = document.querySelector('#btn-envoi')
+  const messageErreur = document.querySelector('.erreur-saisie')
+
+  const tableauChampsFocusables = [
+    '[href]',
+    'button:not([disabled])',
+    'input:not([disabled])',
+    'select:not([disabled])',
+    'textarea:not([disabled])',
+    '[tabindex]:not([tabindex="-1"])'
+  ]
+
+  const champsFocusables = contenuFormulaire.querySelectorAll(tableauChampsFocusables)
+  const premierElementFocusable = champsFocusables[0]
+  const dernierElementFocusable = champsFocusables[champsFocusables.length - 1]
+
+  // expressions régulières
+  const regexNom = /^(?=[a-zA-ZéèîïÉÎÏ\s]{2,25}$)(?=[a-zA-Z\s])(?:([\w\s*?])\1?(?!\1))+$/
+  const regexMail = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
+
+  // //////////////////////////////////
+  // OUVERTURE ACCESSIBLE FORMULAIRE //
+  // //////////////////////////////////
+  function formulaireOuverture () {
+    corpsFormulaire.setAttribute('aria-hidden', 'false')
+    corpsContenuPage.setAttribute('aria-hidden', 'true')
+    corpsPage.style.overflow = 'hidden'
+    premierElementFocusable.focus()
+  }
+  btnOuvrirFormulaire.addEventListener('click', formulaireOuverture)
+
+  /////////////////////////////////////
+  // FERMETURE ACCESSIBLE FORMULAIRE //
+  /////////////////////////////////////
+  function formulaireFermeture () {
+    corpsFormulaire.setAttribute('aria-hidden', 'true')
+    corpsContenuPage.setAttribute('aria-hidden', 'false')
+    corpsBody.style.overflow = 'scroll'
+    btnOuvrirFormulaire.focus()
+  }
+  btnFermerFormulaire.addEventListener('click', formulaireFermeture)
+
+  // ////////////////////////
+// NAVIGATION AU CLAVIER //
+// ////////////////////////
+
+// quitter avec échap
+corpsFormulaire.addEventListener('keydown', (e) => {
+  if (e.which === touchesClavier.echap) {
+    formulaireFermeture()
+  }
+})
+
+// gestion du focus avec tab
+window.setTimeout(() => {
+  // focus à l'intérieur de la modale
+  champsFocusables.forEach((champsFocusable) => {
+    if (champsFocusable.addEventListener) {
+      champsFocusable.addEventListener('keydown', (e) => {
+        const tab = e.which === touchesClavier.tab
+
+        if (!tab) {
+          return
+        }
+
+        if (e.touchesClavier) {
+          if (e.target === premierElementFocusable) { // shift + tab
+            e.preventDefault()
+
+            dernierElementFocusable.focus()
+          }
+        } else if (e.target === dernierElementFocusable) { // tab
+          e.preventDefault()
+
+          premierElementFocusable.focus()
+        }
+      })
+    }
+  })
+}, 100)
+
+// ///////////////////////
+// GESTION DE LA SAISIE //
+// ///////////////////////
+
+btnEnvoiFormulaire.addEventListener('click', function (e) {
+  e.preventDefault()
+
+  let typeErreur
+  // vérifier la validité des infos saisies
+  if (regexNom.test(formChamps.prenom.value) === false) {
+    typeErreur = 'Veuillez saisir un prénom valide : deux caractères minimum et chiffres interdits.'
+  } else if (regexNom.test(formChamps.nom.value) === false) {
+    typeErreur = 'Veuillez saisir un nom valide : deux caractères minimum et chiffres interdits.'
+  } else if (regexMail.test(formChamps.email.value) === false) {
+    typeErreur = 'Veuillez saisir un email valide : doit correspondre au format mail@mail.com.'
+  }
+  // vérifier que les champs ne sont pas vides
+  for (let i = 0; i < formChamps.length; i++) {
+    if (!formChamps[i].value) {
+      typeErreur = 'Veuillez renseigner tous les champs.'
+    }
+  }
+  // si erreur de saisie, affichage message d'erreur spécifique
+  if (typeErreur) {
+    e.preventDefault()
+    messageErreur.innerHTML = typeErreur
+    messageErreur.classList.add('erreur-saisie--active')
+  } else {
+    // afficher les données saisies puis effacer le formulaire
+    for (let i = 0; i < formChamps.length - 1; i++) {
+      console.log(formChamps[i].value)
+      formChamps[i].value = ''
+    }
+    messageErreur.innerHTML = ' '
+    // message de confirmation et fermeture de la fenêtre
+    alert('Votre message a bien été envoyé.')
+    formulaireFermeture()
+  }
+})
+
+}
+
+
+/**
+----------------------------------------------------
+4 - Génération de la page
+----------------------------------------------------
+*/
+
 const constructeurPagePhotographe = (currentPhotographe, currentPhotographeMedias) => {
   templateHeader()
   bannierePhotographe(currentPhotographe)
   blocFixe(currentPhotographe)
+  sectionTrierPar()
   photographeGalerie(currentPhotographe, currentPhotographeMedias)
+  formulaireTemplate(currentPhotographe)
 
   console.log('chargement général')
   console.log(currentPhotographeMedias)
