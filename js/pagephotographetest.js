@@ -121,8 +121,11 @@ const blocFixe = (photographe) => {
 }
 
 // ici rajouter une condition : if jpg ... ou if vidéo
+// const isImage = (media) => media.image !== undefined;
 const templateItemGalerie = (figure) => {
-  return `
+  // si image :
+  if (figure.image !== undefined) {
+    return `
   <figure class="apercu-photo">
                     <a href="#">
                         <img src="resources/img/photographers/${figure.photographerId}/${figure.image}" alt="${figure.description}">
@@ -138,6 +141,28 @@ const templateItemGalerie = (figure) => {
                     </figcaption>
                 </figure>
 `
+// si vidéo :
+  } else {
+    return `
+  <figure class="apercu-photo">
+                    <a href="#">
+                        <video>
+                            <source src="resources/video/photographers/${figure.photographerId}/${figure.video}" alt="${figure.description}">
+                            <video alt="Chevaux dans la montagne" autoplay="" controls="" loop=""
+                        </video>
+                    </a>
+                    <figcaption>
+                        <p class="photo-titre" tabindex="0">Wild horses in the mountains</p>
+                        <div class="likes" tabindex="0">
+                            <p class="likes__nombre">12</p>
+                            <span class="icone-like" aria-label="j'aime">
+                                <i class="fas fa-heart" ></i>
+                            </span> 
+                        </div>
+                    </figcaption>
+                </figure>
+`
+  }
 }
 
 const photographeGalerie = (photographe, figure) => {
