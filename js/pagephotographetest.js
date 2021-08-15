@@ -122,7 +122,6 @@ const blocFixe = (photographe) => {
 
 // ici rajouter une condition : if jpg ... ou if vidéo
 const templateItemGalerie = (figure) => {
-  console.log('template Item Galerie')
   return `
   <figure class="apercu-photo">
                     <a href="#">
