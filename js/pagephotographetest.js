@@ -36,25 +36,16 @@ const chargementData = async () => {
   const data = await jsonData()
   const photographes = data.photographers
   const mediasPhotographe = data.media
-  // const currentPhotographeMedias = []
 
+  // récupération du photographe en cours
   const currentPhotographe = photographes.find((photographe) => photographe.id == photographeID)
   console.log(currentPhotographe)
 
-  const 
+  // récupération des médias associés au photographe
+  const currentPhotographeMedias = mediasPhotographe.filter((media) => media.photographerId == photographeID)
+  console.log(currentPhotographeMedias)
 
-  // for (let i in photographe) {
-  //   if (photographe[i].id == photographeID) {
-  //     for (let x in mediasPhotographe) {
-  //       if (mediasPhotographe[x].photographerId == photographeID) {
-  //         const currentPhotographeMedias = mediasPhotographe[x]
-  //         // console.log(currentPhotographeMedias)
-  //       }
-  //     }
-      // const currentPhotographe = photographe[i]
-      // console.log(`photographe actuel : ${photographeID}`)
-      // constructeurPagePhotographe(currentPhotographe, currentPhotographeMedias)
-      constructeurPagePhotographe(currentPhotographe)
+  constructeurPagePhotographe(currentPhotographe)
   //   }
   // }
 }
