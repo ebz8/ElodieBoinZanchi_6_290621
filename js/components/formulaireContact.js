@@ -1,5 +1,5 @@
 export class formulaireContact {
-    /**
+/**
 ----------------------
 formulaire de contact
 photographe
@@ -48,9 +48,9 @@ function formulaireOuverture () {
 }
 btnOuvrirFormulaire.addEventListener('click', formulaireOuverture)
 
-// //////////////////////////////////
+/////////////////////////////////////
 // FERMETURE ACCESSIBLE FORMULAIRE //
-// //////////////////////////////////
+/////////////////////////////////////
 function formulaireFermeture () {
   corpsFormulaire.setAttribute('aria-hidden', 'true')
   corpsContenuPage.setAttribute('aria-hidden', 'false')
