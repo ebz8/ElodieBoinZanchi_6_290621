@@ -169,26 +169,25 @@ const fichesPhotographe = (data) => {
 // 5 - Fonctionnalité trier par tag
 
 function affichageParTag (tags, tagActif) {
-  const tagsActifs = []
-  // console.log(tagActif.textContent)
+  const tagsRetenus = []
 
   tags.forEach((tag) => {
     // console.log(tag.textContent)
     if (tag.textContent.toLowerCase() === tagActif.textContent.toLowerCase()) {
-      tag.classList.toggle(':active')
+      tag.classList.toggle('active')
       console.log(tagActif.textContent)
     } else {
-      tag.classList.remove(':active')
+      tag.classList.remove('active')
     }
 
-    if (tag.classList.contains(':active')) {
-      tagsActifs.push(tag)
+    if (tag.classList.contains('active')) {
+      tagsRetenus.push(tag)
       // console.log(tagsActifs)
     }
   })
   // Faire disparaitre toutes les fiches quand un tag sélectionné
   // & Afficher seulement le tableau tagsActifs
-  console.log(tagsActifs)
+  console.log(tagsRetenus)
 }
 
 // 6 - Génération générale de l'index
@@ -197,13 +196,11 @@ const constructeurIndex = (data) => {
   templateHeader(data)
   fichesPhotographe(data)
 
+  // fonctionnalité de tri d'affichage
   const tags = document.querySelectorAll('.tag-entree')
-
-  tags.forEach(function (tag) {
-    tag.addEventListener('click', () => {
-      // console.log('depuis constructeurIndex:')
-      // console.log(tag)
-      this.affichageParTag(tags, tag)
+  tags.forEach(function (tagActif) {
+    tagActif.addEventListener('click', () => {
+      this.affichageParTag(tags, tagActif)
     })
   })
 }

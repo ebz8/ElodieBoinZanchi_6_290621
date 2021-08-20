@@ -66,7 +66,7 @@ boutons
 //
 // tags
 //
-.tag-entree{
+.tag-entree {
     margin: 0 .3rem .3rem 0;
     padding: .2rem .5rem;
     color: $couleur-primaire;
@@ -75,7 +75,7 @@ boutons
     border-radius: .9rem;
 
     &:hover,
-    &:active{
+    &.active{
         background-color: $couleur-primaire;
         border: 1px solid $couleur-primaire;
 
