@@ -366,9 +366,9 @@ const formulaireTemplate = (photographe) => {
   }
   btnOuvrirFormulaire.addEventListener('click', formulaireOuverture)
 
-  /////////////////////////////////////
+  /// //////////////////////////////////
   // FERMETURE ACCESSIBLE FORMULAIRE //
-  /////////////////////////////////////
+  /// //////////////////////////////////
 
   function formulaireFermeture () {
     corpsFormulaire.setAttribute('aria-hidden', 'true')
@@ -464,48 +464,46 @@ const formulaireTemplate = (photographe) => {
 ----------------------------------------------------
 */
 
-const templateLightbox = (figure) => {
-  // création du conteneur div
-  const conteneurLightbox = document.createElement('div')
-  conteneurLightbox.classList.add('lightbox')
-  conteneurLightbox.setAttribute('role', 'dialog')
-  conteneurLightbox.setAttribute('aria-label', 'image pein écran')
-  conteneurLightbox.setAttribute('aria-modal', 'true')
-  conteneurLightbox.setAttribute('aria-hidden', 'true')
-  
-  corpsContenuPage.appendChild(conteneurLightbox)
+// const templateLightbox = (figure) => {
+//   // création du conteneur div
+//   const conteneurLightbox = document.createElement('div')
+//   conteneurLightbox.classList.add('lightbox')
+//   conteneurLightbox.setAttribute('role', 'dialog')
+//   conteneurLightbox.setAttribute('aria-label', 'image pein écran')
+//   conteneurLightbox.setAttribute('aria-modal', 'true')
+//   conteneurLightbox.setAttribute('aria-hidden', 'true')
+//   corpsContenuPage.appendChild(conteneurLightbox)
 
-  conteneurLightbox.innerHTML = `
-  <ul class="lightbox__contenu">
-                    <!-- composants lightbox -->
-                    <div class="lightbox__commandes">
-                        <button class="gauche" aria-label="image précédente"><i class="fas fa-chevron-left"></i> </button>
-                        <button class="droite" aria-label="image suivante"><i class="fas fa-chevron-right"></i></button>
-                        <button class="btn-fermeture" aria-label="fermer la lightbox"></button>
-                    </div>
-                    
-                    <li class="lightbox-element actif">
-                        <figure>
-                            <img src="resources/img/photographers/Mimi/Animals_Rainbow.jpg" alt="Oiseau multicolore">
-                            <figcaption class="photo-titre">Arc-en-ciel</figcaption>
-                        </figure>
-                    </li>
-                    <li class="lightbox-element">
-                        <figure>
-                            <img src="resources/img/photographers/Mimi/Event_BenevidesWedding.jpg" alt="Oiseau multicolore">
-                            <figcaption class="photo-titre">Arc-en-ciel</figcaption>
-                        </figure>
-                    </li>
-                    <li class="lightbox-element">
-                        <figure>
-                            <img src="resources/img/photographers/Mimi/Event_PintoWedding.jpg" alt="Oiseau multicolore">
-                            <figcaption class="photo-titre">Arc-en-ciel</figcaption>
-                        </figure>
-                    </li>                    
-                </div>
-  `
+//   conteneurLightbox.innerHTML = `
+//   <ul class="lightbox__contenu">
+//                     <!-- composants lightbox -->
+//                     <div class="lightbox__commandes">
+//                         <button class="gauche" aria-label="image précédente"><i class="fas fa-chevron-left"></i> </button>
+//                         <button class="droite" aria-label="image suivante"><i class="fas fa-chevron-right"></i></button>
+//                         <button class="btn-fermeture" aria-label="fermer la lightbox"></button>
+//                     </div>
+//                     <li class="lightbox-element actif">
+//                         <figure>
+//                             <img src="resources/img/photographers/Mimi/Animals_Rainbow.jpg" alt="Oiseau multicolore">
+//                             <figcaption class="photo-titre">Arc-en-ciel</figcaption>
+//                         </figure>
+//                     </li>
+//                     <li class="lightbox-element">
+//                         <figure>
+//                             <img src="resources/img/photographers/Mimi/Event_BenevidesWedding.jpg" alt="Oiseau multicolore">
+//                             <figcaption class="photo-titre">Arc-en-ciel</figcaption>
+//                         </figure>
+//                     </li>
+//                     <li class="lightbox-element">
+//                         <figure>
+//                             <img src="resources/img/photographers/Mimi/Event_PintoWedding.jpg" alt="Oiseau multicolore">
+//                             <figcaption class="photo-titre">Arc-en-ciel</figcaption>
+//                         </figure>
+//                     </li>
+//                 </div>
+//   `
 
-}
+// }
 /**
 ----------------------------------------------------
 4 - Génération de la page
