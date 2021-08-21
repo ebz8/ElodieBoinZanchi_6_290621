@@ -341,6 +341,10 @@ body {
   overflow: hidden;
 }
 
+.desactiver {
+  display: none;
+}
+
 /**
 ----------------------
 banniere

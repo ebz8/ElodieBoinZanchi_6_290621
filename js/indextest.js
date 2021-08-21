@@ -192,18 +192,18 @@ function affichageParTag (tags, tagActif) {
   // et afficher seulement le tableau fichesRetenues
   if (tagsRetenus.length !== 0) {
     // console.log(fichesRetenues)
-    fichesPhotographes.forEach((fichePhotographe) => fichePhotographe.classList.add('hidden'))
+    fichesPhotographes.forEach((fichePhotographe) => fichePhotographe.classList.add('desactiver'))
     tagsRetenus.forEach((fiche) => {
       const ficheActive = fiche.closest('.photographe-profil')
 
       // si le parent '.photographe-profil' existe ( = exclure tags du header)
       if (ficheActive !== null) {
-        ficheActive.classList.remove('hidden')
+        ficheActive.classList.remove('desactiver')
       }
     })
   // si aucun tag sélectionné, afficher toutes les fiches
   } else {
-    fichesPhotographes.forEach((fichePhotographe) => fichePhotographe.classList.remove('hidden'))
+    fichesPhotographes.forEach((fichePhotographe) => fichePhotographe.classList.remove('desactiver'))
   }
 }
 
