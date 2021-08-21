@@ -169,25 +169,36 @@ const fichesPhotographe = (data) => {
 // 5 - Fonctionnalité trier par tag
 
 function affichageParTag (tags, tagActif) {
-  const tagsRetenus = []
+  const fichesPhotographes = document.querySelectorAll('.photographe-profil')
+  const fichesRetenues = []
 
+  // Pour chaque tag, vérifier que le tag actuel et le tag cliqué correspondent
   tags.forEach((tag) => {
-    // console.log(tag.textContent)
+    // si oui, modifier statut (activer) de la classe active
     if (tag.textContent.toLowerCase() === tagActif.textContent.toLowerCase()) {
       tag.classList.toggle('active')
-      console.log(tagActif.textContent)
+    // sinon, retirer la classe active
     } else {
       tag.classList.remove('active')
     }
-
+    // Récupérer tous les tags ayant matché par la classe active
+    // et les envoyer dans le tableau des fiches retenues (fichesRetenues)
     if (tag.classList.contains('active')) {
-      tagsRetenus.push(tag)
-      // console.log(tagsActifs)
+      fichesRetenues.push(tag)
     }
   })
+
   // Faire disparaitre toutes les fiches quand un tag sélectionné
-  // & Afficher seulement le tableau tagsActifs
-  console.log(tagsRetenus)
+  // et afficher seulement le tableau fichesRetenues
+  if (fichesRetenues.length !== 0) {
+    console.log(fichesRetenues)
+    fichesPhotographes.forEach((fichePhotographe) => fichePhotographe.classList.add('hidden'))
+    fichesRetenues.map((fiche) => fiche.classList.remove('hidden'))
+
+  // si aucun tag sélectionné, afficher toutes les fiches
+  } else {
+    fichesPhotographes.forEach((fichePhotographe) => fichePhotographe.classList.remove('hidden'))
+  }
 }
 
 // 6 - Génération générale de l'index
