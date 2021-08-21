@@ -170,7 +170,7 @@ const fichesPhotographe = (data) => {
 
 function affichageParTag (tags, tagActif) {
   const fichesPhotographes = document.querySelectorAll('.photographe-profil')
-  const fichesRetenues = []
+  const tagsRetenus = []
 
   // Pour chaque tag, vérifier que le tag actuel et le tag cliqué correspondent
   tags.forEach((tag) => {
@@ -184,17 +184,23 @@ function affichageParTag (tags, tagActif) {
     // Récupérer tous les tags ayant matché par la classe active
     // et les envoyer dans le tableau des fiches retenues (fichesRetenues)
     if (tag.classList.contains('active')) {
-      fichesRetenues.push(tag)
+      tagsRetenus.push(tag)
     }
   })
 
   // Faire disparaitre toutes les fiches quand un tag sélectionné
   // et afficher seulement le tableau fichesRetenues
-  if (fichesRetenues.length !== 0) {
-    console.log(fichesRetenues)
+  if (tagsRetenus.length !== 0) {
+    // console.log(fichesRetenues)
     fichesPhotographes.forEach((fichePhotographe) => fichePhotographe.classList.add('hidden'))
-    fichesRetenues.map((fiche) => fiche.classList.remove('hidden'))
+    tagsRetenus.forEach((fiche) => {
+      const ficheActive = fiche.closest('.photographe-profil')
 
+      // si le parent '.photographe-profil' existe ( = exclure tags du header)
+      if (ficheActive !== null) {
+        ficheActive.classList.remove('hidden')
+      }
+    })
   // si aucun tag sélectionné, afficher toutes les fiches
   } else {
     fichesPhotographes.forEach((fichePhotographe) => fichePhotographe.classList.remove('hidden'))
@@ -215,4 +221,3 @@ const constructeurIndex = (data) => {
     })
   })
 }
-
