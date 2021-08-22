@@ -218,7 +218,7 @@ const photographeGalerie = (photographe, figure) => {
   const dataFiche = figure.map(templateItemGalerie).join('')
 
   // ajout de chaque fiche au conteneur
-  conteneurGalerie.innerHTML = dataFiche
+  conteneurGalerie.innerHTML = dataFiche  
 }
 
 /**
@@ -504,6 +504,14 @@ const formulaireTemplate = (photographe) => {
 //   `
 
 // }
+
+function affichageLightbox(vignette, vignettesImages) {
+  console.log('vignette image')
+  console.log(vignettesImages)
+  console.log('vignette')
+  console.log(vignette)
+}
+
 /**
 ----------------------------------------------------
 4 - Génération de la page
@@ -516,5 +524,15 @@ const constructeurPagePhotographe = (currentPhotographe, currentPhotographeMedia
   blocFixe(currentPhotographe)
   sectionTrierPar()
   photographeGalerie(currentPhotographe, currentPhotographeMedias)
+
+  // modale formulaire
   formulaireTemplate(currentPhotographe)
+
+  // modale lightbox
+  const vignettesImages = document.querySelectorAll('.apercu-photo')
+  vignettesImages.forEach(function (vignette) {
+    vignette.addEventListener('click', () => {
+      this.affichageLightbox(vignette, vignettesImages)
+    })
+  })
 }

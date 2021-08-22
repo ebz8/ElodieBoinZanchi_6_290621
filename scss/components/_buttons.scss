@@ -147,6 +147,97 @@ boutons
     color: $couleur-primaire;
 }
 
+//
+// bouton de selection par option
+//
+
+.trier-par{
+    display: flex;
+    color: black;
+    margin-top: 2rem;
+
+  p{
+      margin-right: 1rem;
+  }
+
+  .select{
+      display: flex;
+      width: 10rem;
+      flex-direction: column;
+
+      .active {
+          max-height: 10rem;
+          opacity : 1;
+        //   overflow-y : scroll;
+      }
+    }
+    
+    .conteneur-options {
+        order: 1;
+        background-color: $couleur-primaire;
+        color: white;
+        max-height: 0;
+        width: 100%;
+        opacity: 0;
+        transition: all .4s;
+        border-radius: 0 0 .5rem .5rem;
+        overflow: hidden;
+    }
+
+    .selected {
+        order : 0;
+        background-color: $couleur-primaire;
+        color: white;
+        border-radius : .5rem;
+        height: 2.5rem;
+        position: relative;
+
+        svg{
+            color: white;
+            background-size: contain;
+            background-repeat: no-repeat;
+            position: absolute;
+            height: 100%;
+            width: 2rem;
+            right: .5rem;
+            top: .1rem;
+            // transition: all .4s;
+        }
+    }
+
+    .selected-active {
+        border-radius : .5rem .5rem 0 0;
+    }
+
+    .option,
+    .selected {
+        padding: .7rem;
+        cursor: pointer;
+
+        .radio {
+            display: none;
+        }
+    }
+
+    .option:hover{
+        background-color: $couleur-secondaire;
+    }
+
+
+    label {
+        cursor: pointer;
+    }
+      
+    svg {
+      position: absolute;
+      width: 1rem;
+      top: .6rem;
+      right: 14px;
+      z-index: 2;
+      fill: currentColor;
+      transition: transform 0.1s;
+    }
+  }
 
 
 // // Bouton select

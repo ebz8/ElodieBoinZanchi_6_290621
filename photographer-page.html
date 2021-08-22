@@ -51,19 +51,30 @@
                 <span class="tarif">300€ /jour</span>
             </div>
 
+            <!-- bouton trier par -->
             <div class="trier-par">
                 <p tabindex="0">Trier par</p>
+    
                 <div class="select" tabindex="0">
-                    <button></button>
-                    <div class="options">
-                        <input id="popularite" name="select" type="radio" value="popularite"
-                        aria-checked="ok" checked>
-                        <label for="popularite" style="--index: 1">Popularité</label>
-                        <input id="date" name="select" type="radio" value="date">
-                        <label for="date" style="--index: 2">Date</label>
-                        <input id="titre" name="select" type="radio" value="titre">
-                        <label for="titre" style="--index: 3">Titre</label>
+                    <div class="conteneur-options">
+            
+                        <div class="option">
+                            <input class="radio" id="popularite" name="select" type="radio" value="popularite"
+                            aria-checked="ok" checked />
+                            <label for="popularite">Popularité</label>
+                        </div>
+                        <div class="option">
+                            <input class="radio" id="date" name="select" type="radio" value="date" />
+                            <label for="date">Date</label>
+                        </div>
+                        <div class="option">
+                            <input class="radio" id="titre" name="select" type="radio" value="titre" />
+                            <label for="titre">Titre</label>
+                        </div>
+                            
+                    </div>
 
+                    <div class="selected">
                         <svg viewBox="0 0 24 24">
                             <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"></path>
                         </svg>
@@ -279,7 +290,7 @@
                     </li>                    
                 </div>
             </div>
-    <script src="js/app.js"></script>
+    <script src="js/components/btn-trier-par.js"></script>
     <noscript>Ce site nécessite l'activation de JavaScript pour fonctionner.</noscript>
     
 

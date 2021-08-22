@@ -475,6 +475,80 @@ boutons
   color: #911d1d;
 }
 
+.trier-par {
+  display: flex;
+  color: black;
+  margin-top: 2rem;
+}
+.trier-par p {
+  margin-right: 1rem;
+}
+.trier-par .select {
+  display: flex;
+  width: 10rem;
+  flex-direction: column;
+}
+.trier-par .select .active {
+  max-height: 10rem;
+  opacity: 1;
+}
+.trier-par .conteneur-options {
+  order: 1;
+  background-color: #911d1d;
+  color: white;
+  max-height: 0;
+  width: 100%;
+  opacity: 0;
+  transition: all 0.4s;
+  border-radius: 0 0 0.5rem 0.5rem;
+  overflow: hidden;
+}
+.trier-par .selected {
+  order: 0;
+  background-color: #911d1d;
+  color: white;
+  border-radius: 0.5rem;
+  height: 2.5rem;
+  position: relative;
+}
+.trier-par .selected svg {
+  color: white;
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  height: 100%;
+  width: 2rem;
+  right: 0.5rem;
+  top: 0.1rem;
+}
+.trier-par .selected-active {
+  border-radius: 0.5rem 0.5rem 0 0;
+}
+.trier-par .option,
+.trier-par .selected {
+  padding: 0.7rem;
+  cursor: pointer;
+}
+.trier-par .option .radio,
+.trier-par .selected .radio {
+  display: none;
+}
+.trier-par .option:hover {
+  background-color: #d3573c;
+}
+.trier-par label {
+  cursor: pointer;
+}
+.trier-par svg {
+  position: absolute;
+  width: 1rem;
+  top: 0.6rem;
+  right: 14px;
+  z-index: 2;
+  fill: currentColor;
+  transition: transform 0.1s;
+}
+
 /**
 ----------------------
 
@@ -575,86 +649,6 @@ TODO:
 }
 .formulaire .champ-formulaire:nth-child(4) > input {
   height: 8rem;
-}
-
-.trier-par {
-  display: flex;
-  align-items: center;
-  color: black;
-  margin-top: 2rem;
-}
-.trier-par p {
-  margin-right: 1rem;
-}
-.trier-par .select {
-  position: relative;
-  box-sizing: content-box;
-  width: 8rem;
-  height: 1.2rem;
-  padding: 0.8rem;
-  background-color: #911d1d;
-  color: white;
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
-}
-.trier-par .select:hover svg {
-  transform: scale(1.1);
-}
-.trier-par .select button {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  z-index: 3;
-  border: none;
-  outline: none;
-  background: none;
-  cursor: pointer;
-}
-.trier-par .select button:focus ~ svg {
-  transform: rotate(-180deg);
-}
-.trier-par .select .options {
-  position: absolute;
-  width: 100%;
-  left: 0;
-  top: 0;
-}
-.trier-par .select input {
-  display: none;
-}
-.trier-par .select input:checked + label {
-  display: block;
-  z-index: 2;
-  transform: none !important;
-}
-.trier-par .select label {
-  position: absolute;
-  width: 100%;
-  z-index: 1;
-  padding: 0.8rem;
-  line-height: 1;
-  background-color: #911d1d;
-  cursor: pointer;
-}
-.trier-par .select button:focus + .options input:not(:checked) + label,
-.trier-par .select .options label:active,
-.trier-par .select .options label:active ~ label {
-  transform: translateY(calc(var(--index) * 100%));
-}
-.trier-par .select button:focus + .options input:checked + label ~ label,
-.trier-par .select .options input:checked ~ label:active,
-.trier-par .select .options input:checked ~ label:active ~ label {
-  transform: translateY(calc((var(--index) - 1) * 100%));
-}
-.trier-par .select svg {
-  position: absolute;
-  width: 21px;
-  top: 0.6rem;
-  right: 14px;
-  z-index: 2;
-  fill: currentColor;
-  transition: transform 0.1s;
 }
 
 /**
