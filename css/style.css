@@ -479,6 +479,7 @@ boutons
   display: flex;
   color: black;
   margin-top: 2rem;
+  position: relative;
 }
 .trier-par p {
   margin-right: 1rem;
@@ -487,6 +488,8 @@ boutons
   display: flex;
   width: 10rem;
   flex-direction: column;
+  position: absolute;
+  left: 5rem;
 }
 .trier-par .select .active {
   max-height: 10rem;
