@@ -483,6 +483,7 @@ boutons
 }
 .trier-par p {
   margin-right: 1rem;
+  padding-top: 0.5rem;
 }
 .trier-par .select {
   display: flex;
