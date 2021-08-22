@@ -147,22 +147,55 @@ const sectionTrierPar = (photographe, figure) => {
 
   // ajout de chaque fiche au conteneur
   conteneurSection.innerHTML = `<p tabindex="0">Trier par</p>
+    
   <div class="select" tabindex="0">
-      <button></button>
-      <div class="options">
-          <input id="popularite" name="select" type="radio" value="popularite"
-          aria-checked="ok" checked>
-          <label for="popularite" style="--index: 1">Popularité</label>
-          <input id="date" name="select" type="radio" value="date">
-          <label for="date" style="--index: 2">Date</label>
-          <input id="titre" name="select" type="radio" value="titre">
-          <label for="titre" style="--index: 3">Titre</label>
-  
+      <div class="conteneur-options">
+
+          <div class="option">
+              <input class="radio" id="popularite" name="select" type="radio" value="popularite"
+              aria-checked="ok" checked />
+              <label for="popularite">Popularité</label>
+          </div>
+          <div class="option">
+              <input class="radio" id="date" name="select" type="radio" value="date" />
+              <label for="date">Date</label>
+          </div>
+          <div class="option">
+              <input class="radio" id="titre" name="select" type="radio" value="titre" />
+              <label for="titre">Titre</label>
+          </div>
+              
+      </div>
+
+      <div class="selected">
           <svg viewBox="0 0 24 24">
               <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"></path>
           </svg>
       </div>
   </div>`
+
+  const selected = document.querySelector('.selected')
+  const conteneurOptions = document.querySelector('.conteneur-options')
+  const optionsListe = document.querySelectorAll('.option')
+
+  // par défaut : popularité
+  selected.innerHTML = optionsListe[0].querySelector('label').innerHTML
+
+  // afficher les options
+  selected.addEventListener('click', () => {
+    selected.innerHTML = ''
+    conteneurOptions.classList.toggle('active')
+    selected.classList.toggle('selected-active')
+  })
+
+  // selection d'une option (NE PAS OUBLIER ACCESSIBILITE)
+  optionsListe.forEach(o => {
+    o.addEventListener('click', () => {
+      selected.innerHTML = o.querySelector('label').innerHTML
+      conteneurOptions.classList.remove('active')
+      selected.classList.remove('selected-active')
+    })
+  })
 }
 
 const templateItemGalerie = (figure) => {
