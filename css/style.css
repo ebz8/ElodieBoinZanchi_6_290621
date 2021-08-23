@@ -495,6 +495,8 @@ boutons
 .trier-par .select .active {
   max-height: 10rem;
   opacity: 1;
+  margin-top: -2rem;
+  z-index: 1;
 }
 .trier-par .conteneur-options {
   order: 1;
@@ -503,7 +505,6 @@ boutons
   max-height: 0;
   width: 100%;
   opacity: 0;
-  transition: all 0.4s;
   border-radius: 0 0 0.5rem 0.5rem;
   overflow: hidden;
 }
@@ -536,6 +537,13 @@ boutons
 .trier-par .option .radio,
 .trier-par .selected .radio {
   display: none;
+}
+.trier-par .option::after {
+  content: "";
+  display: block;
+  width: 8rem;
+  padding-bottom: 1rem;
+  border-bottom: 0.1rem white solid;
 }
 .trier-par .option:hover {
   background-color: #d3573c;

@@ -172,6 +172,9 @@ boutons
       .active {
           max-height: 10rem;
           opacity : 1;
+          // passer par dessus le select
+          margin-top: -2rem;
+          z-index: 1;
         //   overflow-y : scroll;
       }
     }
@@ -183,7 +186,7 @@ boutons
         max-height: 0;
         width: 100%;
         opacity: 0;
-        transition: all .4s;
+        // transition: all .4s;
         border-radius: 0 0 .5rem .5rem;
         overflow: hidden;
     }
@@ -223,9 +226,21 @@ boutons
         }
     }
 
-    .option:hover{
-        background-color: $couleur-secondaire;
+    .option {
+
+        &::after{
+                content: "";
+                display: block;
+                width: 8rem;
+                padding-bottom: 1rem;
+                border-bottom: .1rem white solid;
+        }
+
+        &:hover{
+            background-color: $couleur-secondaire;
+        }
     }
+
 
 
     label {
