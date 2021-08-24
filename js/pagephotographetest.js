@@ -146,33 +146,43 @@ const sectionTrierPar = (photographe, figure) => {
   corpsContenuPage.appendChild(conteneurSection)
 
   // ajout de chaque fiche au conteneur
-  conteneurSection.innerHTML = `<p tabindex="0">Trier par</p>
-    
-  <div class="select" tabindex="0">
-      <div class="conteneur-options">
+  conteneurSection.innerHTML = `<div class="trier-par">
+  <p tabindex="0" id="label-trier-par">Trier par</p>
 
-          <div class="option">
-              <input class="radio" id="popularite" name="select" type="radio" value="popularite"
+  <div class="select" tabindex="0">
+      <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+          <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"></path>
+      </svg>
+
+      <button class="selected" aria-labelledby="label-trier-par" aria-haspopup="listbox"
+      aria-label="criteres" aria-expanded="false">
+          Popularité
+      </button>
+
+      <ul class="conteneur-options" role="listbox" aria-labelledby="label-trier-par"
+          aria-label="criteres">
+
+          <li class="option" role="option">
+              <input class="radio" id="option-popularite" name="select" type="radio" value="popularite"
               aria-checked="ok" checked />
               <label for="popularite">Popularité</label>
-          </div>
-          <div class="option">
-              <input class="radio" id="date" name="select" type="radio" value="date" />
+          </li>
+          <li class="option" role="option">
+              <input class="radio" id="option-date" name="select" type="radio" value="date" />
               <label for="date">Date</label>
-          </div>
-          <div class="option">
-              <input class="radio" id="titre" name="select" type="radio" value="titre" />
+          </li>
+          <li class="option" role="option">
+              <input class="radio" id="option-titre" name="select" type="radio" value="titre" />
               <label for="titre">Titre</label>
-          </div>
+          </li>
               
-      </div>
+      </ul>
 
-      <div class="selected">
-          <svg viewBox="0 0 24 24">
-              <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"></path>
-          </svg>
+          
       </div>
-  </div>`
+      
+  </div>
+</div>`
 
   const selected = document.querySelector('.selected')
   const conteneurOptions = document.querySelector('.conteneur-options')
