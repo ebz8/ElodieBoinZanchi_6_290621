@@ -170,13 +170,29 @@ boutons
       left: 5rem;
 
       .active {
-          max-height: 10rem;
+          max-height: 11rem;
           opacity : 1;
           // passer par dessus le select
-          margin-top: -2rem;
+          margin-top: -3rem;
           z-index: 1;
+          border-radius: .5rem;
         //   overflow-y : scroll;
+
+        // svg {
+        //     transform : translate(50%);
+        //     background-color:blueviolet;
+        // }
       }
+
+      svg {
+        color: white;
+        background-size: contain;
+        background-repeat: no-repeat;
+        position: absolute;
+        width: 1.7rem;
+        right: .5rem;
+        top: .6rem;
+    }
     }
     
     .conteneur-options {
@@ -189,27 +205,16 @@ boutons
         // transition: all .4s;
         border-radius: 0 0 .5rem .5rem;
         overflow: hidden;
+        
+        
     }
 
     .selected {
-        order : 0;
         background-color: $couleur-primaire;
         color: white;
         border-radius : .5rem;
-        height: 2.5rem;
-        position: relative;
-
-        svg{
-            color: white;
-            background-size: contain;
-            background-repeat: no-repeat;
-            position: absolute;
-            height: 100%;
-            width: 2rem;
-            right: .5rem;
-            top: .1rem;
-            // transition: all .4s;
-        }
+        height: 3rem;
+        text-align: left;
     }
 
     .selected-active {
@@ -218,7 +223,7 @@ boutons
 
     .option,
     .selected {
-        padding: .7rem;
+        padding: .9rem;
         cursor: pointer;
 
         .radio {
@@ -227,7 +232,6 @@ boutons
     }
 
     .option {
-
         &::after{
                 content: "";
                 display: block;
@@ -240,8 +244,6 @@ boutons
             background-color: $couleur-secondaire;
         }
     }
-
-
 
     label {
         cursor: pointer;
