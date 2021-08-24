@@ -289,8 +289,6 @@ function incrementationLikes (likes, like, iconeLike) {
     })
   })
 
-
-
   //   likes.forEach(like => {
   //     like.addEventListener('click', (e) => {
   //       e.target.classList.toggle('like-actif')
@@ -611,7 +609,6 @@ const constructeurPagePhotographe = (currentPhotographe, currentPhotographeMedia
   sectionTrierPar()
   photographeGalerie(currentPhotographe, currentPhotographeMedias)
 
-
   // fonctionnalité likes
   const likes = document.querySelectorAll('.likes')
   const iconeLike = document.querySelectorAll('.icone-like')
@@ -621,7 +618,6 @@ const constructeurPagePhotographe = (currentPhotographe, currentPhotographeMedia
       this.incrementationLikes(likes, like, iconeLike)
     })
   })
-
 
   // modale formulaire
   formulaireTemplate(currentPhotographe)
