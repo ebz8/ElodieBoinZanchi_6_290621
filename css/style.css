@@ -474,11 +474,15 @@ boutons
   background: none;
   color: #911d1d;
 }
+.icone-like .like-actif {
+  color: #d83b3b;
+}
 
 .trier-par {
   display: flex;
   color: black;
-  margin-top: 2rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
   position: relative;
 }
 .trier-par p {
@@ -896,6 +900,7 @@ TODO:
 }
 .banniere-photographe .photographe-profil .nom {
   font-size: 2.5em;
+  margin-right: 1.5rem;
 }
 .banniere-photographe .photographe-profil .localisation {
   font-size: 0.99em;

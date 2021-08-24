@@ -261,7 +261,26 @@ const photographeGalerie = (photographe, figure) => {
   const dataFiche = figure.map(templateItemGalerie).join('')
 
   // ajout de chaque fiche au conteneur
-  conteneurGalerie.innerHTML = dataFiche  
+  conteneurGalerie.innerHTML = dataFiche
+}
+
+// Incrementation des likes
+const incrementationLikes = (figure) => {
+  const likes = document.querySelectorAll('.likes')
+  console.log(`${figure.likes}`)
+
+  likes.forEach(like => {
+    like.addEventListener('click', (e) => {
+      e.target.classList.toggle('like-actif')
+
+      if (e.target.classList.contains('like-actif')) {
+        console.log('ajout like')
+        // getFaveData(e.target)
+      } else {
+        console.log('retirer like')
+      }
+    })
+  })
 }
 
 /**
@@ -548,12 +567,12 @@ const formulaireTemplate = (photographe) => {
 
 // }
 
-function affichageLightbox(vignette, vignettesImages) {
-  console.log('vignette image')
-  console.log(vignettesImages)
-  console.log('vignette')
-  console.log(vignette)
-}
+// function affichageLightbox(vignette, vignettesImages) {
+//   console.log('vignette image')
+//   console.log(vignettesImages)
+//   console.log('vignette')
+//   console.log(vignette)
+// }
 
 /**
 ----------------------------------------------------
@@ -568,14 +587,17 @@ const constructeurPagePhotographe = (currentPhotographe, currentPhotographeMedia
   sectionTrierPar()
   photographeGalerie(currentPhotographe, currentPhotographeMedias)
 
+  // incrémentation likes
+  incrementationLikes(currentPhotographeMedias)
+
   // modale formulaire
   formulaireTemplate(currentPhotographe)
 
   // modale lightbox
-  const vignettesImages = document.querySelectorAll('.apercu-photo')
-  vignettesImages.forEach(function (vignette) {
-    vignette.addEventListener('click', () => {
-      this.affichageLightbox(vignette, vignettesImages)
-    })
-  })
+  // const vignettesImages = document.querySelectorAll('.apercu-photo')
+  // vignettesImages.forEach(function (vignette) {
+  //   vignette.addEventListener('click', () => {
+  //     this.affichageLightbox(vignette, vignettesImages)
+  //   })
+  // })
 }

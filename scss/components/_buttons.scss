@@ -145,6 +145,10 @@ boutons
     cursor: pointer;
     background: none;
     color: $couleur-primaire;
+    
+    .like-actif {
+        color: lighten($couleur-primaire, 20%);
+    }
 }
 
 //
@@ -154,7 +158,8 @@ boutons
 .trier-par{
     display: flex;
     color: black;
-    margin-top: 2rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
     position: relative;
 
   p{
