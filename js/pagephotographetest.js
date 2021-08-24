@@ -262,25 +262,49 @@ const photographeGalerie = (photographe, figure) => {
 
   // ajout de chaque fiche au conteneur
   conteneurGalerie.innerHTML = dataFiche
+
+  // // fonctionnalité likes
+  // const likes = document.querySelectorAll('.likes')
+  // likes.forEach(like => {
+  //   like.addEventListener('click', incrementationLikes)
+  // })
 }
 
 // Incrementation des likes
-const incrementationLikes = (figure) => {
-  const likes = document.querySelectorAll('.likes')
-  console.log(`${figure.likes}`)
+function incrementationLikes (likes, like, iconeLike) {
+  let totalLikes = like.textContent.replace(/\s+/g, '')
+  let affichageLikes = like.querySelector('.likes__nombre')
 
   likes.forEach(like => {
     like.addEventListener('click', (e) => {
       e.target.classList.toggle('like-actif')
 
       if (e.target.classList.contains('like-actif')) {
-        console.log('ajout like')
-        // getFaveData(e.target)
+        totalLikes++
+        affichageLikes.textContent = totalLikes
       } else {
-        console.log('retirer like')
+        totalLikes--
+        affichageLikes.textContent = totalLikes
       }
     })
   })
+
+
+
+  //   likes.forEach(like => {
+  //     like.addEventListener('click', (e) => {
+  //       e.target.classList.toggle('like-actif')
+
+//       if (e.target.classList.contains('like-actif')) {
+//         console.log('ajout like')
+//         totalLikes++
+//         this.querySelector('p').innerHTML = this.likes
+//       } else {
+//         console.log('retirer like')
+//         totalLikes -1
+//       }
+//     })
+//   })
 }
 
 /**
@@ -587,8 +611,17 @@ const constructeurPagePhotographe = (currentPhotographe, currentPhotographeMedia
   sectionTrierPar()
   photographeGalerie(currentPhotographe, currentPhotographeMedias)
 
-  // incrémentation likes
-  incrementationLikes(currentPhotographeMedias)
+
+  // fonctionnalité likes
+  const likes = document.querySelectorAll('.likes')
+  const iconeLike = document.querySelectorAll('.icone-like')
+
+  likes.forEach(function (like) {
+    like.addEventListener('click', () => {
+      this.incrementationLikes(likes, like, iconeLike)
+    })
+  })
+
 
   // modale formulaire
   formulaireTemplate(currentPhotographe)
