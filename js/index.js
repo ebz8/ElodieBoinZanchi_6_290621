@@ -1,3 +1,8 @@
+/**
+-------------------------------------
+PAGE INDEX
+-------------------------------------
+*/
 
 // TODO :
 // Pour créer la PAGE INDEX :
@@ -139,7 +144,7 @@ const tagsParPhotographe = (tags) => {
 // template complet d'une fiche photographe
 const templateFiche = (photographe) => {
   return `<li class="photographe-profil">
-    <a href="testpagephotographe.html?id=${photographe.id}">
+    <a href="page-photographe.html?id=${photographe.id}">
                       <img class="vignette" src="resources/img/photographers/IDphotos/${photographe.portrait}" alt=" "/>
                       <h2 class="nom">${photographe.name}</h2>
                   </a>

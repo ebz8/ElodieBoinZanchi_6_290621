@@ -1,5 +1,11 @@
 /* eslint-disable eqeqeq */
 
+/**
+-------------------------------------
+PAGES PHOTOGRAPHES
+-------------------------------------
+*/
+
 // TODO :
 // Pour créer les PAGES PHOTOGRAPHE :
 // Récupérer les données json et les stocker
