@@ -13,8 +13,14 @@ PAGE INDEX
 // (evenement) Créer la fonction tri par tag
 
 // éléments du DOM
-const corpsPage = document.querySelector('.js-page')
-const corpsContenuPage = document.querySelector('.js-document')
+const corpsPage = document.querySelector('.js-page') // body
+const corpsContenuPage = document.querySelector('.js-document') // main
+
+const touchesClavier = {
+  tab: 9,
+  enter: 13,
+  echap: 27
+}
 
 // 1 - récupération des données JSON
 
@@ -34,29 +40,21 @@ const jsonData = async () => {
 const chargementData = async () => {
   const data = await jsonData()
   constructeurIndex(data)
-  console.log(data.photographers.tags)
 }
 document.addEventListener('DOMContentLoaded', chargementData)
 
-// 3 - Stocker data.photographers dans une constante (?)
+// 3 - Générer les éléments HTML individuellement
 
-// const dataPhotographes = jsonData()
-// console.log(dataPhotographes)
-
-// 4 - Générer les éléments HTML individuellement
-
-// BTN CONTENU-PRINCIPAL
-// display seulement si scroll(x)
+// btn retour au contenu principal
 //
-const btnRetourMain = () => {
+const constructeurBtnRetourMain = () => {
   // création du bouton
-  console.log('execution btnRetourMain')
   const btnRetour = document.createElement('a')
   btnRetour.classList.add('btn-contenu-principal')
   btnRetour.setAttribute('href', '#contenu-principal')
+  btnRetour.setAttribute('aria-hidden', 'true')
   btnRetour.innerText = 'Passer au contenu'
   corpsPage.prepend(btnRetour)
-  btnRetour.setAttribute('aria-hidden', 'true')
 
   // gestion du scroll
   window.addEventListener('scroll', () => {
@@ -68,24 +66,21 @@ const btnRetourMain = () => {
   btnRetour.addEventListener('click', () => {
     window.scrollTop = 0
   })
+
+  // (???) rajouter la gestion du clavier
 }
 
 //
 // HEADER
 //
 // navigation par tag
-// const templateTags = (tag) => {
-//   console.log('execution de templateTag')
-//   console.log(tag)
-//   return `<li class="tag-entree"><a href="#"><span aria-label="hashtag">#</span>${tag}</a></li>`
-// }
-
-const templateNavTags = (tag) => {
+//
+const templateNavTag = (tag) => {
   return `
   <li class="tag-entree"><a href="#"><span aria-label="hashtag">#</span>${tag}</a></li>`
 }
 
-const templateHeader = (data) => {
+const constructeurHeader = (data) => {
   // récupération des tags dans un tableau vide
   let tableauTags = []
   data.photographers.map(tag => {
@@ -105,33 +100,19 @@ const templateHeader = (data) => {
         <nav aria-label="trier les photographes par categories">
         <ul class="nav-par-tag" >
 
-          ${listeTags.map(templateNavTags).join('')}
+          ${listeTags.map(templateNavTag).join('')}
           </ul>
         </nav>
         <h1 tabindex="0">Nos photographes</h1>
 `
   corpsPage.prepend(header)
-  console.log('templateHeader généré')
 }
 
 //
 // MAIN
 //
-
-// const templateMain = () => {
-//   const main = document.createElement('main')
-//   main.classList.add('js-document')
-//   main.setAttribute('id', 'contenu-principal')
-//   corpsPage.appendChild(main)
-//   // main.innerHTML = `
-//   // <ul class="photographes-galerie">
-//   // </ul>`
-//   // ajouter les fiches photographes (?)
-//   // main.appendChild(fichePhotographe)
-//   console.log('templateMain généré')
-// }
-
 // hashtags des fiches photographe
+//
 const tagsParPhotographe = (tags) => {
   return `
   <ul class="nav-par-tag" >
@@ -157,7 +138,7 @@ const templateFiche = (photographe) => {
     </li>`
 }
 
-const fichesPhotographe = (data) => {
+const constructeurFichesPhotographe = (data) => {
   // création du conteneur ul
   const photographesGalerie = document.createElement('ul')
   photographesGalerie.classList.add('photographes-galerie')
@@ -168,10 +149,9 @@ const fichesPhotographe = (data) => {
 
   // ajout de chaque fiche au conteneur
   photographesGalerie.innerHTML = dataFiche
-  console.log('fiches photographe générées')
 }
 
-// 5 - Fonctionnalité trier par tag
+// 4 - Fonctionnalité trier par tag
 
 function affichageParTag (tags, tagActif) {
   const fichesPhotographes = document.querySelectorAll('.photographe-profil')
@@ -212,11 +192,11 @@ function affichageParTag (tags, tagActif) {
   }
 }
 
-// 6 - Génération générale de l'index
+// 5 - Génération générale de l'index
 const constructeurIndex = (data) => {
-  btnRetourMain()
-  templateHeader(data)
-  fichesPhotographe(data)
+  constructeurBtnRetourMain()
+  constructeurHeader(data)
+  constructeurFichesPhotographe(data)
 
   // fonctionnalité de tri d'affichage
   const tags = document.querySelectorAll('.tag-entree')
