@@ -46,13 +46,13 @@ const jsonData = async () => {
 2 - récupération de l'ID du photographe en cours
 ----------------------------------------------------
 */
-
+// 2.1 récupération du paramètre (id) de l'url de la page en cours
 const queryString = window.location.search
 const urlParams = new URLSearchParams(queryString)
 const photographeID = urlParams.get('id')
-console.log(`récupération de l'ID : ${photographeID}`)
+// console.log(`récupération de l'ID : ${photographeID}`)
 
-// 2 - chargement des données JSON au chargement de la page
+// 2.2 - chargement des données JSON au chargement de la page
 // stockées dans currentPhotographe et currentPhotographeMedias
 
 const chargementData = async () => {
@@ -62,15 +62,14 @@ const chargementData = async () => {
 
   // récupération du photographe en cours
   const currentPhotographe = photographes.find((photographe) => photographe.id == photographeID)
-  // console.log(currentPhotographe)
 
   // récupération des médias associés au photographe
   const currentPhotographeMedias = mediasPhotographe.filter((media) => media.photographerId == photographeID)
-  // console.log(currentPhotographeMedias)
 
+  // appel du constructeur de la page photographe avec récupération du photographe en cours et de ses médias
   constructeurPagePhotographe(currentPhotographe, currentPhotographeMedias)
 }
-// appel de la fonction de chargement des données au chargement de la page
+// appel de la fonction de chargement des données au chargement du DOM
 document.addEventListener('DOMContentLoaded', chargementData)
 
 /**
@@ -79,7 +78,7 @@ document.addEventListener('DOMContentLoaded', chargementData)
 ----------------------------------------------------
 */
 
-const templateHeader = (data) => {
+const constructeurHeader = (data) => {
   const header = document.createElement('header')
   header.classList.add('banniere')
   header.innerHTML = `
@@ -123,7 +122,7 @@ const templateBannierePhotographe = (photographe) => {
 `
 }
 
-const bannierePhotographe = (currentPhotographe) => {
+const constructeurBannierePhotographe = (currentPhotographe) => {
   // création du conteneur
   const conteneurBanniere = document.createElement('div')
   conteneurBanniere.classList.add('banniere-photographe')
@@ -257,7 +256,7 @@ const templateItemGalerie = (figure) => {
   }
 }
 
-const photographeGalerie = (photographe, figure) => {
+const constructeurGaleriePhotographe = (photographe, figure) => {
   // création du conteneur div
   const conteneurGalerie = document.createElement('div')
   conteneurGalerie.classList.add('profil-galerie')
@@ -277,38 +276,23 @@ const photographeGalerie = (photographe, figure) => {
 }
 
 // Incrementation des likes
-function incrementationLikes (likes, like, iconeLike) {
+// likes = bloc div class likes
+// like = bloc actuel class likes
+// iconeLike = chacune des icones like
+function incrementationLikes (likes, like, iconeLike, event) {
   let totalLikes = like.textContent.replace(/\s+/g, '')
   let affichageLikes = like.querySelector('.likes__nombre')
 
-  likes.forEach(like => {
-    like.addEventListener('click', (e) => {
-      e.target.classList.toggle('like-actif')
+  event.target.classList.toggle('like-actif')
 
-      if (e.target.classList.contains('like-actif')) {
-        totalLikes++
-        affichageLikes.textContent = totalLikes
-      } else {
-        totalLikes--
-        affichageLikes.textContent = totalLikes
-      }
-    })
-  })
+  if (event.target.classList.contains('like-actif')) {
+    totalLikes++
+    affichageLikes.textContent = totalLikes
+  } else {
+    totalLikes--
+    affichageLikes.textContent = totalLikes
+  }
 
-  //   likes.forEach(like => {
-  //     like.addEventListener('click', (e) => {
-  //       e.target.classList.toggle('like-actif')
-
-//       if (e.target.classList.contains('like-actif')) {
-//         console.log('ajout like')
-//         totalLikes++
-//         this.querySelector('p').innerHTML = this.likes
-//       } else {
-//         console.log('retirer like')
-//         totalLikes -1
-//       }
-//     })
-//   })
 }
 
 /**
@@ -609,19 +593,20 @@ const formulaireTemplate = (photographe) => {
 */
 
 const constructeurPagePhotographe = (currentPhotographe, currentPhotographeMedias) => {
-  templateHeader()
-  bannierePhotographe(currentPhotographe)
+  constructeurHeader()
+  constructeurBannierePhotographe(currentPhotographe)
   blocFixe(currentPhotographe)
   sectionTrierPar()
-  photographeGalerie(currentPhotographe, currentPhotographeMedias)
+  constructeurGaleriePhotographe(currentPhotographe, currentPhotographeMedias)
 
   // fonctionnalité likes
   const likes = document.querySelectorAll('.likes')
   const iconeLike = document.querySelectorAll('.icone-like')
 
-  likes.forEach(function (like) {
-    like.addEventListener('click', () => {
-      this.incrementationLikes(likes, like, iconeLike)
+  likes.forEach(like => {
+    like.addEventListener('click', (event) => {
+      this.incrementationLikes(likes, like, iconeLike, event)
+      console.log(event)
     })
   })
 
