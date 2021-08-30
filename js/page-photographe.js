@@ -290,7 +290,6 @@ function incrementationLikes (likes, like, event) {
   let totalLikes = like.textContent.replace(/\s+/g, '')
   let affichageLikes = like.querySelector('.likes__nombre')
 
-  const reducer = (accumulator, currentValue) => accumulator + currentValue
   const compteurGeneral = document.querySelector('.compteur-likes')
   let compteurGeneralLikes = compteurGeneral.textContent
 
@@ -304,7 +303,8 @@ function incrementationLikes (likes, like, event) {
     totalLikes--
     affichageLikes.textContent = totalLikes
     compteurGeneralLikes--
-    compteurGeneral.innerHTML = `<p class="compteur-likes">${compteurGeneralLikes} <span class="icone-like" aria-label="j'aime"><i class="fas fa-heart"></i></span></p>`  }
+    compteurGeneral.innerHTML = `<p class="compteur-likes">${compteurGeneralLikes} <span class="icone-like" aria-label="j'aime"><i class="fas fa-heart"></i></span></p>`
+  }
 }
 
 /**
