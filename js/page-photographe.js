@@ -132,13 +132,23 @@ const constructeurBannierePhotographe = (currentPhotographe) => {
   // ajout du composant au conteneur
 }
 
-const blocFixe = (photographe) => {
+const blocFixe = (photographe, medias) => {
+  // récupérer les valeurs des likes dans le json
+  let likesParImage = []
+  medias.map(media => {
+    likesParImage.push(media.likes)
+  })
+
+  // additionner les valeurs
+  const reducer = (accumulator, currentValue) => accumulator + currentValue
+  const totalLikesGalerie = likesParImage.reduce(reducer)
+
   const conteneurBlocFixe = document.createElement('div')
   conteneurBlocFixe.classList.add('bloc-fixe')
   corpsContenuPage.appendChild(conteneurBlocFixe)
   conteneurBlocFixe.innerHTML = `
   <div class="bloc-fixe" tabindex="0">
-    <p class="compteur-likes">297 081 <span class="icone-like" aria-label="j'aime"><i class="fas fa-heart"></i></span></p>
+    <p class="compteur-likes">${totalLikesGalerie} <span class="icone-like" aria-label="j'aime"><i class="fas fa-heart"></i></span></p>
     <span class="tarif">${photographe.price}€ /jour</span>
   </div>
   `
@@ -276,23 +286,25 @@ const constructeurGaleriePhotographe = (photographe, figure) => {
 }
 
 // Incrementation des likes
-// likes = bloc div class likes
-// like = bloc actuel class likes
-// iconeLike = chacune des icones like
-function incrementationLikes (likes, like, iconeLike, event) {
+function incrementationLikes (likes, like, event) {
   let totalLikes = like.textContent.replace(/\s+/g, '')
   let affichageLikes = like.querySelector('.likes__nombre')
 
-  event.target.classList.toggle('like-actif')
+  const reducer = (accumulator, currentValue) => accumulator + currentValue
+  const compteurGeneral = document.querySelector('.compteur-likes')
+  let compteurGeneralLikes = compteurGeneral.textContent
 
+  event.target.classList.toggle('like-actif')
   if (event.target.classList.contains('like-actif')) {
     totalLikes++
     affichageLikes.textContent = totalLikes
+    compteurGeneralLikes++
+    compteurGeneral.innerHTML = `<p class="compteur-likes">${compteurGeneralLikes} <span class="icone-like" aria-label="j'aime"><i class="fas fa-heart"></i></span></p>`
   } else {
     totalLikes--
     affichageLikes.textContent = totalLikes
-  }
-
+    compteurGeneralLikes--
+    compteurGeneral.innerHTML = `<p class="compteur-likes">${compteurGeneralLikes} <span class="icone-like" aria-label="j'aime"><i class="fas fa-heart"></i></span></p>`  }
 }
 
 /**
@@ -595,18 +607,16 @@ const formulaireTemplate = (photographe) => {
 const constructeurPagePhotographe = (currentPhotographe, currentPhotographeMedias) => {
   constructeurHeader()
   constructeurBannierePhotographe(currentPhotographe)
-  blocFixe(currentPhotographe)
+  blocFixe(currentPhotographe, currentPhotographeMedias)
   sectionTrierPar()
   constructeurGaleriePhotographe(currentPhotographe, currentPhotographeMedias)
 
   // fonctionnalité likes
   const likes = document.querySelectorAll('.likes')
-  const iconeLike = document.querySelectorAll('.icone-like')
 
   likes.forEach(like => {
     like.addEventListener('click', (event) => {
-      this.incrementationLikes(likes, like, iconeLike, event)
-      console.log(event)
+      this.incrementationLikes(likes, like, event)
     })
   })
 
