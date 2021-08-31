@@ -474,6 +474,9 @@ boutons
   background: none;
   color: #911d1d;
 }
+.icone-like i {
+  padding-left: 0.3rem;
+}
 .icone-like .like-actif {
   color: #d83b3b;
 }
@@ -722,7 +725,6 @@ lightbox
 .lightbox__contenu .lightbox-element {
   width: 60%;
   position: absolute;
-  opacity: 0;
 }
 .lightbox__contenu .actif {
   opacity: 1;

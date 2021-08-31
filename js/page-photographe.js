@@ -299,8 +299,7 @@ const templateItemGalerie = (figure) => {
                     <figcaption>
                         <p class="photo-titre" tabindex="0">${figure.title}</p>
                         <div class="likes">
-                            <p class="likes__nombre" tabindex="0">${figure.likes}</p><button class="icone-like" aria-label="j'aime">
-                                <i class="fas fa-heart" tabindex="-1"></i>
+                            <p class="likes__nombre" tabindex="0">${figure.likes}</p><button class="icone-like" aria-label="j'aime"><i class="fas fa-heart" tabindex="-1"></i>
                             </button> 
                         </div>
                     </figcaption>
@@ -319,9 +318,8 @@ const templateItemGalerie = (figure) => {
                     <figcaption>
                         <p class="photo-titre" tabindex="0">${figure.title}</p>
                         <div class="likes" tabindex="0">
-                            <p class="likes__nombre">${figure.likes}</p><span class="icone-like" aria-label="j'aime">
-                                <i class="fas fa-heart" ></i>
-                            </span> 
+                            <p class="likes__nombre">${figure.likes}</p><button class="icone-like" aria-label="j'aime"><i class="fas fa-heart" ></i>
+                            </button> 
                         </div>
                     </figcaption>
                 </figure>
