@@ -347,8 +347,6 @@ function incrementationLikes (likes, like, event) {
   let totalLikes = like.previousSibling.textContent.replace(/\s+/g, '')
   let affichageLikes = like.previousSibling
 
-  console.log(affichageLikes)
-
   const compteurGeneral = document.querySelector('.compteur-likes')
   let compteurGeneralLikes = compteurGeneral.textContent
 

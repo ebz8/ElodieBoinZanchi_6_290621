@@ -936,8 +936,10 @@ TODO:
 .bloc-fixe {
   display: flex;
   position: fixed;
+  justify-content: space-between;
   bottom: 0;
   right: 0;
+  width: 13rem;
   padding: 1rem;
   margin-right: 1rem;
   background-color: #d3573c;
