@@ -318,7 +318,7 @@ const templateItemGalerie = (figure) => {
                         </video>
                     </a>
                     <figcaption>
-                        <p class="photo-titre" tabindex="0">Wild horses in the mountains</p>
+                        <p class="photo-titre" tabindex="0">${figure.title}</p>
                         <div class="likes" tabindex="0">
                             <p class="likes__nombre">${figure.likes}</p>
                             <span class="icone-like" aria-label="j'aime">
@@ -683,9 +683,6 @@ const constructeurPagePhotographe = (currentPhotographe, currentPhotographeMedia
   blocFixe(currentPhotographe, currentPhotographeMedias)
   sectionTrierPar(currentPhotographe, currentPhotographeMedias)
   constructeurGaleriePhotographe(currentPhotographe, currentPhotographeMedias)
-
-  // // fonctionnalité de tri
-  // trierMediasPar(currentPhotographeMedias)
 
   // fonctionnalité likes
   const likes = document.querySelectorAll('.likes')
