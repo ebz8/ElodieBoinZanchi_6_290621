@@ -299,8 +299,7 @@ const templateItemGalerie = (figure) => {
                     <figcaption>
                         <p class="photo-titre" tabindex="0">${figure.title}</p>
                         <div class="likes">
-                            <p class="likes__nombre" tabindex="0">${figure.likes}</p>
-                            <button class="icone-like" aria-label="j'aime">
+                            <p class="likes__nombre" tabindex="0">${figure.likes}</p><button class="icone-like" aria-label="j'aime">
                                 <i class="fas fa-heart" tabindex="-1"></i>
                             </button> 
                         </div>
@@ -320,8 +319,7 @@ const templateItemGalerie = (figure) => {
                     <figcaption>
                         <p class="photo-titre" tabindex="0">${figure.title}</p>
                         <div class="likes" tabindex="0">
-                            <p class="likes__nombre">${figure.likes}</p>
-                            <span class="icone-like" aria-label="j'aime">
+                            <p class="likes__nombre">${figure.likes}</p><span class="icone-like" aria-label="j'aime">
                                 <i class="fas fa-heart" ></i>
                             </span> 
                         </div>
@@ -346,8 +344,10 @@ const constructeurGaleriePhotographe = (photographe, figure) => {
 
 // INCREMENTATION DES LIKES
 function incrementationLikes (likes, like, event) {
-  let totalLikes = like.textContent.replace(/\s+/g, '')
-  let affichageLikes = like.querySelector('.likes__nombre')
+  let totalLikes = like.previousSibling.textContent.replace(/\s+/g, '')
+  let affichageLikes = like.previousSibling
+
+  console.log(affichageLikes)
 
   const compteurGeneral = document.querySelector('.compteur-likes')
   let compteurGeneralLikes = compteurGeneral.textContent
@@ -685,7 +685,7 @@ const constructeurPagePhotographe = (currentPhotographe, currentPhotographeMedia
   constructeurGaleriePhotographe(currentPhotographe, currentPhotographeMedias)
 
   // fonctionnalité likes
-  const likes = document.querySelectorAll('.likes')
+  const likes = document.querySelectorAll('.icone-like')
 
   likes.forEach(like => {
     like.addEventListener('click', (event) => {
