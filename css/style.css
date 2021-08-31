@@ -678,6 +678,8 @@ lightbox
   bottom: 0;
   left: 0;
   right: 0;
+  width: 100%;
+  height: 100%;
   background-color: white;
 }
 .lightbox[aria-hidden=true] {
@@ -718,13 +720,14 @@ lightbox
   height: 70%;
 }
 .lightbox__contenu .lightbox-element {
+  width: 60%;
   position: absolute;
   opacity: 0;
 }
 .lightbox__contenu .actif {
   opacity: 1;
 }
-.lightbox__contenu img {
+.lightbox__contenu img, .lightbox__contenu video {
   position: absolute;
   object-fit: cover;
   width: 100%;

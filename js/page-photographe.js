@@ -129,17 +129,16 @@ const constructeurBannierePhotographe = (currentPhotographe) => {
   corpsContenuPage.append(conteneurBanniere)
   // appel du template
   conteneurBanniere.innerHTML = templateBannierePhotographe(currentPhotographe)
-  // ajout du composant au conteneur
 }
 
 const blocFixe = (photographe, medias) => {
-  // récupérer les valeurs des likes dans le json
+  // récupérer l'ensemble des valeurs likes dans le json
   let likesParImage = []
   medias.map(media => {
     likesParImage.push(media.likes)
   })
 
-  // additionner les valeurs
+  // additionner les valeurs pour obtenir le total des likes
   const reducer = (accumulator, currentValue) => accumulator + currentValue
   const totalLikesGalerie = likesParImage.reduce(reducer)
 
@@ -154,7 +153,7 @@ const blocFixe = (photographe, medias) => {
   `
 }
 
-const sectionTrierPar = (photographe, figure) => {
+const sectionTrierPar = (photographe, medias) => {
   // création du conteneur div
   const conteneurSection = document.createElement('div')
   conteneurSection.classList.add('trier-par')
@@ -179,7 +178,7 @@ const sectionTrierPar = (photographe, figure) => {
 
           <li class="option" role="option">
               <input class="radio" id="option-popularite" name="select" type="radio" value="popularite"
-              aria-checked="ok" checked />
+              aria-checked="ok" />
               <label for="popularite">Popularité</label>
           </li>
           <li class="option" role="option">
@@ -207,9 +206,10 @@ const sectionTrierPar = (photographe, figure) => {
   selected.innerHTML = optionsListe[0].querySelector('label').innerHTML
 
   // afficher les options
-  selected.addEventListener('click', () => {
+  selected.addEventListener('click', (e) => {
     selected.innerHTML = ''
     conteneurOptions.classList.toggle('active')
+    selected.toggleAttribute('aria-expanded', 'true')
     selected.classList.toggle('selected-active')
   })
 
@@ -219,8 +219,47 @@ const sectionTrierPar = (photographe, figure) => {
       selected.innerHTML = o.querySelector('label').innerHTML
       conteneurOptions.classList.remove('active')
       selected.classList.remove('selected-active')
+      // o.removeAttribute('aria-checked')
+      conteneurOptions.setAttribute('aria-activedescendant', o.innerText)
+      trierMediasPar(medias)
     })
   })
+}
+
+const trierMediasPar = (medias) => {
+  const selected = document.querySelector('.selected')
+
+  if (selected.textContent === 'Popularité') {
+    console.log('trier par popularité')
+    medias.sort((a, b) => {
+      return b.likes - a.likes
+    })
+    console.log(medias)
+  } if (selected.textContent === 'Date') {
+    console.log('trier par date')
+    medias.sort((a, b) => {
+      const dateA = new Date(a.date)
+      console.log(dateA)
+      const dateB = new Date(b.date)
+      console.log(dateB)
+      return dateB - dateA
+    })
+    console.log(medias)
+  } if (selected.textContent === 'Titre') {
+    console.log('trier par titre')
+    medias.sort((a, b) => {
+      const titreA = a.title
+      const titreB = b.title
+      if (titreA < titreB) {
+        return -1
+      } if (titreA > titreB) {
+        return 1
+      } else {
+        return 0
+      }
+    })
+    console.log(medias)
+  }
 }
 
 const templateItemGalerie = (figure) => {
@@ -277,12 +316,6 @@ const constructeurGaleriePhotographe = (photographe, figure) => {
 
   // ajout de chaque fiche au conteneur
   conteneurGalerie.innerHTML = dataFiche
-
-  // // fonctionnalité likes
-  // const likes = document.querySelectorAll('.likes')
-  // likes.forEach(like => {
-  //   like.addEventListener('click', incrementationLikes)
-  // })
 }
 
 // Incrementation des likes
@@ -550,53 +583,67 @@ const formulaireTemplate = (photographe) => {
 ----------------------------------------------------
 */
 
-// const templateLightbox = (figure) => {
-//   // création du conteneur div
-//   const conteneurLightbox = document.createElement('div')
-//   conteneurLightbox.classList.add('lightbox')
-//   conteneurLightbox.setAttribute('role', 'dialog')
-//   conteneurLightbox.setAttribute('aria-label', 'image pein écran')
-//   conteneurLightbox.setAttribute('aria-modal', 'true')
-//   conteneurLightbox.setAttribute('aria-hidden', 'true')
-//   corpsContenuPage.appendChild(conteneurLightbox)
+const templateItemCarroussel = (photographe, media) => {
+  if (media.image !== undefined) {
+    return `
+  <li class="lightbox-element">
+    <figure>
+      <img src="resources/img/photographers/${photographe.id}/${media.image}" alt="${media.description}">
+      <figcaption class="photo-titre">${media.title}</figcaption>
+    </figure>
+ </li>
+`
+  } else {
+    return `
+  <li class="lightbox-element">
+    <figure>
+      <video src="resources/video/photographers/${photographe.id}/${media.video}" alt="${media.description}">
+      <figcaption class="photo-titre">${media.title}</figcaption>
+    </figure>
+  </li>
+  `
+  }
+}
 
-//   conteneurLightbox.innerHTML = `
-//   <ul class="lightbox__contenu">
-//                     <!-- composants lightbox -->
-//                     <div class="lightbox__commandes">
-//                         <button class="gauche" aria-label="image précédente"><i class="fas fa-chevron-left"></i> </button>
-//                         <button class="droite" aria-label="image suivante"><i class="fas fa-chevron-right"></i></button>
-//                         <button class="btn-fermeture" aria-label="fermer la lightbox"></button>
-//                     </div>
-//                     <li class="lightbox-element actif">
-//                         <figure>
-//                             <img src="resources/img/photographers/Mimi/Animals_Rainbow.jpg" alt="Oiseau multicolore">
-//                             <figcaption class="photo-titre">Arc-en-ciel</figcaption>
-//                         </figure>
-//                     </li>
-//                     <li class="lightbox-element">
-//                         <figure>
-//                             <img src="resources/img/photographers/Mimi/Event_BenevidesWedding.jpg" alt="Oiseau multicolore">
-//                             <figcaption class="photo-titre">Arc-en-ciel</figcaption>
-//                         </figure>
-//                     </li>
-//                     <li class="lightbox-element">
-//                         <figure>
-//                             <img src="resources/img/photographers/Mimi/Event_PintoWedding.jpg" alt="Oiseau multicolore">
-//                             <figcaption class="photo-titre">Arc-en-ciel</figcaption>
-//                         </figure>
-//                     </li>
-//                 </div>
-//   `
+const templateLightbox = (photographe, medias) => {
+  // création du conteneur div
+  const conteneurLightbox = document.createElement('div')
+  conteneurLightbox.classList.add('lightbox')
+  conteneurLightbox.setAttribute('role', 'dialog')
+  conteneurLightbox.setAttribute('aria-label', 'image pein écran')
+  conteneurLightbox.setAttribute('aria-modal', 'true')
+  conteneurLightbox.setAttribute('aria-hidden', 'true')
+  corpsContenuPage.appendChild(conteneurLightbox)
 
-// }
+  conteneurLightbox.innerHTML = `
+  <ul class="lightbox__contenu">
+                    <!-- composants lightbox -->
+                    <div class="lightbox__commandes">
+                      <button class="gauche" aria-label="image précédente"><i class="fas fa-chevron-left"></i> </button>
+                      <button class="droite" aria-label="image suivante"><i class="fas fa-chevron-right"></i></button>
+                      <button class="btn-fermeture" aria-label="fermer la lightbox"></button>
+                    </div>
+                    ${medias.map((media) => templateItemCarroussel(photographe, media)).join('')}
+                </div>
+  `
+//   <li class="lightbox-element actif">
+}
 
-// function affichageLightbox(vignette, vignettesImages) {
-//   console.log('vignette image')
-//   console.log(vignettesImages)
-//   console.log('vignette')
-//   console.log(vignette)
-// }
+const affichageLightbox = (vignette, vignettesImages) => {
+  const corpsLightbox = document.querySelector('.lightbox')
+
+  corpsContenuPage.setAttribute('aria-hidden', 'true')
+  corpsPage.style.overflow = 'hidden'
+  corpsLightbox.setAttribute('aria-hidden', 'false')
+}
+
+const fermetureLightbox = () => {
+  const corpsLightbox = document.querySelector('.lightbox')
+
+  corpsContenuPage.setAttribute('aria-hidden', 'false')
+  corpsPage.style.overflow = 'scroll'
+  corpsLightbox.setAttribute('aria-hidden', 'true')
+}
 
 /**
 ----------------------------------------------------
@@ -608,8 +655,11 @@ const constructeurPagePhotographe = (currentPhotographe, currentPhotographeMedia
   constructeurHeader()
   constructeurBannierePhotographe(currentPhotographe)
   blocFixe(currentPhotographe, currentPhotographeMedias)
-  sectionTrierPar()
+  sectionTrierPar(currentPhotographe, currentPhotographeMedias)
   constructeurGaleriePhotographe(currentPhotographe, currentPhotographeMedias)
+
+  // // fonctionnalité de tri
+  // trierMediasPar(currentPhotographeMedias)
 
   // fonctionnalité likes
   const likes = document.querySelectorAll('.likes')
@@ -624,10 +674,13 @@ const constructeurPagePhotographe = (currentPhotographe, currentPhotographeMedia
   formulaireTemplate(currentPhotographe)
 
   // modale lightbox
-  // const vignettesImages = document.querySelectorAll('.apercu-photo')
-  // vignettesImages.forEach(function (vignette) {
-  //   vignette.addEventListener('click', () => {
-  //     this.affichageLightbox(vignette, vignettesImages)
-  //   })
-  // })
+  templateLightbox(currentPhotographe, currentPhotographeMedias)
+  const vignettesImages = document.querySelectorAll('.apercu-photo img')
+  vignettesImages.forEach(function (vignette) {
+    vignette.addEventListener('click', () => {
+      affichageLightbox(vignette, vignettesImages)
+    })
+  })
+  const btnFermerLightbox = document.querySelector('.lightbox .btn-fermeture')
+  btnFermerLightbox.addEventListener('click', fermetureLightbox)
 }
