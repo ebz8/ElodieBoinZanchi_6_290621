@@ -78,6 +78,10 @@ document.addEventListener('DOMContentLoaded', chargementData)
 ----------------------------------------------------
 */
 
+//
+// HEADER
+//
+
 const constructeurHeader = (data) => {
   const header = document.createElement('header')
   header.classList.add('banniere')
@@ -88,6 +92,10 @@ const constructeurHeader = (data) => {
 `
   corpsPage.prepend(header)
 }
+
+//
+// BANNIERE PHOTOGRAPHE
+//
 
 const tagsParPhotographe = (tags) => {
   return `
@@ -131,6 +139,10 @@ const constructeurBannierePhotographe = (currentPhotographe) => {
   conteneurBanniere.innerHTML = templateBannierePhotographe(currentPhotographe)
 }
 
+//
+// BLOC FIXE : COMPTEUR LIKES & PRIX
+//
+
 const blocFixe = (photographe, medias) => {
   // récupérer l'ensemble des valeurs likes dans le json
   let likesParImage = []
@@ -152,6 +164,10 @@ const blocFixe = (photographe, medias) => {
   </div>
   `
 }
+
+//
+// MENU SELECT DE TRI D'AFFICHAGE
+//
 
 const sectionTrierPar = (photographe, medias) => {
   // création du conteneur div
@@ -226,15 +242,19 @@ const sectionTrierPar = (photographe, medias) => {
   })
 }
 
+// FONCTIONS DE TRI DES MEDIAS
 const trierMediasPar = (medias) => {
   const selected = document.querySelector('.selected')
 
+  // si le btn selected contient Popularité
   if (selected.textContent === 'Popularité') {
     console.log('trier par popularité')
     medias.sort((a, b) => {
       return b.likes - a.likes
     })
     console.log(medias)
+
+    // si le btn selected contient Date
   } if (selected.textContent === 'Date') {
     console.log('trier par date')
     medias.sort((a, b) => {
@@ -245,11 +265,13 @@ const trierMediasPar = (medias) => {
       return dateB - dateA
     })
     console.log(medias)
+
+    // si le btn selected contient Titre
   } if (selected.textContent === 'Titre') {
     console.log('trier par titre')
     medias.sort((a, b) => {
-      const titreA = a.title
-      const titreB = b.title
+      const titreA = a.title.toLowerCase()
+      const titreB = b.title.toLowerCase()
       if (titreA < titreB) {
         return -1
       } if (titreA > titreB) {
@@ -261,6 +283,10 @@ const trierMediasPar = (medias) => {
     console.log(medias)
   }
 }
+
+//
+// GALERIE DU PHOTOGRAPHE
+//
 
 const templateItemGalerie = (figure) => {
   // si image :
@@ -318,7 +344,7 @@ const constructeurGaleriePhotographe = (photographe, figure) => {
   conteneurGalerie.innerHTML = dataFiche
 }
 
-// Incrementation des likes
+// INCREMENTATION DES LIKES
 function incrementationLikes (likes, like, event) {
   let totalLikes = like.textContent.replace(/\s+/g, '')
   let affichageLikes = like.querySelector('.likes__nombre')
