@@ -215,7 +215,8 @@ const constructeurGaleriePhotographe = (photographe, figure) => {
   corpsContenuPage.appendChild(conteneurGalerie)
 
   // appel du template de la fiche pour chaque photographe
-  const dataFiche = figure.map(templateItemGalerie).join('')
+  // inclu tri par défaut par popularité
+  const dataFiche = figure.sort((a, b) => b.likes - a.likes).map(templateItemGalerie).join('')
 
   // ajout de chaque fiche au conteneur
   conteneurGalerie.innerHTML = dataFiche
