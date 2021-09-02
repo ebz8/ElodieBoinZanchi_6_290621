@@ -166,6 +166,84 @@ const blocFixe = (photographe, medias) => {
 }
 
 //
+// GALERIE DU PHOTOGRAPHE
+//
+
+const templateItemGalerie = (figure) => {
+  // si image :
+  if (figure.image !== undefined) {
+    return `
+  <figure class="apercu-photo">
+                    <a href="#">
+                        <img src="resources/img/photographers/${figure.photographerId}/${figure.image}" alt="${figure.description}">
+                    </a>
+                    <figcaption>
+                        <p class="photo-titre" tabindex="0">${figure.title}</p>
+                        <div class="likes">
+                            <p class="likes__nombre" tabindex="0">${figure.likes}</p><button class="icone-like" aria-label="j'aime"><i class="fas fa-heart" tabindex="-1"></i>
+                            </button> 
+                        </div>
+                    </figcaption>
+                </figure>
+`
+  // si vidéo :
+  } else {
+    return `
+  <figure class="apercu-photo">
+                    <a href="#">
+                        <video>
+                            <source src="resources/video/photographers/${figure.photographerId}/${figure.video}" alt="${figure.description}">
+                            <video alt="Chevaux dans la montagne" autoplay="" controls="" loop=""
+                        </video>
+                    </a>
+                    <figcaption>
+                        <p class="photo-titre" tabindex="0">${figure.title}</p>
+                        <div class="likes" tabindex="0">
+                            <p class="likes__nombre">${figure.likes}</p><button class="icone-like" aria-label="j'aime"><i class="fas fa-heart" ></i>
+                            </button> 
+                        </div>
+                    </figcaption>
+                </figure>
+`
+  }
+}
+
+const constructeurGaleriePhotographe = (photographe, figure) => {
+  // création du conteneur div
+  const conteneurGalerie = document.createElement('div')
+  conteneurGalerie.classList.add('profil-galerie')
+  corpsContenuPage.appendChild(conteneurGalerie)
+
+  // appel du template de la fiche pour chaque photographe
+  const dataFiche = figure.map(templateItemGalerie).join('')
+
+  // ajout de chaque fiche au conteneur
+  conteneurGalerie.innerHTML = dataFiche
+}
+
+// INCREMENTATION DES LIKES
+function incrementationLikes (likes, like, event) {
+  let totalLikes = like.previousSibling.textContent.replace(/\s+/g, '')
+  let affichageLikes = like.previousSibling
+
+  const compteurGeneral = document.querySelector('.compteur-likes')
+  let compteurGeneralLikes = compteurGeneral.textContent
+
+  event.target.classList.toggle('like-actif')
+  if (event.target.classList.contains('like-actif')) {
+    totalLikes++
+    affichageLikes.textContent = totalLikes
+    compteurGeneralLikes++
+    compteurGeneral.innerHTML = `<p class="compteur-likes">${compteurGeneralLikes} <span class="icone-like" aria-label="j'aime"><i class="fas fa-heart"></i></span></p>`
+  } else {
+    totalLikes--
+    affichageLikes.textContent = totalLikes
+    compteurGeneralLikes--
+    compteurGeneral.innerHTML = `<p class="compteur-likes">${compteurGeneralLikes} <span class="icone-like" aria-label="j'aime"><i class="fas fa-heart"></i></span></p>`
+  }
+}
+
+//
 // MENU SELECT DE TRI D'AFFICHAGE
 //
 
@@ -252,19 +330,17 @@ const trierMediasPar = (medias) => {
     medias.sort((a, b) => {
       return b.likes - a.likes
     })
-    console.log(medias)
+    actualisationAffichage(medias)
 
     // si le btn selected contient Date
   } if (selected.textContent === 'Date') {
     console.log('trier par date')
     medias.sort((a, b) => {
       const dateA = new Date(a.date)
-      console.log(dateA)
       const dateB = new Date(b.date)
-      console.log(dateB)
       return dateB - dateA
     })
-    console.log(medias)
+    actualisationAffichage(medias)
 
     // si le btn selected contient Titre
   } if (selected.textContent === 'Titre') {
@@ -280,86 +356,22 @@ const trierMediasPar = (medias) => {
         return 0
       }
     })
-    console.log(medias)
+    actualisationAffichage(medias)
   }
 }
 
-//
-// GALERIE DU PHOTOGRAPHE
-//
+const actualisationAffichage = (medias) => {
+  const itemsGalerie = document.querySelectorAll('.apercu-photo')
+  const conteneurGalerie = document.querySelector('.profil-galerie')
 
-const templateItemGalerie = (figure) => {
-  // si image :
-  if (figure.image !== undefined) {
-    return `
-  <figure class="apercu-photo">
-                    <a href="#">
-                        <img src="resources/img/photographers/${figure.photographerId}/${figure.image}" alt="${figure.description}">
-                    </a>
-                    <figcaption>
-                        <p class="photo-titre" tabindex="0">${figure.title}</p>
-                        <div class="likes">
-                            <p class="likes__nombre" tabindex="0">${figure.likes}</p><button class="icone-like" aria-label="j'aime"><i class="fas fa-heart" tabindex="-1"></i>
-                            </button> 
-                        </div>
-                    </figcaption>
-                </figure>
-`
-  // si vidéo :
-  } else {
-    return `
-  <figure class="apercu-photo">
-                    <a href="#">
-                        <video>
-                            <source src="resources/video/photographers/${figure.photographerId}/${figure.video}" alt="${figure.description}">
-                            <video alt="Chevaux dans la montagne" autoplay="" controls="" loop=""
-                        </video>
-                    </a>
-                    <figcaption>
-                        <p class="photo-titre" tabindex="0">${figure.title}</p>
-                        <div class="likes" tabindex="0">
-                            <p class="likes__nombre">${figure.likes}</p><button class="icone-like" aria-label="j'aime"><i class="fas fa-heart" ></i>
-                            </button> 
-                        </div>
-                    </figcaption>
-                </figure>
-`
-  }
-}
-
-const constructeurGaleriePhotographe = (photographe, figure) => {
-  // création du conteneur div
-  const conteneurGalerie = document.createElement('div')
-  conteneurGalerie.classList.add('profil-galerie')
-  corpsContenuPage.appendChild(conteneurGalerie)
+  // supprimer les apercus sans tri
+  itemsGalerie.forEach((item) => item.classList.add('desactiver'))
 
   // appel du template de la fiche pour chaque photographe
-  const dataFiche = figure.map(templateItemGalerie).join('')
+  const dataFiche = medias.map(templateItemGalerie).join('')
 
   // ajout de chaque fiche au conteneur
   conteneurGalerie.innerHTML = dataFiche
-}
-
-// INCREMENTATION DES LIKES
-function incrementationLikes (likes, like, event) {
-  let totalLikes = like.previousSibling.textContent.replace(/\s+/g, '')
-  let affichageLikes = like.previousSibling
-
-  const compteurGeneral = document.querySelector('.compteur-likes')
-  let compteurGeneralLikes = compteurGeneral.textContent
-
-  event.target.classList.toggle('like-actif')
-  if (event.target.classList.contains('like-actif')) {
-    totalLikes++
-    affichageLikes.textContent = totalLikes
-    compteurGeneralLikes++
-    compteurGeneral.innerHTML = `<p class="compteur-likes">${compteurGeneralLikes} <span class="icone-like" aria-label="j'aime"><i class="fas fa-heart"></i></span></p>`
-  } else {
-    totalLikes--
-    affichageLikes.textContent = totalLikes
-    compteurGeneralLikes--
-    compteurGeneral.innerHTML = `<p class="compteur-likes">${compteurGeneralLikes} <span class="icone-like" aria-label="j'aime"><i class="fas fa-heart"></i></span></p>`
-  }
 }
 
 /**
