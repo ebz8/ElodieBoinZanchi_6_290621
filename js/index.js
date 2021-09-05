@@ -15,7 +15,7 @@ const touchesClavier = {
 }
 
 //
-// 1 - récupération des données JSON au chargement de la page
+// 1 - Récupération des données JSON au chargement de la page
 //
 
 let apiUrl = 'js/data/fisheyedata.json'
@@ -132,7 +132,8 @@ const utilitaires = {
   },
 
   // fonctionnalité : affichage par tag
-  trierParTag: function (tags) {
+  trierParTag: function () {
+    const tags = document.querySelectorAll('.tag-entree')
     tags.forEach(function (tagActif) {
       tagActif.addEventListener('click', () => {
         utilitaires.affichageParTagActif(tags, tagActif)
@@ -145,8 +146,7 @@ const utilitaires = {
 // 3 - Éléments du DOM
 //
 
-// BOUTON RETOUR AU CONTENU PRINCIPAL
-const constructeurBtnRetourMain = () => {
+const creationBtnRetourMain = () => {
   const btnRetour = document.createElement('a')
   btnRetour.classList.add('btn-contenu-principal')
   btnRetour.setAttribute('href', '#contenu-principal')
@@ -157,8 +157,7 @@ const constructeurBtnRetourMain = () => {
   utilitaires.apparitionAuScroll(200, btnRetour)
 }
 
-// HEADER
-const constructeurHeader = (data) => {
+const creationHeader = (data) => {
   const header = document.createElement('header')
   header.classList.add('banniere')
   header.innerHTML = `
@@ -175,26 +174,21 @@ const constructeurHeader = (data) => {
   corpsPage.prepend(header)
 }
 
-// MAIN
-const constructeurGaleriePhotographes = (data) => {
-  // création du conteneur ul
+const creationGaleriePhotographes = (data) => {
   const photographesGalerie = document.createElement('ul')
   photographesGalerie.classList.add('photographes-galerie')
   corpsContenuPage.append(photographesGalerie)
-  // appel du template de la fiche pour chaque photographe
   const dataFiche = data.photographers.map(templates.fichePhotographe).join('')
-  // ajout de chaque fiche au conteneur
   photographesGalerie.innerHTML = dataFiche
 }
 
 //
-// 5 - Génération de la page index
+// 4 - Génération de la page index
 //
 const constructeurIndex = (data) => {
-  constructeurBtnRetourMain()
-  constructeurHeader(data)
-  constructeurGaleriePhotographes(data)
+  creationBtnRetourMain()
+  creationHeader(data)
+  creationGaleriePhotographes(data)
 
-  const tags = document.querySelectorAll('.tag-entree')
-  utilitaires.trierParTag(tags)
+  utilitaires.trierParTag()
 }
