@@ -14,10 +14,13 @@ const touchesClavier = {
   echap: 27
 }
 
-//
-// 1 - Récupération des données JSON au chargement de la page
-//
+/**
+----------------------------------------------------------
+1 - récupération des donnée JSON au chargement de la page
+----------------------------------------------------------
+*/
 
+// eslint-disable-next-line prefer-const
 let apiUrl = 'js/data/fisheyedata.json'
 const jsonData = async () => {
   try {
@@ -35,11 +38,23 @@ const chargementData = async () => {
 }
 document.addEventListener('DOMContentLoaded', chargementData)
 
-//
-// 2 - Boite à outils
-//
+/**
+---------------------------------------
+2 - Outils
+---------------------------------------
+*/
 
 const templates = {
+
+  // logo
+
+  logoFisheEye: () => {
+    return `
+    <a href="index.html">
+      <img class="logo" src="resources/img/logo.png" alt="FishEye : page d'accueil">
+    </a>`
+  },
+
   // bouton tag individuel
   navigationTag: (tag) => {
     return ` <li class="tag-entree"><a href="#"><span aria-label="hashtag">#</span>${tag}</a></li>`
@@ -98,8 +113,8 @@ const utilitaires = {
     const tagsRetenus = []
 
     tags.forEach((tag) => {
-      // Pour chaque tag, vérifier que le tag actuel et le tag cliqué correspondent
       if (tag.textContent.toLowerCase() === tagActif.textContent.toLowerCase()) {
+        // Pour chaque tag, vérifier que le tag actuel et le tag cliqué correspondent
       // si oui, modifier statut de la classe active
         tag.classList.toggle('active')
       } else {
@@ -112,21 +127,20 @@ const utilitaires = {
         tagsRetenus.push(tag)
       }
     })
+
     // Faire disparaitre toutes les fiches quand un tag sélectionné
     // et afficher seulement le tableau fichesRetenues
     if (tagsRetenus.length !== 0) {
-    // console.log(fichesRetenues)
       fichesPhotographes.forEach((fichePhotographe) => fichePhotographe.classList.add('desactiver'))
       tagsRetenus.forEach((fiche) => {
         const ficheActive = fiche.closest('.photographe-profil')
-
-        // si le parent '.photographe-profil' existe ( = exclure tags du header)
         if (ficheActive !== null) {
+        // si le parent '.photographe-profil' existe (= exclure tags du header)
           ficheActive.classList.remove('desactiver')
         }
       })
-      // si aucun tag sélectionné, afficher toutes les fiches
     } else {
+    // si aucun tag sélectionné, afficher toutes les fiches
       fichesPhotographes.forEach((fichePhotographe) => fichePhotographe.classList.remove('desactiver'))
     }
   },
@@ -142,9 +156,11 @@ const utilitaires = {
   }
 }
 
-//
-// 3 - Éléments du DOM
-//
+/**
+----------------------------------------
+3 - Initialisation des éléments du DOM
+----------------------------------------
+*/
 
 const creationBtnRetourMain = () => {
   const btnRetour = document.createElement('a')
@@ -161,9 +177,7 @@ const creationHeader = (data) => {
   const header = document.createElement('header')
   header.classList.add('banniere')
   header.innerHTML = `
-        <a href="index.html">
-            <img class="logo" src="resources/img/logo.png" alt="FishEye : page d'accueil">
-        </a>
+        ${templates.logoFisheEye()}
         <nav aria-label="trier les photographes par categories">
           <ul class="nav-par-tag" >
             ${utilitaires.trierTableauTags(data).map(templates.navigationTag).join('')}
@@ -178,13 +192,17 @@ const creationGaleriePhotographes = (data) => {
   const photographesGalerie = document.createElement('ul')
   photographesGalerie.classList.add('photographes-galerie')
   corpsContenuPage.append(photographesGalerie)
+
   const dataFiche = data.photographers.map(templates.fichePhotographe).join('')
   photographesGalerie.innerHTML = dataFiche
 }
 
-//
-// 4 - Génération de la page index
-//
+/**
+---------------------------------
+4 - Fabrique de la page index
+---------------------------------
+*/
+
 const constructeurIndex = (data) => {
   creationBtnRetourMain()
   creationHeader(data)
