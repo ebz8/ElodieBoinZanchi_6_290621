@@ -366,6 +366,14 @@ banniere
 animations CSS
 ----------------------
 */
+@keyframes lightboxIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 /**
 ----------------------
 boutons
@@ -684,55 +692,61 @@ lightbox
   width: 100%;
   height: 100%;
   background-color: white;
+  animation: lightboxIn 0.5s;
 }
 .lightbox[aria-hidden=true] {
   visibility: hidden;
   opacity: 0;
 }
 
+.lightbox__commandes {
+  position: fixed;
+  opacity: 0.8;
+  transition: 0.2s;
+  height: 100%;
+  width: auto;
+}
+.lightbox__commandes:hover {
+  opacity: 1;
+}
 .lightbox__commandes .btn-fermeture {
-  position: absolute;
-  top: 0;
-  right: 0;
-  transform: translate(200%, -50%);
+  position: fixed;
+  right: 3rem;
 }
 .lightbox__commandes .gauche,
 .lightbox__commandes .droite {
-  position: absolute;
-  top: 50%;
+  position: fixed;
+  height: 100%;
   cursor: pointer;
   background-color: transparent;
   font-size: 2rem;
   color: #911d1d;
 }
 .lightbox__commandes .gauche {
-  left: 0;
-  transform: translate(-150%, -50%);
+  left: 3rem;
 }
 .lightbox__commandes .droite {
-  right: 0;
-  transform: translate(150%, -50%);
+  right: 3rem;
 }
 
 .lightbox__contenu {
-  position: relative;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 80vw;
-  height: 70%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0 5rem;
 }
 .lightbox__contenu .lightbox-element {
-  width: 60%;
+  max-width: 50%;
   position: absolute;
 }
 .lightbox__contenu .actif {
   opacity: 1;
 }
 .lightbox__contenu img, .lightbox__contenu video {
-  position: absolute;
   object-fit: cover;
   width: 100%;
+  animation: lightboxIn 0.5s;
 }
 
 /**

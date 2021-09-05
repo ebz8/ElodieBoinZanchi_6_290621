@@ -43,12 +43,119 @@ const chargementData = async () => {
 }
 document.addEventListener('DOMContentLoaded', chargementData)
 
-// 3 - Générer les éléments HTML individuellement
+// 3 - Boite à outils
 
-// btn retour au contenu principal
+const utilitaires = {
+  // apparait au scroll et retour vers le haut au clic
+  // (!!!) Ajouter gestion au clavier
+  apparitionAuScroll: function (valeurY, element) {
+    window.addEventListener('scroll', () => {
+      window.scrollY > valeurY ? element.removeAttribute('aria-hidden') : element.setAttribute('aria-hidden', 'true')
+    })
+    element.addEventListener('click', () => {
+      window.scrollTop = 0
+    })
+  },
+
+  // trier les tags et supprimer les doublons
+  trierTableauTags: (data) => {
+    let tableauTags = []
+    data.photographers.map(tag => tag.tags.map(tag => tableauTags.push(tag)))
+    const tagUnique = new Set(tableauTags)
+    const listeTags = [...tagUnique]
+    return listeTags
+  },
+
+  recupererFichesTagActif: (tags, tagActif, fichesPhotographes) => {
+    const tagsRetenus = []
+    // Pour chaque tag, vérifier que le tag actuel et le tag cliqué correspondent
+    tags.forEach((tag) => {
+      if (tag.textContent.toLowerCase() === tagActif.textContent.toLowerCase()) {
+      // si oui, modifier statut (activer) de la classe active
+        tag.classList.toggle('active')
+      } else {
+      // sinon, retirer la classe active
+        tag.classList.remove('active')
+      }
+      // Récupérer tous les tags ayant matché par la classe active
+      // et les envoyer dans le tableau des fiches retenues (fichesRetenues)
+      if (tag.classList.contains('active')) {
+        tagsRetenus.push(tag)
+      }
+    })
+    // Faire disparaitre toutes les fiches quand un tag sélectionné
+    // et afficher seulement le tableau fichesRetenues
+    if (tagsRetenus.length !== 0) {
+    // console.log(fichesRetenues)
+      fichesPhotographes.forEach((fichePhotographe) => fichePhotographe.classList.add('desactiver'))
+      tagsRetenus.forEach((fiche) => {
+        const ficheActive = fiche.closest('.photographe-profil')
+
+        // si le parent '.photographe-profil' existe ( = exclure tags du header)
+        if (ficheActive !== null) {
+          ficheActive.classList.remove('desactiver')
+        }
+      })
+      // si aucun tag sélectionné, afficher toutes les fiches
+    } else {
+      fichesPhotographes.forEach((fichePhotographe) => fichePhotographe.classList.remove('desactiver'))
+    }
+  },
+
+  affichageParTag: function (tags, tagActif) {
+    const fichesPhotographes = document.querySelectorAll('.photographe-profil')
+    utilitaires.recupererFichesTagActif(tags, tagActif, fichesPhotographes)
+  },
+
+  // fonctionnalité : affichage par tag
+  triParTag: function (tags) {
+    tags.forEach(function (tagActif) {
+      tagActif.addEventListener('click', () => {
+        utilitaires.affichageParTag(tags, tagActif)
+      })
+    })
+  }
+}
+
+const templates = {
+  // bouton tag individuel
+  navigationTag: (tag) => {
+    return ` <li class="tag-entree"><a href="#"><span aria-label="hashtag">#</span>${tag}</a></li>`
+  },
+
+  // liste des tags par photographe
+  listeTagsParPhotographe: (tags) => {
+    return `
+    <ul class="nav-par-tag" >
+    ${tags.map((tag) =>
+     `<li class="tag-entree"><a href="#"><span aria-label="hashtag">#</span>${tag}</a></li>`
+    ).join('')}
+    </ul>`
+  },
+
+  // fiche complète d'un photographe
+  fichePhotographe: (photographe) => {
+    return `<li class="photographe-profil">
+      <a href="page-photographe.html?id=${photographe.id}">
+        <img class="vignette" src="resources/img/photographers/IDphotos/${photographe.portrait}" alt=" "/>
+        <h2 class="nom">${photographe.name}</h2>
+      </a>
+      <div tabindex="0">
+        <p class="localisation">${photographe.city}, ${photographe.country}</p>
+        <p class="accroche">${photographe.tagline}</p>
+        <span class="tarif">${photographe.price}€</span><span class="tarif" aria-label="par jour">/jour</span>
+      </div>
+      ${templates.listeTagsParPhotographe(photographe.tags)}
+      </li>`
+  }
+}
+
+// 4 - Génération des éléments
+
+//
+// BOUTON RETOUR AU CONTENU PRINCIPAL
 //
 const constructeurBtnRetourMain = () => {
-  // création du bouton
   const btnRetour = document.createElement('a')
   btnRetour.classList.add('btn-contenu-principal')
   btnRetour.setAttribute('href', '#contenu-principal')
@@ -56,41 +163,13 @@ const constructeurBtnRetourMain = () => {
   btnRetour.innerText = 'Passer au contenu'
   corpsPage.prepend(btnRetour)
 
-  // gestion du scroll
-  window.addEventListener('scroll', () => {
-    // console.log(window.scrollY)
-    window.scrollY > 200 ? btnRetour.removeAttribute('aria-hidden') : btnRetour.setAttribute('aria-hidden', 'true')
-  })
-
-  // gestion du clic
-  btnRetour.addEventListener('click', () => {
-    window.scrollTop = 0
-  })
-
-  // (???) rajouter la gestion du clavier
+  utilitaires.apparitionAuScroll(200, btnRetour)
 }
 
 //
 // HEADER
 //
-// navigation par tag
-//
-const templateNavTag = (tag) => {
-  return `
-  <li class="tag-entree"><a href="#"><span aria-label="hashtag">#</span>${tag}</a></li>`
-}
-
 const constructeurHeader = (data) => {
-  // récupération des tags dans un tableau vide
-  let tableauTags = []
-  data.photographers.map(tag => {
-    tag.tags.map(tag => tableauTags.push(tag))
-  })
-
-  // tri et suppression des doublons :
-  const tagUnique = new Set(tableauTags)
-  const listeTags = [...tagUnique]
-
   const header = document.createElement('header')
   header.classList.add('banniere')
   header.innerHTML = `
@@ -98,9 +177,8 @@ const constructeurHeader = (data) => {
             <img class="logo" src="resources/img/logo.png" alt="FishEye : page d'accueil">
         </a>
         <nav aria-label="trier les photographes par categories">
-        <ul class="nav-par-tag" >
-
-          ${listeTags.map(templateNavTag).join('')}
+          <ul class="nav-par-tag" >
+            ${utilitaires.trierTableauTags(data).map(templates.navigationTag).join('')}
           </ul>
         </nav>
         <h1 tabindex="0">Nos photographes</h1>
@@ -111,33 +189,6 @@ const constructeurHeader = (data) => {
 //
 // MAIN
 //
-// hashtags des fiches photographe
-//
-const tagsParPhotographe = (tags) => {
-  return `
-  <ul class="nav-par-tag" >
-  ${tags.map((tag) =>
-   `<li class="tag-entree"><a href="#"><span aria-label="hashtag">#</span>${tag}</a></li>`
-  ).join('')}
-  </ul>`
-}
-
-// template complet d'une fiche photographe
-const templateFiche = (photographe) => {
-  return `<li class="photographe-profil">
-    <a href="page-photographe.html?id=${photographe.id}">
-                      <img class="vignette" src="resources/img/photographers/IDphotos/${photographe.portrait}" alt=" "/>
-                      <h2 class="nom">${photographe.name}</h2>
-                  </a>
-                  <div tabindex="0">
-                      <p class="localisation">${photographe.city}, ${photographe.country}</p>
-                      <p class="accroche">${photographe.tagline}</p>
-                      <span class="tarif">${photographe.price}€</span><span class="tarif" aria-label="par jour">/jour</span>
-                  </div>
-                  ${tagsParPhotographe(photographe.tags)}
-    </li>`
-}
-
 const constructeurFichesPhotographe = (data) => {
   // création du conteneur ul
   const photographesGalerie = document.createElement('ul')
@@ -145,51 +196,10 @@ const constructeurFichesPhotographe = (data) => {
   corpsContenuPage.append(photographesGalerie)
 
   // appel du template de la fiche pour chaque photographe
-  const dataFiche = data.photographers.map(templateFiche).join('')
+  const dataFiche = data.photographers.map(templates.fichePhotographe).join('')
 
   // ajout de chaque fiche au conteneur
   photographesGalerie.innerHTML = dataFiche
-}
-
-// 4 - Fonctionnalité trier par tag
-
-function affichageParTag (tags, tagActif) {
-  const fichesPhotographes = document.querySelectorAll('.photographe-profil')
-  const tagsRetenus = []
-
-  // Pour chaque tag, vérifier que le tag actuel et le tag cliqué correspondent
-  tags.forEach((tag) => {
-    // si oui, modifier statut (activer) de la classe active
-    if (tag.textContent.toLowerCase() === tagActif.textContent.toLowerCase()) {
-      tag.classList.toggle('active')
-    // sinon, retirer la classe active
-    } else {
-      tag.classList.remove('active')
-    }
-    // Récupérer tous les tags ayant matché par la classe active
-    // et les envoyer dans le tableau des fiches retenues (fichesRetenues)
-    if (tag.classList.contains('active')) {
-      tagsRetenus.push(tag)
-    }
-  })
-
-  // Faire disparaitre toutes les fiches quand un tag sélectionné
-  // et afficher seulement le tableau fichesRetenues
-  if (tagsRetenus.length !== 0) {
-    // console.log(fichesRetenues)
-    fichesPhotographes.forEach((fichePhotographe) => fichePhotographe.classList.add('desactiver'))
-    tagsRetenus.forEach((fiche) => {
-      const ficheActive = fiche.closest('.photographe-profil')
-
-      // si le parent '.photographe-profil' existe ( = exclure tags du header)
-      if (ficheActive !== null) {
-        ficheActive.classList.remove('desactiver')
-      }
-    })
-  // si aucun tag sélectionné, afficher toutes les fiches
-  } else {
-    fichesPhotographes.forEach((fichePhotographe) => fichePhotographe.classList.remove('desactiver'))
-  }
 }
 
 // 5 - Génération générale de l'index
@@ -198,11 +208,6 @@ const constructeurIndex = (data) => {
   constructeurHeader(data)
   constructeurFichesPhotographe(data)
 
-  // fonctionnalité de tri d'affichage
   const tags = document.querySelectorAll('.tag-entree')
-  tags.forEach(function (tagActif) {
-    tagActif.addEventListener('click', () => {
-      this.affichageParTag(tags, tagActif)
-    })
-  })
+  utilitaires.triParTag(tags)
 }

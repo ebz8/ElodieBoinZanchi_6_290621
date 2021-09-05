@@ -327,7 +327,6 @@ const trierMediasPar = (medias) => {
 
   // si le btn selected contient Popularité
   if (selected.textContent === 'Popularité') {
-    console.log('trier par popularité')
     medias.sort((a, b) => {
       return b.likes - a.likes
     })
@@ -335,7 +334,6 @@ const trierMediasPar = (medias) => {
 
     // si le btn selected contient Date
   } if (selected.textContent === 'Date') {
-    console.log('trier par date')
     medias.sort((a, b) => {
       const dateA = new Date(a.date)
       const dateB = new Date(b.date)
@@ -345,7 +343,6 @@ const trierMediasPar = (medias) => {
 
     // si le btn selected contient Titre
   } if (selected.textContent === 'Titre') {
-    console.log('trier par titre')
     medias.sort((a, b) => {
       const titreA = a.title.toLowerCase()
       const titreB = b.title.toLowerCase()
@@ -391,7 +388,7 @@ const formulaireTemplate = (photographe) => {
   sectionFormulaire.setAttribute('aria-modal', 'true')
   sectionFormulaire.setAttribute('aria-hidden', 'true')
 
-  corpsContenuPage.appendChild(sectionFormulaire)
+  corpsPage.appendChild(sectionFormulaire)
 
   // ajout de chaque fiche au conteneur
   sectionFormulaire.innerHTML = `
@@ -642,24 +639,24 @@ const templateItemCarroussel = (photographe, media) => {
 
 const templateLightbox = (photographe, medias) => {
   // création du conteneur div
-  const conteneurLightbox = document.createElement('div')
+  const conteneurLightbox = document.createElement('section')
   conteneurLightbox.classList.add('lightbox')
   conteneurLightbox.setAttribute('role', 'dialog')
   conteneurLightbox.setAttribute('aria-label', 'image pein écran')
   conteneurLightbox.setAttribute('aria-modal', 'true')
   conteneurLightbox.setAttribute('aria-hidden', 'true')
-  corpsContenuPage.appendChild(conteneurLightbox)
+  corpsPage.appendChild(conteneurLightbox)
 
   conteneurLightbox.innerHTML = `
-  <ul class="lightbox__contenu">
                     <!-- composants lightbox -->
                     <div class="lightbox__commandes">
                       <button class="gauche" aria-label="image précédente"><i class="fas fa-chevron-left"></i> </button>
                       <button class="droite" aria-label="image suivante"><i class="fas fa-chevron-right"></i></button>
                       <button class="btn-fermeture" aria-label="fermer la lightbox"></button>
                     </div>
-                    ${medias.map((media) => templateItemCarroussel(photographe, media)).join('')}
-                </div>
+                    <ul class="lightbox__contenu">
+                      ${medias.map((media) => templateItemCarroussel(photographe, media)).join('')}
+                    </ul>
   `
 //   <li class="lightbox-element actif">
 }
