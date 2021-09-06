@@ -144,13 +144,14 @@ boutons
     cursor: pointer;
     background: none;
     color: $couleur-primaire;
-
+    
     i {
         padding-left: .3rem;
     }
     
     .like-actif {
         color: lighten($couleur-primaire, 20%);
+        transition: all .4s;
     }
 }
 
@@ -210,7 +211,7 @@ boutons
         color: white;
         background-color: $couleur-primaire;
         border-radius: 0 0 .5rem .5rem;
-        transition: all .4s;
+        transition: max-height .4s;
     }
 
     .selected {
@@ -263,25 +264,3 @@ boutons
       transition: transform 0.1s;
     }
   }
-
-
-// // Bouton select
-// // critères de tri
-// .trier-par{
-//     display: flex;
-
-//     .menu-options{
-//         margin-left: 1rem;
-//         background-color: $couleur-primaire;
-//         border: none;
-
-//         .option{
-//             &::after{
-//                 border-bottom: 1px solid white;
-//             }
-        
-
-//         }
-//     }
-// }
-

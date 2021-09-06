@@ -487,6 +487,7 @@ boutons
 }
 .icone-like .like-actif {
   color: #d83b3b;
+  transition: all 0.4s;
 }
 
 .trier-par {
@@ -536,7 +537,7 @@ boutons
   color: white;
   background-color: #911d1d;
   border-radius: 0 0 0.5rem 0.5rem;
-  transition: all 0.4s;
+  transition: max-height 0.4s;
 }
 .trier-par .selected {
   background-color: #911d1d;
