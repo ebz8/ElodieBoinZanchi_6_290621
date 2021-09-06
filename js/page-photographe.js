@@ -1,3 +1,5 @@
+// import { templates } from './index.js'
+
 /* eslint-disable eqeqeq */
 
 /**
@@ -41,17 +43,6 @@ const jsonData = async () => {
   }
 }
 
-/**
-----------------------------------------------------
-2 - récupération de l'ID du photographe en cours
-----------------------------------------------------
-*/
-// 2.1 récupération du paramètre (id) de l'url de la page en cours
-const queryString = window.location.search
-const urlParams = new URLSearchParams(queryString)
-const photographeID = urlParams.get('id')
-// console.log(`récupération de l'ID : ${photographeID}`)
-
 // 2.2 - chargement des données JSON au chargement de la page
 // stockées dans currentPhotographe et currentPhotographeMedias
 
@@ -60,17 +51,170 @@ const chargementData = async () => {
   const photographes = data.photographers
   const mediasPhotographe = data.media
 
-  // récupération du photographe en cours
-  const currentPhotographe = photographes.find((photographe) => photographe.id == photographeID)
-
-  // récupération des médias associés au photographe
-  const currentPhotographeMedias = mediasPhotographe.filter((media) => media.photographerId == photographeID)
+  const photographeID = utilitaires.recupParametreUrl()
+  const currentPhotographe = utilitaires.recupCurrentPhotographe(photographes, photographeID)
+  const currentPhotographeMedias = utilitaires.recupCurrentPhotographeMedias(mediasPhotographe, photographeID)
 
   // appel du constructeur de la page photographe avec récupération du photographe en cours et de ses médias
   constructeurPagePhotographe(currentPhotographe, currentPhotographeMedias)
 }
-// appel de la fonction de chargement des données au chargement du DOM
 document.addEventListener('DOMContentLoaded', chargementData)
+
+/**
+----------------------------------------------------
+2 - Outils
+----------------------------------------------------
+*/
+
+const utilitaires = {
+  // test de squelette
+  prependElementDOM: (balise, classe, template, conteneur) => {
+    const element = document.createElement(balise)
+    element.classList.add(classe)
+    element.innerHTML = template
+    conteneur.prepend(element)
+  },
+
+  appendElementDOM: (balise, classe, template, conteneur) => {
+    const element = document.createElement(balise)
+    element.classList.add(classe)
+    element.innerHTML = template
+    conteneur.append(element)
+  },
+
+  // récupérer dans l'URL l'id du photographe en cours
+  recupParametreUrl: () => {
+    const queryString = window.location.search
+    const urlParams = new URLSearchParams(queryString)
+    return urlParams.get('id')
+  },
+
+  // récupérer le photographe encours (même numéro que l'url)
+  recupCurrentPhotographe: (photographes, photographeID) => {
+    return photographes.find((photographe) => photographe.id == photographeID)
+  },
+
+  // récupérer les médias associés au photographe en cours
+  recupCurrentPhotographeMedias: (mediasPhotographe, photographeID) => {
+    return mediasPhotographe.filter((media) => media.photographerId == photographeID)
+  },
+
+  recupCurrentPhotographeTotalLikes: (medias) => {
+    let likesParImage = []
+    medias.map(media => likesParImage.push(media.likes))
+    return likesParImage
+  },
+
+  incrementerLikes: (like, event) => {
+    let totalLikes = like.previousSibling.textContent.replace(/\s+/g, '')
+    let affichageLikes = like.previousSibling
+
+    const compteurGeneral = document.querySelector('.compteur-likes')
+    let compteurGeneralLikes = compteurGeneral.textContent
+
+    event.target.classList.toggle('like-actif')
+    if (event.target.classList.contains('like-actif')) {
+      totalLikes++
+      affichageLikes.textContent = totalLikes
+      compteurGeneralLikes++
+      compteurGeneral.innerHTML = `<p class="compteur-likes">${compteurGeneralLikes} <span class="icone-like" aria-label="j'aime"><i class="fas fa-heart"></i></span></p>`
+    } else {
+      totalLikes--
+      affichageLikes.textContent = totalLikes
+      compteurGeneralLikes--
+      compteurGeneral.innerHTML = `<p class="compteur-likes">${compteurGeneralLikes} <span class="icone-like" aria-label="j'aime"><i class="fas fa-heart"></i></span></p>`
+    }
+  },
+
+  fonctionLike: () => {
+    const likes = document.querySelectorAll('.icone-like')
+    likes.forEach(like => {
+      like.addEventListener('click', (event) => {
+        utilitaires.incrementerLikes(like, event)
+      })
+    })
+  }
+
+}
+
+const templates = {
+  // logo
+  logoFisheEye: () => {
+    return `
+    <a href="index.html">
+      <img class="logo" src="resources/img/logo.png" alt="FishEye : Page d'accueil">
+    </a>`
+  },
+
+  // liste des tags par photographe
+  listeTagsParPhotographe: (tags) => {
+    return `
+      <ul class="nav-par-tag" >
+      ${tags.map((tag) =>
+       `<li class="tag-entree"><a href="#"><span aria-label="hashtag">#</span>${tag}</a></li>`
+      ).join('')}
+      </ul>`
+  },
+
+  contenuBannierePhotographe: (photographe) => {
+    return `
+    <div class="photographe-profil">
+      <h1 class="nom" tabindex="0">${photographe.name}</h1>
+        <div tabindex="0">
+          <p class="localisation">${photographe.city}, ${photographe.country}</p>
+          <p class="accroche">${photographe.tagline}</p>
+        </div>
+        ${templates.listeTagsParPhotographe(photographe.tags)}
+        <button type="button" aria-haspopup="dialog" aria-controls="dialog" id="btn-modale" class="btn-formulaire btn-principal">
+          Contactez-moi
+        </button>
+    </div>
+    <img class="vignette" src="resources/img/photographers/IDphotos/${photographe.portrait}" alt="" tabindex="0"/>`
+  },
+
+  compteurBlocFixe: (totalLikesGalerie, photographe) => {
+    return `
+      <p class="compteur-likes">${totalLikesGalerie} <span class="icone-like" aria-label="j'aime"><i class="fas fa-heart"></i></span></p>
+      <span class="tarif">${photographe.price}€ /jour</span>
+    `
+  },
+
+  itemGalerie: (figure) => {
+    // si image :
+    if (figure.image !== undefined) {
+      return `
+    <figure class="apercu-photo">
+      <a href="#">
+        <img src="resources/img/photographers/${figure.photographerId}/${figure.image}" alt="${figure.description}">
+      </a>
+      <figcaption>
+        <p class="photo-titre" tabindex="0">${figure.title}</p>
+        <div class="likes">
+          <p class="likes__nombre" tabindex="0">${figure.likes}</p><button class="icone-like" aria-label="j'aime"><i class="fas fa-heart" tabindex="-1"></i></button> 
+        </div>
+      </figcaption>
+    </figure>`
+    // si vidéo :
+    } else {
+      return `
+    <figure class="apercu-photo">
+      <a href="#">
+        <video>
+          <source src="resources/video/photographers/${figure.photographerId}/${figure.video}" alt="${figure.description}">
+            <video alt="${figure.description}" autoplay="" controls="" loop="" <="" video=""></video>
+        </video>
+      </a>
+      <figcaption>
+        <p class="photo-titre" tabindex="0">${figure.title}</p>
+        <div class="likes" tabindex="0">
+          <p class="likes__nombre">${figure.likes}</p><button class="icone-like" aria-label="j'aime"><i class="fas fa-heart" ></i></button> 
+        </div>
+      </figcaption>
+    </figure>`
+    }
+  }
+
+}
 
 /**
 ----------------------------------------------------
@@ -82,173 +226,69 @@ document.addEventListener('DOMContentLoaded', chargementData)
 // HEADER
 //
 
-const constructeurHeader = (data) => {
-  const header = document.createElement('header')
-  header.classList.add('banniere')
-  header.innerHTML = `
-        <a href="index.html">
-            <img class="logo" src="resources/img/logo.png" alt="FishEye : page d'accueil">
-        </a>
-`
-  corpsPage.prepend(header)
+const creationHeader = (data) => {
+  utilitaires.prependElementDOM(
+    'header',
+    'banniere',
+    templates.logoFisheEye(),
+    corpsPage)
 }
 
 //
 // BANNIERE PHOTOGRAPHE
 //
 
-const tagsParPhotographe = (tags) => {
-  return `
-  <ul class="nav-par-tag" >
-  ${tags.map((tag) =>
-   `<li class="tag-entree"><a href="#"><span aria-label="hashtag">#</span>${tag}</a></li>`
-  ).join('')}
-  </ul>`
-}
-
-const templateBannierePhotographe = (photographe) => {
-  return `
-  <div class="photographe-profil">
-          <h1 class="nom" tabindex="0">${photographe.name}</h1>
-          <div tabindex="0">
-              <p class="localisation">${photographe.city}, ${photographe.country}</p>
-              <p class="accroche">${photographe.tagline}</p>
-          </div>
-          
-
-          ${tagsParPhotographe(photographe.tags)}
-
-          <!-- bouton de contact -->
-          <button type="button"
-          aria-haspopup="dialog" aria-controls="dialog"
-          id="btn-modale" class="btn-formulaire btn-principal">
-              Contactez-moi
-          </button>
-
-  </div>
-      <img class="vignette" src="resources/img/photographers/IDphotos/${photographe.portrait}" alt="" tabindex="0"/>
-`
-}
-
-const constructeurBannierePhotographe = (currentPhotographe) => {
+const creationBannierePhotographe = (currentPhotographe) => {
   // création du conteneur
   const conteneurBanniere = document.createElement('div')
   conteneurBanniere.classList.add('banniere-photographe')
   corpsContenuPage.append(conteneurBanniere)
   // appel du template
-  conteneurBanniere.innerHTML = templateBannierePhotographe(currentPhotographe)
+  conteneurBanniere.innerHTML = templates.contenuBannierePhotographe(currentPhotographe)
 }
 
 //
 // BLOC FIXE : COMPTEUR LIKES & PRIX
 //
 
-const blocFixe = (photographe, medias) => {
-  // récupérer l'ensemble des valeurs likes dans le json
-  let likesParImage = []
-  medias.map(media => {
-    likesParImage.push(media.likes)
-  })
-
+const creationBlocFixe = (photographe, medias) => {
   // additionner les valeurs pour obtenir le total des likes
   const reducer = (accumulator, currentValue) => accumulator + currentValue
-  const totalLikesGalerie = likesParImage.reduce(reducer)
+  const totalLikesGalerie = utilitaires.recupCurrentPhotographeTotalLikes(medias).reduce(reducer)
 
-  const conteneurBlocFixe = document.createElement('div')
-  conteneurBlocFixe.classList.add('bloc-fixe')
-  corpsContenuPage.appendChild(conteneurBlocFixe)
-  conteneurBlocFixe.innerHTML = `
-  <div class="bloc-fixe" tabindex="0">
-    <p class="compteur-likes">${totalLikesGalerie} <span class="icone-like" aria-label="j'aime"><i class="fas fa-heart"></i></span></p>
-    <span class="tarif">${photographe.price}€ /jour</span>
-  </div>
-  `
+  utilitaires.appendElementDOM(
+    'div',
+    'bloc-fixe',
+    templates.compteurBlocFixe(totalLikesGalerie, photographe),
+    corpsContenuPage)
+
+  document.querySelector('.bloc-fixe').setAttribute('tabindex', '0')
 }
 
 //
 // GALERIE DU PHOTOGRAPHE
 //
 
-const templateItemGalerie = (figure) => {
-  // si image :
-  if (figure.image !== undefined) {
-    return `
-  <figure class="apercu-photo">
-                    <a href="#">
-                        <img src="resources/img/photographers/${figure.photographerId}/${figure.image}" alt="${figure.description}">
-                    </a>
-                    <figcaption>
-                        <p class="photo-titre" tabindex="0">${figure.title}</p>
-                        <div class="likes">
-                            <p class="likes__nombre" tabindex="0">${figure.likes}</p><button class="icone-like" aria-label="j'aime"><i class="fas fa-heart" tabindex="-1"></i>
-                            </button> 
-                        </div>
-                    </figcaption>
-                </figure>
-`
-  // si vidéo :
-  } else {
-    return `
-  <figure class="apercu-photo">
-                    <a href="#">
-                        <video>
-                            <source src="resources/video/photographers/${figure.photographerId}/${figure.video}" alt="${figure.description}">
-                            <video alt="Chevaux dans la montagne" autoplay="" controls="" loop=""
-                        </video>
-                    </a>
-                    <figcaption>
-                        <p class="photo-titre" tabindex="0">${figure.title}</p>
-                        <div class="likes" tabindex="0">
-                            <p class="likes__nombre">${figure.likes}</p><button class="icone-like" aria-label="j'aime"><i class="fas fa-heart" ></i>
-                            </button> 
-                        </div>
-                    </figcaption>
-                </figure>
-`
-  }
-}
-
-const constructeurGaleriePhotographe = (photographe, figure) => {
-  // création du conteneur div
-  const conteneurGalerie = document.createElement('div')
-  conteneurGalerie.classList.add('profil-galerie')
-  corpsContenuPage.appendChild(conteneurGalerie)
-
+const creerGaleriePhotographe = (photographe, figure) => {
   // appel du template de la fiche pour chaque photographe
-  // inclu tri par défaut par popularité
-  const dataFiche = figure.sort((a, b) => b.likes - a.likes).map(templateItemGalerie).join('')
+  // ( tri par défaut : popularité )
+  const dataFiche = figure.sort((a, b) => b.likes - a.likes).map(templates.itemGalerie).join('')
 
-  // ajout de chaque fiche au conteneur
-  conteneurGalerie.innerHTML = dataFiche
-}
+  utilitaires.appendElementDOM(
+    'div',
+    'profil-galerie',
+    dataFiche,
+    corpsContenuPage
+  )
 
-// INCREMENTATION DES LIKES
-function incrementationLikes (likes, like, event) {
-  let totalLikes = like.previousSibling.textContent.replace(/\s+/g, '')
-  let affichageLikes = like.previousSibling
-
-  const compteurGeneral = document.querySelector('.compteur-likes')
-  let compteurGeneralLikes = compteurGeneral.textContent
-
-  event.target.classList.toggle('like-actif')
-  if (event.target.classList.contains('like-actif')) {
-    totalLikes++
-    affichageLikes.textContent = totalLikes
-    compteurGeneralLikes++
-    compteurGeneral.innerHTML = `<p class="compteur-likes">${compteurGeneralLikes} <span class="icone-like" aria-label="j'aime"><i class="fas fa-heart"></i></span></p>`
-  } else {
-    totalLikes--
-    affichageLikes.textContent = totalLikes
-    compteurGeneralLikes--
-    compteurGeneral.innerHTML = `<p class="compteur-likes">${compteurGeneralLikes} <span class="icone-like" aria-label="j'aime"><i class="fas fa-heart"></i></span></p>`
-  }
+  utilitaires.fonctionLike()
 }
 
 //
 // MENU SELECT DE TRI D'AFFICHAGE
 //
 
-const sectionTrierPar = (photographe, medias) => {
+const creerBoutonTrierPar = (photographe, medias) => {
   // création du conteneur div
   const conteneurSection = document.createElement('div')
   conteneurSection.classList.add('trier-par')
@@ -331,6 +371,7 @@ const trierMediasPar = (medias) => {
       return b.likes - a.likes
     })
     actualisationAffichage(medias)
+    utilitaires.fonctionLike()
 
     // si le btn selected contient Date
   } if (selected.textContent === 'Date') {
@@ -340,6 +381,7 @@ const trierMediasPar = (medias) => {
       return dateB - dateA
     })
     actualisationAffichage(medias)
+    utilitaires.fonctionLike()
 
     // si le btn selected contient Titre
   } if (selected.textContent === 'Titre') {
@@ -355,6 +397,7 @@ const trierMediasPar = (medias) => {
       }
     })
     actualisationAffichage(medias)
+    utilitaires.fonctionLike()
   }
 }
 
@@ -366,7 +409,7 @@ const actualisationAffichage = (medias) => {
   itemsGalerie.forEach((item) => item.classList.add('desactiver'))
 
   // appel du template de la fiche pour chaque photographe
-  const dataFiche = medias.map(templateItemGalerie).join('')
+  const dataFiche = medias.map(templates.itemGalerie).join('')
 
   // ajout de chaque fiche au conteneur
   conteneurGalerie.innerHTML = dataFiche
@@ -684,20 +727,20 @@ const fermetureLightbox = () => {
 */
 
 const constructeurPagePhotographe = (currentPhotographe, currentPhotographeMedias) => {
-  constructeurHeader()
-  constructeurBannierePhotographe(currentPhotographe)
-  blocFixe(currentPhotographe, currentPhotographeMedias)
-  sectionTrierPar(currentPhotographe, currentPhotographeMedias)
-  constructeurGaleriePhotographe(currentPhotographe, currentPhotographeMedias)
+  creationHeader()
+  creationBannierePhotographe(currentPhotographe)
+  creationBlocFixe(currentPhotographe, currentPhotographeMedias)
+  creerBoutonTrierPar(currentPhotographe, currentPhotographeMedias)
+  creerGaleriePhotographe(currentPhotographe, currentPhotographeMedias)
 
-  // fonctionnalité likes
-  const likes = document.querySelectorAll('.icone-like')
+  // // fonctionnalité likes
+  // const likes = document.querySelectorAll('.icone-like')
 
-  likes.forEach(like => {
-    like.addEventListener('click', (event) => {
-      this.incrementationLikes(likes, like, event)
-    })
-  })
+  // likes.forEach(like => {
+  //   like.addEventListener('click', (event) => {
+  //     this.utilitaires.incrementationLikes(likes, like, event)
+  //   })
+  // })
 
   // modale formulaire
   formulaireTemplate(currentPhotographe)

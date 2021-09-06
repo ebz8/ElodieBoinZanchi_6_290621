@@ -47,11 +47,10 @@ document.addEventListener('DOMContentLoaded', chargementData)
 const templates = {
 
   // logo
-
   logoFisheEye: () => {
     return `
     <a href="index.html">
-      <img class="logo" src="resources/img/logo.png" alt="FishEye : page d'accueil">
+      <img class="logo" src="resources/img/logo.png" alt="FishEye : Page d'accueil">
     </a>`
   },
 
