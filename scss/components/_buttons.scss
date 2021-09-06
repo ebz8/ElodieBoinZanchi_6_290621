@@ -180,11 +180,9 @@ boutons
       .active {
           max-height: 11rem;
           opacity : 1;
-          // passer par dessus le select
           margin-top: -3rem;
           z-index: 1;
           border-radius: .5rem;
-        //   overflow-y : scroll;
       }
 
       svg {
@@ -195,26 +193,24 @@ boutons
         width: 1.7rem;
         right: .5rem;
         top: .6rem;
+        transition: transform .4s;
 
-        .active {
-            transform : translate(50%);
-            background-color:blueviolet;
+        &.extend {
+            transform: rotate(180deg);
         }
     }
     }
     
     .conteneur-options {
-        order: 1;
-        background-color: $couleur-primaire;
-        color: white;
-        max-height: 0;
-        width: 100%;
         opacity: 0;
-        // transition: all .4s;
-        border-radius: 0 0 .5rem .5rem;
+        order: 1;
         overflow: hidden;
-        
-        
+        width: 100%;
+        max-height: 0;
+        color: white;
+        background-color: $couleur-primaire;
+        border-radius: 0 0 .5rem .5rem;
+        transition: all .4s;
     }
 
     .selected {

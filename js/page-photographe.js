@@ -8,15 +8,7 @@ PAGES PHOTOGRAPHES
 -------------------------------------
 */
 
-// TODO :
-// Pour créer les PAGES PHOTOGRAPHE :
-// Récupérer les données json et les stocker
-// Générer les composants de la bannière (dont formulaire)
-// Générer la bannière
-// Bouton trier par + fonctionnalité de tri
-// Générer les composants de profil-galerie (afficher medias et composant lightbox)
-
-// éléments du DOM
+// variables utiles
 const corpsPage = document.querySelector('.js-page')
 const corpsContenuPage = document.querySelector('.js-document')
 
@@ -43,9 +35,6 @@ const jsonData = async () => {
   }
 }
 
-// 2.2 - chargement des données JSON au chargement de la page
-// stockées dans currentPhotographe et currentPhotographeMedias
-
 const chargementData = async () => {
   const data = await jsonData()
   const photographes = data.photographers
@@ -55,7 +44,7 @@ const chargementData = async () => {
   const currentPhotographe = utilitaires.recupCurrentPhotographe(photographes, photographeID)
   const currentPhotographeMedias = utilitaires.recupCurrentPhotographeMedias(mediasPhotographe, photographeID)
 
-  // appel du constructeur de la page photographe avec récupération du photographe en cours et de ses médias
+  // appel du constructeur de la page avec récupération du photographe en cours et de ses médias
   constructeurPagePhotographe(currentPhotographe, currentPhotographeMedias)
 }
 document.addEventListener('DOMContentLoaded', chargementData)
@@ -358,10 +347,6 @@ const creationGaleriePhotographe = (photographe, figure) => {
   utilitaires.fonctionLike()
 }
 
-//
-// MENU SELECT DE TRI D'AFFICHAGE
-//
-
 const creationBoutonTrierPar = (photographe, medias) => {
   utilitaires.appendElementDOM(
     'div',
@@ -373,6 +358,7 @@ const creationBoutonTrierPar = (photographe, medias) => {
   const selected = document.querySelector('.selected')
   const conteneurOptions = document.querySelector('.conteneur-options')
   const optionsListe = document.querySelectorAll('.option')
+  const btnFleche = document.querySelector('.select svg')
 
   // par défaut : popularité
   selected.innerHTML = optionsListe[0].querySelector('label').innerHTML
@@ -381,6 +367,7 @@ const creationBoutonTrierPar = (photographe, medias) => {
   selected.addEventListener('click', (e) => {
     selected.innerHTML = ''
     conteneurOptions.classList.toggle('active')
+    btnFleche.classList.toggle('extend')
     selected.toggleAttribute('aria-expanded', 'true')
     selected.classList.toggle('selected-active')
   })
@@ -391,6 +378,7 @@ const creationBoutonTrierPar = (photographe, medias) => {
       selected.innerHTML = o.querySelector('label').innerHTML
       conteneurOptions.classList.remove('active')
       selected.classList.remove('selected-active')
+      btnFleche.classList.remove('extend')
       // o.removeAttribute('aria-checked')
       conteneurOptions.setAttribute('aria-activedescendant', o.innerText)
       utilitaires.trierMediasPar(medias)
@@ -400,7 +388,7 @@ const creationBoutonTrierPar = (photographe, medias) => {
 
 /**
 ----------------------------------------------------
-3.1 - Formulaire et fonctionnalités
+4 - Formulaire et fonctionnalités
 ----------------------------------------------------
 */
 
@@ -576,17 +564,13 @@ const formulaireTemplate = (photographe) => {
 
           if (!tab) {
             return
-          }
-
-          if (e.touchesClavier) {
+          } if (e.touchesClavier) {
             if (e.target === premierElementFocusable) { // shift + tab
               e.preventDefault()
-
               dernierElementFocusable.focus()
             }
           } else if (e.target === dernierElementFocusable) { // tab
             e.preventDefault()
-
             premierElementFocusable.focus()
           }
         })
@@ -637,7 +621,7 @@ const formulaireTemplate = (photographe) => {
 
 /**
 ----------------------------------------------------
-3.2 - Lightbox et fonctionnalités
+5 - Lightbox et fonctionnalités
 ----------------------------------------------------
 */
 
@@ -705,7 +689,7 @@ const fermetureLightbox = () => {
 
 /**
 ----------------------------------------------------
-4 - Génération de la page
+6 - Génération de la page
 ----------------------------------------------------
 */
 

@@ -522,20 +522,21 @@ boutons
   width: 1.7rem;
   right: 0.5rem;
   top: 0.6rem;
+  transition: transform 0.4s;
 }
-.trier-par .select svg .active {
-  transform: translate(50%);
-  background-color: blueviolet;
+.trier-par .select svg.extend {
+  transform: rotate(180deg);
 }
 .trier-par .conteneur-options {
-  order: 1;
-  background-color: #911d1d;
-  color: white;
-  max-height: 0;
-  width: 100%;
   opacity: 0;
-  border-radius: 0 0 0.5rem 0.5rem;
+  order: 1;
   overflow: hidden;
+  width: 100%;
+  max-height: 0;
+  color: white;
+  background-color: #911d1d;
+  border-radius: 0 0 0.5rem 0.5rem;
+  transition: all 0.4s;
 }
 .trier-par .selected {
   background-color: #911d1d;
