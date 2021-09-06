@@ -523,6 +523,10 @@ boutons
   right: 0.5rem;
   top: 0.6rem;
 }
+.trier-par .select svg .active {
+  transform: translate(50%);
+  background-color: blueviolet;
+}
 .trier-par .conteneur-options {
   order: 1;
   background-color: #911d1d;

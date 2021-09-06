@@ -133,8 +133,59 @@ const utilitaires = {
         utilitaires.incrementerLikes(like, event)
       })
     })
-  }
+  },
 
+  trierParPopularite: (medias) => {
+    medias.sort((a, b) => {
+      return b.likes - a.likes
+    })
+  },
+
+  trierParDate: (medias) => {
+    medias.sort((a, b) => {
+      const dateA = new Date(a.date)
+      const dateB = new Date(b.date)
+      return dateB - dateA
+    })
+  },
+
+  trierParTitre: (medias) => {
+    medias.sort((a, b) => {
+      const titreA = a.title.toLowerCase()
+      const titreB = b.title.toLowerCase()
+      if (titreA < titreB) {
+        return -1
+      } if (titreA > titreB) {
+        return 1
+      } else {
+        return 0
+      }
+    })
+  },
+
+  actualisationAffichage: (medias) => {
+    const itemsGalerie = document.querySelectorAll('.apercu-photo')
+    const conteneurGalerie = document.querySelector('.profil-galerie')
+    // supprimer les apercus sans tri
+    itemsGalerie.forEach((item) => item.classList.add('desactiver'))
+    // appel du template de la fiche pour chaque photographe
+    const dataFiche = medias.map(templates.itemGalerie).join('')
+    // ajout de chaque fiche au conteneur
+    conteneurGalerie.innerHTML = dataFiche
+    utilitaires.fonctionLike()
+  },
+
+  trierMediasPar: (medias) => {
+    const selected = document.querySelector('.selected')
+    if (selected.textContent === 'Popularité') {
+      utilitaires.trierParPopularite(medias)
+    } else if (selected.textContent === 'Date') {
+      utilitaires.trierParDate(medias)
+    } else if (selected.textContent === 'Titre') {
+      utilitaires.trierParTitre(medias)
+    }
+    utilitaires.actualisationAffichage(medias)
+  }
 }
 
 const templates = {
@@ -179,6 +230,46 @@ const templates = {
     `
   },
 
+  btnTrierPar: () => {
+    return `<div class="trier-par">
+    <p tabindex="0" id="label-trier-par">Trier par</p>
+  
+    <div class="select" tabindex="0">
+        <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+            <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"></path>
+        </svg>
+  
+        <button class="selected" aria-labelledby="label-trier-par" aria-haspopup="listbox"
+        aria-label="criteres" aria-expanded="false">
+            Popularité
+        </button>
+  
+        <ul class="conteneur-options" role="listbox" aria-labelledby="label-trier-par"
+            aria-label="criteres">
+  
+            <li class="option" role="option">
+                <input class="radio" id="option-popularite" name="select" type="radio" value="popularite"
+                aria-checked="ok" />
+                <label for="popularite">Popularité</label>
+            </li>
+            <li class="option" role="option">
+                <input class="radio" id="option-date" name="select" type="radio" value="date" />
+                <label for="date">Date</label>
+            </li>
+            <li class="option" role="option">
+                <input class="radio" id="option-titre" name="select" type="radio" value="titre" />
+                <label for="titre">Titre</label>
+            </li>
+                
+        </ul>
+  
+            
+        </div>
+        
+    </div>
+  </div>`
+  },
+
   itemGalerie: (figure) => {
     // si image :
     if (figure.image !== undefined) {
@@ -218,13 +309,9 @@ const templates = {
 
 /**
 ----------------------------------------------------
-3 - Composants de la page
+3 - Initialisation des éléments du DOM
 ----------------------------------------------------
 */
-
-//
-// HEADER
-//
 
 const creationHeader = (data) => {
   utilitaires.prependElementDOM(
@@ -234,26 +321,18 @@ const creationHeader = (data) => {
     corpsPage)
 }
 
-//
-// BANNIERE PHOTOGRAPHE
-//
-
 const creationBannierePhotographe = (currentPhotographe) => {
-  // création du conteneur
-  const conteneurBanniere = document.createElement('div')
-  conteneurBanniere.classList.add('banniere-photographe')
-  corpsContenuPage.append(conteneurBanniere)
-  // appel du template
-  conteneurBanniere.innerHTML = templates.contenuBannierePhotographe(currentPhotographe)
+  utilitaires.appendElementDOM(
+    'div',
+    'banniere-photographe',
+    templates.contenuBannierePhotographe(currentPhotographe),
+    corpsContenuPage
+  )
 }
 
-//
-// BLOC FIXE : COMPTEUR LIKES & PRIX
-//
-
 const creationBlocFixe = (photographe, medias) => {
-  // additionner les valeurs pour obtenir le total des likes
   const reducer = (accumulator, currentValue) => accumulator + currentValue
+  // additionner les valeurs pour obtenir le total des likes
   const totalLikesGalerie = utilitaires.recupCurrentPhotographeTotalLikes(medias).reduce(reducer)
 
   utilitaires.appendElementDOM(
@@ -265,19 +344,14 @@ const creationBlocFixe = (photographe, medias) => {
   document.querySelector('.bloc-fixe').setAttribute('tabindex', '0')
 }
 
-//
-// GALERIE DU PHOTOGRAPHE
-//
-
-const creerGaleriePhotographe = (photographe, figure) => {
-  // appel du template de la fiche pour chaque photographe
-  // ( tri par défaut : popularité )
-  const dataFiche = figure.sort((a, b) => b.likes - a.likes).map(templates.itemGalerie).join('')
+const creationGaleriePhotographe = (photographe, figure) => {
+  const apercuFigure = figure.sort((a, b) => b.likes - a.likes)
+    .map(templates.itemGalerie).join('')
 
   utilitaires.appendElementDOM(
     'div',
     'profil-galerie',
-    dataFiche,
+    apercuFigure,
     corpsContenuPage
   )
 
@@ -288,50 +362,13 @@ const creerGaleriePhotographe = (photographe, figure) => {
 // MENU SELECT DE TRI D'AFFICHAGE
 //
 
-const creerBoutonTrierPar = (photographe, medias) => {
-  // création du conteneur div
-  const conteneurSection = document.createElement('div')
-  conteneurSection.classList.add('trier-par')
-  corpsContenuPage.appendChild(conteneurSection)
-
-  // ajout de chaque fiche au conteneur
-  conteneurSection.innerHTML = `<div class="trier-par">
-  <p tabindex="0" id="label-trier-par">Trier par</p>
-
-  <div class="select" tabindex="0">
-      <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
-          <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"></path>
-      </svg>
-
-      <button class="selected" aria-labelledby="label-trier-par" aria-haspopup="listbox"
-      aria-label="criteres" aria-expanded="false">
-          Popularité
-      </button>
-
-      <ul class="conteneur-options" role="listbox" aria-labelledby="label-trier-par"
-          aria-label="criteres">
-
-          <li class="option" role="option">
-              <input class="radio" id="option-popularite" name="select" type="radio" value="popularite"
-              aria-checked="ok" />
-              <label for="popularite">Popularité</label>
-          </li>
-          <li class="option" role="option">
-              <input class="radio" id="option-date" name="select" type="radio" value="date" />
-              <label for="date">Date</label>
-          </li>
-          <li class="option" role="option">
-              <input class="radio" id="option-titre" name="select" type="radio" value="titre" />
-              <label for="titre">Titre</label>
-          </li>
-              
-      </ul>
-
-          
-      </div>
-      
-  </div>
-</div>`
+const creationBoutonTrierPar = (photographe, medias) => {
+  utilitaires.appendElementDOM(
+    'div',
+    'trier-par',
+    templates.btnTrierPar(),
+    corpsContenuPage
+  )
 
   const selected = document.querySelector('.selected')
   const conteneurOptions = document.querySelector('.conteneur-options')
@@ -356,63 +393,9 @@ const creerBoutonTrierPar = (photographe, medias) => {
       selected.classList.remove('selected-active')
       // o.removeAttribute('aria-checked')
       conteneurOptions.setAttribute('aria-activedescendant', o.innerText)
-      trierMediasPar(medias)
+      utilitaires.trierMediasPar(medias)
     })
   })
-}
-
-// FONCTIONS DE TRI DES MEDIAS
-const trierMediasPar = (medias) => {
-  const selected = document.querySelector('.selected')
-
-  // si le btn selected contient Popularité
-  if (selected.textContent === 'Popularité') {
-    medias.sort((a, b) => {
-      return b.likes - a.likes
-    })
-    actualisationAffichage(medias)
-    utilitaires.fonctionLike()
-
-    // si le btn selected contient Date
-  } if (selected.textContent === 'Date') {
-    medias.sort((a, b) => {
-      const dateA = new Date(a.date)
-      const dateB = new Date(b.date)
-      return dateB - dateA
-    })
-    actualisationAffichage(medias)
-    utilitaires.fonctionLike()
-
-    // si le btn selected contient Titre
-  } if (selected.textContent === 'Titre') {
-    medias.sort((a, b) => {
-      const titreA = a.title.toLowerCase()
-      const titreB = b.title.toLowerCase()
-      if (titreA < titreB) {
-        return -1
-      } if (titreA > titreB) {
-        return 1
-      } else {
-        return 0
-      }
-    })
-    actualisationAffichage(medias)
-    utilitaires.fonctionLike()
-  }
-}
-
-const actualisationAffichage = (medias) => {
-  const itemsGalerie = document.querySelectorAll('.apercu-photo')
-  const conteneurGalerie = document.querySelector('.profil-galerie')
-
-  // supprimer les apercus sans tri
-  itemsGalerie.forEach((item) => item.classList.add('desactiver'))
-
-  // appel du template de la fiche pour chaque photographe
-  const dataFiche = medias.map(templates.itemGalerie).join('')
-
-  // ajout de chaque fiche au conteneur
-  conteneurGalerie.innerHTML = dataFiche
 }
 
 /**
@@ -730,17 +713,8 @@ const constructeurPagePhotographe = (currentPhotographe, currentPhotographeMedia
   creationHeader()
   creationBannierePhotographe(currentPhotographe)
   creationBlocFixe(currentPhotographe, currentPhotographeMedias)
-  creerBoutonTrierPar(currentPhotographe, currentPhotographeMedias)
-  creerGaleriePhotographe(currentPhotographe, currentPhotographeMedias)
-
-  // // fonctionnalité likes
-  // const likes = document.querySelectorAll('.icone-like')
-
-  // likes.forEach(like => {
-  //   like.addEventListener('click', (event) => {
-  //     this.utilitaires.incrementationLikes(likes, like, event)
-  //   })
-  // })
+  creationBoutonTrierPar(currentPhotographe, currentPhotographeMedias)
+  creationGaleriePhotographe(currentPhotographe, currentPhotographeMedias)
 
   // modale formulaire
   formulaireTemplate(currentPhotographe)

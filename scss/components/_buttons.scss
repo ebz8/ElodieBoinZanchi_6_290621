@@ -185,11 +185,6 @@ boutons
           z-index: 1;
           border-radius: .5rem;
         //   overflow-y : scroll;
-
-        // svg {
-        //     transform : translate(50%);
-        //     background-color:blueviolet;
-        // }
       }
 
       svg {
@@ -200,6 +195,11 @@ boutons
         width: 1.7rem;
         right: .5rem;
         top: .6rem;
+
+        .active {
+            transform : translate(50%);
+            background-color:blueviolet;
+        }
     }
     }
     
