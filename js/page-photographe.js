@@ -161,7 +161,9 @@ const utilitaires = {
     const dataFiche = medias.map(templates.itemGalerie).join('')
     // ajout de chaque fiche au conteneur
     conteneurGalerie.innerHTML = dataFiche
+
     utilitaires.fonctionLike()
+    Lightbox.init(medias)
   },
 
   trierMediasPar: (medias) => {
@@ -333,8 +335,8 @@ const creationBlocFixe = (photographe, medias) => {
   document.querySelector('.bloc-fixe').setAttribute('tabindex', '0')
 }
 
-const creationGaleriePhotographe = (photographe, figure) => {
-  const apercuFigure = figure.sort((a, b) => b.likes - a.likes)
+const creationGaleriePhotographe = (photographe, medias) => {
+  const apercuFigure = medias.sort((a, b) => b.likes - a.likes)
     .map(templates.itemGalerie).join('')
 
   utilitaires.appendElementDOM(
@@ -345,6 +347,7 @@ const creationGaleriePhotographe = (photographe, figure) => {
   )
 
   utilitaires.fonctionLike()
+  Lightbox.init(medias)
 }
 
 const creationBoutonTrierPar = (photographe, medias) => {
@@ -647,45 +650,45 @@ const templateItemCarroussel = (photographe, media) => {
   }
 }
 
-const templateLightbox = (photographe, medias) => {
-  // création du conteneur div
-  const conteneurLightbox = document.createElement('section')
-  conteneurLightbox.classList.add('lightbox')
-  conteneurLightbox.setAttribute('role', 'dialog')
-  conteneurLightbox.setAttribute('aria-label', 'image pein écran')
-  conteneurLightbox.setAttribute('aria-modal', 'true')
-  conteneurLightbox.setAttribute('aria-hidden', 'true')
-  corpsPage.appendChild(conteneurLightbox)
+// const templateLightbox = (photographe, medias) => {
+//   // création du conteneur div
+//   const conteneurLightbox = document.createElement('section')
+//   conteneurLightbox.classList.add('lightbox')
+//   conteneurLightbox.setAttribute('role', 'dialog')
+//   conteneurLightbox.setAttribute('aria-label', 'image pein écran')
+//   conteneurLightbox.setAttribute('aria-modal', 'true')
+//   conteneurLightbox.setAttribute('aria-hidden', 'true')
+//   corpsPage.appendChild(conteneurLightbox)
 
-  conteneurLightbox.innerHTML = `
-                    <!-- composants lightbox -->
-                    <div class="lightbox__commandes">
-                      <button class="gauche" aria-label="image précédente"><i class="fas fa-chevron-left"></i> </button>
-                      <button class="droite" aria-label="image suivante"><i class="fas fa-chevron-right"></i></button>
-                      <button class="btn-fermeture" aria-label="fermer la lightbox"></button>
-                    </div>
-                    <ul class="lightbox__contenu">
-                      ${medias.map((media) => templateItemCarroussel(photographe, media)).join('')}
-                    </ul>
-  `
-//   <li class="lightbox-element actif">
-}
+//   conteneurLightbox.innerHTML = `
+//                     <!-- composants lightbox -->
+//                     <div class="lightbox__commandes">
+//                       <button class="gauche" aria-label="image précédente"><i class="fas fa-chevron-left"></i> </button>
+//                       <button class="droite" aria-label="image suivante"><i class="fas fa-chevron-right"></i></button>
+//                       <button class="btn-fermeture" aria-label="fermer la lightbox"></button>
+//                     </div>
+//                     <ul class="lightbox__contenu">
+//                       ${medias.map((media) => templateItemCarroussel(photographe, media)).join('')}
+//                     </ul>
+//   `
+// //   <li class="lightbox-element actif">
+// }
 
-const affichageLightbox = (vignette, vignettesImages) => {
-  const corpsLightbox = document.querySelector('.lightbox')
+// const affichageLightbox = (vignette, vignettesImages) => {
+//   const corpsLightbox = document.querySelector('.lightbox')
 
-  corpsContenuPage.setAttribute('aria-hidden', 'true')
-  corpsPage.style.overflow = 'hidden'
-  corpsLightbox.setAttribute('aria-hidden', 'false')
-}
+//   corpsContenuPage.setAttribute('aria-hidden', 'true')
+//   corpsPage.style.overflow = 'hidden'
+//   corpsLightbox.setAttribute('aria-hidden', 'false')
+// }
 
-const fermetureLightbox = () => {
-  const corpsLightbox = document.querySelector('.lightbox')
+// const fermetureLightbox = () => {
+//   const corpsLightbox = document.querySelector('.lightbox')
 
-  corpsContenuPage.setAttribute('aria-hidden', 'false')
-  corpsPage.style.overflow = 'scroll'
-  corpsLightbox.setAttribute('aria-hidden', 'true')
-}
+//   corpsContenuPage.setAttribute('aria-hidden', 'false')
+//   corpsPage.style.overflow = 'scroll'
+//   corpsLightbox.setAttribute('aria-hidden', 'true')
+// }
 
 /**
 ----------------------------------------------------
@@ -703,14 +706,138 @@ const constructeurPagePhotographe = (currentPhotographe, currentPhotographeMedia
   // modale formulaire
   formulaireTemplate(currentPhotographe)
 
+  // Lightbox.init(currentPhotographe, currentPhotographeMedias)
+
   // modale lightbox
-  templateLightbox(currentPhotographe, currentPhotographeMedias)
-  const vignettesImages = document.querySelectorAll('.apercu-photo img')
-  vignettesImages.forEach(function (vignette) {
-    vignette.addEventListener('click', () => {
-      affichageLightbox(vignette, vignettesImages)
+  // templateLightbox(currentPhotographe, currentPhotographeMedias)
+  // const vignettesImages = document.querySelectorAll('.apercu-photo img')
+  // vignettesImages.forEach(function (vignette) {
+  //   vignette.addEventListener('click', (e) => {
+  //     e.preventDefault()
+  //     affichageLightbox(vignette, vignettesImages)
+  //   })
+  // })
+  // const btnFermerLightbox = document.querySelector('.lightbox .btn-fermeture')
+  // btnFermerLightbox.addEventListener('click', fermetureLightbox)
+}
+
+class Lightbox {
+  static init (medias) {
+    const vignettes = Array.from(document.querySelectorAll('.apercu-photo img'))
+    const galerie = vignettes.map(vignette => vignette.getAttribute('src'))
+    console.log(medias)
+
+    vignettes.forEach(vignette => vignette.addEventListener('click', (e) => {
+      const vignetteEnCours = e.currentTarget.getAttribute('src')
+      const altVignetteEnCours = e.currentTarget.getAttribute('alt')
+      console.log(vignetteEnCours)
+      console.log(medias.description)
+      // récupérer le titre du figcaption
+      e.preventDefault()
+      new Lightbox(vignetteEnCours, altVignetteEnCours, galerie)
     })
-  })
-  const btnFermerLightbox = document.querySelector('.lightbox .btn-fermeture')
-  btnFermerLightbox.addEventListener('click', fermetureLightbox)
+    )
+  }
+
+  constructor (src, alt, galerie) {
+    const element = this.creerLightbox(src, alt)
+    corpsPage.appendChild(element)
+    this.affichageLightbox()
+    this.galerie = galerie
+  }
+
+  creerLightbox (src, alt) {
+    const conteneurLightbox = document.createElement('section')
+    conteneurLightbox.classList.add('lightbox')
+    conteneurLightbox.setAttribute('role', 'dialog')
+    conteneurLightbox.setAttribute('aria-label', 'image pein écran')
+    conteneurLightbox.setAttribute('aria-modal', 'true')
+    conteneurLightbox.setAttribute('aria-hidden', 'true')
+    conteneurLightbox.innerHTML = `
+                    <!-- composants lightbox -->
+                    <div class="lightbox__commandes">
+                      <button class="gauche" aria-label="image précédente"><i class="fas fa-chevron-left"></i> </button>
+                      <button class="droite" aria-label="image suivante"><i class="fas fa-chevron-right"></i></button>
+                      <button class="btn-fermeture" aria-label="fermer la lightbox"></button>
+                    </div>
+                    <ul class="lightbox__contenu">
+                      <li>
+                        <figure>
+                        <img src="${src}" alt="${alt}">
+                        <figcaption class="photo-titre">Leaning Tower, Pisa</figcaption>
+                        </figure>
+                      </li>
+                    </ul>
+  `
+    // conteneurLightbox.querySelector('.btn-fermeture').addEventListener('click', this.fermetureLightbox.bind(this))
+    // conteneurLightbox.querySelector('.droite').addEventListener('click', this.suivante.bind(this))
+    // conteneurLightbox.querySelector('.gauche').addEventListener('click', this.precedente.bind(this))
+    return conteneurLightbox
+  }
+
+  affichageLightbox () {
+    const corpsLightbox = document.querySelector('.lightbox')
+    corpsContenuPage.setAttribute('aria-hidden', 'true')
+    corpsPage.style.overflow = 'hidden'
+    corpsLightbox.setAttribute('aria-hidden', 'false')
+  }
+
+  fermetureLightbox (e) {
+    e.preventDefault()
+    corpsContenuPage.setAttribute('aria-hidden', 'false')
+    corpsPage.style.overflow = 'scroll'
+    // this.element.setAttribute('aria-hidden', 'true')
+    this.element.remove()
+  }
+
+  gestionClavier (e) {
+    if (e.key === 'Escape') {
+      this.close(e)
+    } else if (e.key === 'ArrowLeft') {
+      this.precedente(e)
+    } else if (e.key === 'ArrowRight') {
+      this.suivante(e)
+    }
+  }
+
+  chargerMedia (photographe, media) {
+    // possibilité de mettre un loader
+    if (media.image !== undefined) {
+      return `
+    <li class="lightbox-element">
+      <figure>
+        <img src="resources/img/photographers/${photographe.id}/${media.image}" alt="${media.description}">
+        <figcaption class="photo-titre">${media.title}</figcaption>
+      </figure>
+   </li>
+  `
+    } else {
+      return `
+    <li class="lightbox-element">
+      <figure>
+        <video src="resources/video/photographers/${photographe.id}/${media.video}" alt="${media.description}">
+        <figcaption class="photo-titre">${media.title}</figcaption>
+      </figure>
+    </li>
+    `
+    }
+  }
+
+  suivante (e) {
+    e.preventDefault()
+    let i = this.galerie.findIndex(image => image === this.url)
+    if (i == this.galerie.length - 1) {
+      i = -1
+    }
+    this.chargerMedia(this.galerie[i++])
+  }
+
+  precedente (e) {
+    let i = this.galerie.findIndex(image => image === this.url)
+    e.preventDefault()
+    if (i == 0) {
+      i = this.galerie.length
+    }
+    this.chargerMedia(this.galerie[i--])
+  }
 }
