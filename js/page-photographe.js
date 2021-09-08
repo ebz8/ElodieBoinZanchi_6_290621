@@ -15,7 +15,10 @@ const corpsContenuPage = document.querySelector('.js-document')
 const touchesClavier = {
   tab: 9,
   enter: 13,
-  echap: 27
+  echap: 27,
+  gauche: 37,
+  droite: 39,
+  espace: 32
 }
 
 /**
@@ -705,25 +708,11 @@ const constructeurPagePhotographe = (currentPhotographe, currentPhotographeMedia
 
   // modale formulaire
   formulaireTemplate(currentPhotographe)
-
-  // Lightbox.init(currentPhotographe, currentPhotographeMedias)
-
-  // modale lightbox
-  // templateLightbox(currentPhotographe, currentPhotographeMedias)
-  // const vignettesImages = document.querySelectorAll('.apercu-photo img')
-  // vignettesImages.forEach(function (vignette) {
-  //   vignette.addEventListener('click', (e) => {
-  //     e.preventDefault()
-  //     affichageLightbox(vignette, vignettesImages)
-  //   })
-  // })
-  // const btnFermerLightbox = document.querySelector('.lightbox .btn-fermeture')
-  // btnFermerLightbox.addEventListener('click', fermetureLightbox)
 }
 
 class Lightbox {
   static init (medias) {
-    const vignettes = Array.from(document.querySelectorAll('.apercu-photo img'))
+    const vignettes = Array.from(document.querySelectorAll('.apercu-photo img, .apercu-photo video'))
     const galerie = vignettes.map(vignette => vignette.getAttribute('src'))
     console.log(medias)
 
@@ -731,7 +720,6 @@ class Lightbox {
       const vignetteEnCours = e.currentTarget.getAttribute('src')
       const altVignetteEnCours = e.currentTarget.getAttribute('alt')
       console.log(vignetteEnCours)
-      console.log(medias.description)
       // récupérer le titre du figcaption
       e.preventDefault()
       new Lightbox(vignetteEnCours, altVignetteEnCours, galerie)
@@ -740,10 +728,13 @@ class Lightbox {
   }
 
   constructor (src, alt, galerie) {
-    const element = this.creerLightbox(src, alt)
-    corpsPage.appendChild(element)
-    this.affichageLightbox()
+    this.element = this.creerLightbox(src, alt)
     this.galerie = galerie
+    // this.chargerMedia(src)
+    this.affichageLightbox()
+    this.gestionClavier = this.gestionClavier.bind(this)
+    corpsPage.appendChild(this.element)
+    document.addEventListener('keyup', this.gestionClavier)
   }
 
   creerLightbox (src, alt) {
@@ -769,17 +760,17 @@ class Lightbox {
                       </li>
                     </ul>
   `
-    // conteneurLightbox.querySelector('.btn-fermeture').addEventListener('click', this.fermetureLightbox.bind(this))
-    // conteneurLightbox.querySelector('.droite').addEventListener('click', this.suivante.bind(this))
-    // conteneurLightbox.querySelector('.gauche').addEventListener('click', this.precedente.bind(this))
+    conteneurLightbox.querySelector('.btn-fermeture').addEventListener('click', this.fermetureLightbox.bind(this))
+    conteneurLightbox.querySelector('.droite').addEventListener('click', this.suivante.bind(this))
+    conteneurLightbox.querySelector('.gauche').addEventListener('click', this.precedente.bind(this))
     return conteneurLightbox
   }
 
-  affichageLightbox () {
-    const corpsLightbox = document.querySelector('.lightbox')
+  affichageLightbox (e) {
     corpsContenuPage.setAttribute('aria-hidden', 'true')
     corpsPage.style.overflow = 'hidden'
-    corpsLightbox.setAttribute('aria-hidden', 'false')
+    this.element.setAttribute('aria-hidden', 'false')
+    document.addEventListener('keyup', this.gestionClavier)
   }
 
   fermetureLightbox (e) {
@@ -788,39 +779,41 @@ class Lightbox {
     corpsPage.style.overflow = 'scroll'
     // this.element.setAttribute('aria-hidden', 'true')
     this.element.remove()
+    document.removeEventListener('keydown', this.gestionClavier)
   }
 
   gestionClavier (e) {
-    if (e.key === 'Escape') {
+    if (e.key === touchesClavier.echap) {
       this.close(e)
-    } else if (e.key === 'ArrowLeft') {
+    } else if (e.key === touchesClavier.gauche) {
       this.precedente(e)
-    } else if (e.key === 'ArrowRight') {
+    } else if (e.key === touchesClavier.droite) {
       this.suivante(e)
     }
   }
 
   chargerMedia (photographe, media) {
     // possibilité de mettre un loader
-    if (media.image !== undefined) {
-      return `
-    <li class="lightbox-element">
-      <figure>
-        <img src="resources/img/photographers/${photographe.id}/${media.image}" alt="${media.description}">
-        <figcaption class="photo-titre">${media.title}</figcaption>
-      </figure>
-   </li>
-  `
-    } else {
-      return `
-    <li class="lightbox-element">
-      <figure>
-        <video src="resources/video/photographers/${photographe.id}/${media.video}" alt="${media.description}">
-        <figcaption class="photo-titre">${media.title}</figcaption>
-      </figure>
-    </li>
-    `
-    }
+    console.log('image chargée')
+  //   if (media.image !== undefined) {
+  //     return `
+  //   <li class="lightbox-element">
+  //     <figure>
+  //       <img src="resources/img/photographers/${photographe.id}/${media.image}" alt="${media.description}">
+  //       <figcaption class="photo-titre">${media.title}</figcaption>
+  //     </figure>
+  //  </li>
+  // `
+  //   } else {
+  //     return `
+  //   <li class="lightbox-element">
+  //     <figure>
+  //       <video src="resources/video/photographers/${photographe.id}/${media.video}" alt="${media.description}">
+  //       <figcaption class="photo-titre">${media.title}</figcaption>
+  //     </figure>
+  //   </li>
+  //   `
+  //   }
   }
 
   suivante (e) {
@@ -833,11 +826,11 @@ class Lightbox {
   }
 
   precedente (e) {
-    let i = this.galerie.findIndex(image => image === this.url)
     e.preventDefault()
+    let i = this.medias.findIndex(image => image === this.url)
     if (i == 0) {
-      i = this.galerie.length
+      i = this.medias.length
     }
-    this.chargerMedia(this.galerie[i--])
+    this.chargerMedia(this.medias[i--])
   }
 }
