@@ -269,7 +269,7 @@ const templates = {
     if (figure.image !== undefined) {
       return `
     <figure class="apercu-photo">
-      <a href="#">
+      <a href="resources/img/photographers/${figure.photographerId}/${figure.image}" id="${figure.id}">
         <img src="resources/img/photographers/${figure.photographerId}/${figure.image}" alt="${figure.description}">
       </a>
       <figcaption>
@@ -283,10 +283,9 @@ const templates = {
     } else {
       return `
     <figure class="apercu-photo">
-      <a href="#">
-        <video>
-          <source src="resources/video/photographers/${figure.photographerId}/${figure.video}" alt="${figure.description}">
-            <video alt="${figure.description}" autoplay="" controls="" loop="" <="" video=""></video>
+      <a href="resources/video/photographers/${figure.photographerId}/${figure.video}" id="${figure.id}">
+        <video alt="${figure.description}" autoplay="" controls="" loop="" <="" video="">
+          <source src="resources/video/photographers/${figure.photographerId}/${figure.video}" alt="${figure.description}" type="video/mp4">
         </video>
       </a>
       <figcaption>
@@ -631,27 +630,27 @@ const formulaireTemplate = (photographe) => {
 ----------------------------------------------------
 */
 
-const templateItemCarroussel = (photographe, media) => {
-  if (media.image !== undefined) {
-    return `
-  <li class="lightbox-element">
-    <figure>
-      <img src="resources/img/photographers/${photographe.id}/${media.image}" alt="${media.description}">
-      <figcaption class="photo-titre">${media.title}</figcaption>
-    </figure>
- </li>
-`
-  } else {
-    return `
-  <li class="lightbox-element">
-    <figure>
-      <video src="resources/video/photographers/${photographe.id}/${media.video}" alt="${media.description}">
-      <figcaption class="photo-titre">${media.title}</figcaption>
-    </figure>
-  </li>
-  `
-  }
-}
+// const templateItemCarroussel = (photographe, media) => {
+//   if (media.image !== undefined) {
+//     return `
+//   <li class="lightbox-element">
+//     <figure>
+//       <img src="resources/img/photographers/${photographe.id}/${media.image}" alt="${media.description}">
+//       <figcaption class="photo-titre">${media.title}</figcaption>
+//     </figure>
+//  </li>
+// `
+//   } else {
+//     return `
+//   <li class="lightbox-element">
+//     <figure>
+//       <video src="resources/video/photographers/${photographe.id}/${media.video}" alt="${media.description}">
+//       <figcaption class="photo-titre">${media.title}</figcaption>
+//     </figure>
+//   </li>
+//   `
+//   }
+// }
 
 // const templateLightbox = (photographe, medias) => {
 //   // création du conteneur div
@@ -693,36 +692,22 @@ const templateItemCarroussel = (photographe, media) => {
 //   corpsLightbox.setAttribute('aria-hidden', 'true')
 // }
 
-/**
-----------------------------------------------------
-6 - Génération de la page
-----------------------------------------------------
-*/
-
-const constructeurPagePhotographe = (currentPhotographe, currentPhotographeMedias) => {
-  creationHeader()
-  creationBannierePhotographe(currentPhotographe)
-  creationBlocFixe(currentPhotographe, currentPhotographeMedias)
-  creationBoutonTrierPar(currentPhotographe, currentPhotographeMedias)
-  creationGaleriePhotographe(currentPhotographe, currentPhotographeMedias)
-
-  // modale formulaire
-  formulaireTemplate(currentPhotographe)
-}
-
 class Lightbox {
   static init (medias) {
-    const vignettes = Array.from(document.querySelectorAll('.apercu-photo img, .apercu-photo video'))
+    const vignettes = Array.from(document.querySelectorAll('.apercu-photo a'))
     const galerie = vignettes.map(vignette => vignette.getAttribute('src'))
     console.log(medias)
 
     vignettes.forEach(vignette => vignette.addEventListener('click', (e) => {
-      const vignetteEnCours = e.currentTarget.getAttribute('src')
+      const vignetteEnCours = e.currentTarget.getAttribute('href')
       const altVignetteEnCours = e.currentTarget.getAttribute('alt')
       console.log(vignetteEnCours)
       // récupérer le titre du figcaption
       e.preventDefault()
       new Lightbox(vignetteEnCours, altVignetteEnCours, galerie)
+
+      const titreVignetteEnCours = vignette.querySelector('figcaption')
+      console.log(titreVignetteEnCours)
     })
     )
   }
@@ -833,4 +818,21 @@ class Lightbox {
     }
     this.chargerMedia(this.medias[i--])
   }
+}
+
+/**
+----------------------------------------------------
+6 - Génération de la page
+----------------------------------------------------
+*/
+
+const constructeurPagePhotographe = (currentPhotographe, currentPhotographeMedias) => {
+  creationHeader()
+  creationBannierePhotographe(currentPhotographe)
+  creationBlocFixe(currentPhotographe, currentPhotographeMedias)
+  creationBoutonTrierPar(currentPhotographe, currentPhotographeMedias)
+  creationGaleriePhotographe(currentPhotographe, currentPhotographeMedias)
+
+  // modale formulaire
+  formulaireTemplate(currentPhotographe)
 }
