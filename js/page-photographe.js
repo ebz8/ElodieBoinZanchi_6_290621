@@ -754,16 +754,6 @@ class Lightbox {
     document.removeEventListener('keydown', this.gestionClavier)
   }
 
-  gestionClavier (e) {
-    if (e.key === touchesClavier.echap) {
-      this.close(e)
-    } else if (e.key === touchesClavier.gauche) {
-      this.precedente(e)
-    } else if (e.key === touchesClavier.droite) {
-      this.suivante(e)
-    }
-  }
-
   chargerMedia (mediaAffiche) {
     const conteneurLightbox = this.lightbox.querySelector('.lightbox__contenu')
     if (this.mediaEnCours.image !== undefined) {
@@ -776,7 +766,9 @@ class Lightbox {
     } else {
       conteneurLightbox.innerHTML =
         `<figure>
-        <video src="resources/video/photographers/${this.mediaEnCours.photographerId}/${this.mediaEnCours.video}" alt="${this.mediaEnCours.description}">
+        <video alt="${this.mediaEnCours.description}" autoplay="" controls="" loop="" <="" video="">
+          <source src="resources/video/photographers/${this.mediaEnCours.photographerId}/${this.mediaEnCours.video}" alt="${this.mediaEnCours.description}" type="video/mp4">
+        </video>
         <figcaption class="photo-titre">${this.mediaEnCours.title}</figcaption>
       </figure>
     </li>`
@@ -785,7 +777,6 @@ class Lightbox {
   }
 
   suivante (e) {
-    console.log(this.medias)
     e.preventDefault()
     let indexMediaEnCours = this.medias.findIndex(media => media === this.mediaEnCours)
     if (indexMediaEnCours === this.medias.length - 1) {
@@ -796,7 +787,6 @@ class Lightbox {
   }
 
   precedente (e) {
-    console.log(this.medias)
     e.preventDefault()
     let indexMediaEnCours = this.medias.findIndex(media => media === this.mediaEnCours)
     if (indexMediaEnCours === 0) {
@@ -804,6 +794,16 @@ class Lightbox {
     }
     const mediaPrecedent = this.medias[indexMediaEnCours - 1]
     this.chargerMedia(mediaPrecedent)
+  }
+
+  gestionClavier (e) {
+    if (e.key === 'Escape') {
+      this.fermetureLightbox(e)
+    } else if (e.key === 'ArrowLeft') {
+      this.precedente(e)
+    } else if (e.key === 'ArrowRight') {
+      this.suivante(e)
+    }
   }
 }
 
