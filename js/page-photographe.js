@@ -695,34 +695,26 @@ const formulaireTemplate = (photographe) => {
 class Lightbox {
   static init (medias) {
     const vignettes = Array.from(document.querySelectorAll('.apercu-photo a'))
-    const galerie = vignettes.map(vignette => vignette.getAttribute('src'))
-    console.log(medias)
-
     vignettes.forEach(vignette => vignette.addEventListener('click', (e) => {
-      const vignetteEnCours = e.currentTarget.getAttribute('href')
-      const altVignetteEnCours = e.currentTarget.getAttribute('alt')
-      console.log(vignetteEnCours)
-      // récupérer le titre du figcaption
       e.preventDefault()
-      new Lightbox(vignetteEnCours, altVignetteEnCours, galerie)
-
-      const titreVignetteEnCours = vignette.querySelector('figcaption')
-      console.log(titreVignetteEnCours)
+      const idVignetteEnCours = e.currentTarget.getAttribute('id')
+      const mediaEnCours = medias.find(media => media.id == idVignetteEnCours)
+      new Lightbox(mediaEnCours, medias)
     })
     )
   }
 
-  constructor (src, alt, galerie) {
-    this.element = this.creerLightbox(src, alt)
-    this.galerie = galerie
-    // this.chargerMedia(src)
+  constructor (mediaEnCours, medias) {
+    this.element = this.creerLightbox(mediaEnCours, medias)
+    this.medias = medias
     this.affichageLightbox()
+    this.chargerMedia(mediaEnCours)
     this.gestionClavier = this.gestionClavier.bind(this)
     corpsPage.appendChild(this.element)
     document.addEventListener('keyup', this.gestionClavier)
   }
 
-  creerLightbox (src, alt) {
+  creerLightbox (mediaEnCours, medias) {
     const conteneurLightbox = document.createElement('section')
     conteneurLightbox.classList.add('lightbox')
     conteneurLightbox.setAttribute('role', 'dialog')
@@ -737,17 +729,11 @@ class Lightbox {
                       <button class="btn-fermeture" aria-label="fermer la lightbox"></button>
                     </div>
                     <ul class="lightbox__contenu">
-                      <li>
-                        <figure>
-                        <img src="${src}" alt="${alt}">
-                        <figcaption class="photo-titre">Leaning Tower, Pisa</figcaption>
-                        </figure>
-                      </li>
                     </ul>
   `
     conteneurLightbox.querySelector('.btn-fermeture').addEventListener('click', this.fermetureLightbox.bind(this))
-    conteneurLightbox.querySelector('.droite').addEventListener('click', this.suivante.bind(this))
-    conteneurLightbox.querySelector('.gauche').addEventListener('click', this.precedente.bind(this))
+    conteneurLightbox.querySelector('.droite').addEventListener('click', this.suivante.bind(this, mediaEnCours))
+    conteneurLightbox.querySelector('.gauche').addEventListener('click', this.precedente.bind(this, mediaEnCours))
     return conteneurLightbox
   }
 
@@ -777,46 +763,48 @@ class Lightbox {
     }
   }
 
-  chargerMedia (photographe, media) {
-    // possibilité de mettre un loader
-    console.log('image chargée')
-  //   if (media.image !== undefined) {
-  //     return `
-  //   <li class="lightbox-element">
-  //     <figure>
-  //       <img src="resources/img/photographers/${photographe.id}/${media.image}" alt="${media.description}">
-  //       <figcaption class="photo-titre">${media.title}</figcaption>
-  //     </figure>
-  //  </li>
-  // `
-  //   } else {
-  //     return `
-  //   <li class="lightbox-element">
-  //     <figure>
-  //       <video src="resources/video/photographers/${photographe.id}/${media.video}" alt="${media.description}">
-  //       <figcaption class="photo-titre">${media.title}</figcaption>
-  //     </figure>
-  //   </li>
-  //   `
-  //   }
+  chargerMedia (mediaEnCours) {
+    const conteneurLightbox = this.element.querySelector('.lightbox__contenu')
+    if (mediaEnCours.image !== undefined) {
+      utilitaires.appendElementDOM(
+        'li',
+        'lightbox-element',
+        `<figure>
+        <img src="resources/img/photographers/${mediaEnCours.photographerId}/${mediaEnCours.image}" alt="${mediaEnCours.description}">
+        <figcaption class="photo-titre">${mediaEnCours.title}</figcaption>
+      </figure>`,
+        conteneurLightbox)
+    } else {
+      utilitaires.appendElementDOM(
+        'li',
+        'lightbox-element',
+        `<figure>
+          <video src="resources/video/photographers/${mediaEnCours.photographerId}/${mediaEnCours.video}" alt="${mediaEnCours.description}">
+          <figcaption class="photo-titre">${mediaEnCours.title}</figcaption>
+        </figure>`,
+        conteneurLightbox)
+    }
   }
 
-  suivante (e) {
-    e.preventDefault()
-    let i = this.galerie.findIndex(image => image === this.url)
-    if (i == this.galerie.length - 1) {
-      i = -1
+  suivante (mediaEnCours) {
+    console.log(this.medias)
+    let indexMediaEnCours = this.medias.indexOf(mediaEnCours)
+    console.log(indexMediaEnCours)
+    if (indexMediaEnCours === this.medias.length - 1) {
+      indexMediaEnCours = 0
     }
-    this.chargerMedia(this.galerie[i++])
+    const mediaSuivant = this.medias[indexMediaEnCours + 1]
+    console.log(mediaSuivant)
+    this.chargerMedia(mediaSuivant)
   }
 
-  precedente (e) {
-    e.preventDefault()
-    let i = this.medias.findIndex(image => image === this.url)
-    if (i == 0) {
-      i = this.medias.length
+  precedente (mediaEnCours) {
+    let indexMediaEnCours = this.medias.indexOf(mediaEnCours)
+    if (indexMediaEnCours == 0) {
+      indexMediaEnCours = this.medias.length
     }
-    this.chargerMedia(this.medias[i--])
+    const mediaPrecedent = this.medias[indexMediaEnCours - 1]
+    this.chargerMedia(mediaPrecedent)
   }
 }
 
