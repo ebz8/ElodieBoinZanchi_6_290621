@@ -36,6 +36,10 @@ lightbox
 
     .btn-fermeture{
         position: fixed;
+        z-index: 10;
+        height: 6rem;
+        padding-top: 3rem;
+        padding-bottom: 3rem;
         right: 3rem;
     }
     

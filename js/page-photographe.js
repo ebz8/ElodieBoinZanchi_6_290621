@@ -785,22 +785,21 @@ class Lightbox {
   }
 
   suivante (e) {
+    console.log(this.medias)
     e.preventDefault()
     let indexMediaEnCours = this.medias.findIndex(media => media === this.mediaEnCours)
-    // let indexMediaEnCours = this.medias.indexOf(mediaEnCours)
     if (indexMediaEnCours === this.medias.length - 1) {
       indexMediaEnCours = 0
     }
     const mediaSuivant = this.medias[indexMediaEnCours + 1]
     this.chargerMedia(mediaSuivant)
-    // const mediaSuivant = this.medias[indexMediaEnCours + 1]
-    // this.chargerMedia(mediaSuivant)
   }
 
   precedente (e) {
+    console.log(this.medias)
     e.preventDefault()
-    let indexMediaEnCours = this.medias.indexOf(mediaEnCours)
-    if (indexMediaEnCours == 0) {
+    let indexMediaEnCours = this.medias.findIndex(media => media === this.mediaEnCours)
+    if (indexMediaEnCours === 0) {
       indexMediaEnCours = this.medias.length
     }
     const mediaPrecedent = this.medias[indexMediaEnCours - 1]
