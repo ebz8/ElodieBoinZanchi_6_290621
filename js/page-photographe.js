@@ -766,35 +766,28 @@ class Lightbox {
   chargerMedia (mediaEnCours) {
     const conteneurLightbox = this.element.querySelector('.lightbox__contenu')
     if (mediaEnCours.image !== undefined) {
-      utilitaires.appendElementDOM(
-        'li',
-        'lightbox-element',
-        `<figure>
-        <img src="resources/img/photographers/${mediaEnCours.photographerId}/${mediaEnCours.image}" alt="${mediaEnCours.description}">
-        <figcaption class="photo-titre">${mediaEnCours.title}</figcaption>
-      </figure>`,
-        conteneurLightbox)
-    } else {
-      utilitaires.appendElementDOM(
-        'li',
-        'lightbox-element',
-        `<figure>
-          <video src="resources/video/photographers/${mediaEnCours.photographerId}/${mediaEnCours.video}" alt="${mediaEnCours.description}">
+      conteneurLightbox.innerHTML =
+          `<figure>
+            <img src="resources/img/photographers/${mediaEnCours.photographerId}/${mediaEnCours.image}" alt="${mediaEnCours.description}">
           <figcaption class="photo-titre">${mediaEnCours.title}</figcaption>
-        </figure>`,
-        conteneurLightbox)
+        </figure>
+      </li>`
+    } else {
+      conteneurLightbox.innerHTML =
+        `<figure>
+        <video src="resources/video/photographers/${mediaEnCours.photographerId}/${mediaEnCours.video}" alt="${mediaEnCours.description}">
+        <figcaption class="photo-titre">${mediaEnCours.title}</figcaption>
+      </figure>
+    </li>`
     }
   }
 
   suivante (mediaEnCours) {
-    console.log(this.medias)
     let indexMediaEnCours = this.medias.indexOf(mediaEnCours)
-    console.log(indexMediaEnCours)
     if (indexMediaEnCours === this.medias.length - 1) {
       indexMediaEnCours = 0
     }
     const mediaSuivant = this.medias[indexMediaEnCours + 1]
-    console.log(mediaSuivant)
     this.chargerMedia(mediaSuivant)
   }
 
