@@ -1,5 +1,4 @@
 // import { templates } from './index.js'
-
 /* eslint-disable eqeqeq */
 
 /**
@@ -699,22 +698,24 @@ class Lightbox {
       e.preventDefault()
       const idVignetteEnCours = e.currentTarget.getAttribute('id')
       const mediaEnCours = medias.find(media => media.id == idVignetteEnCours)
+      // eslint-disable-next-line no-new
       new Lightbox(mediaEnCours, medias)
     })
     )
   }
 
   constructor (mediaEnCours, medias) {
-    this.element = this.creerLightbox(mediaEnCours, medias)
+    this.lightbox = this.creerLightbox(mediaEnCours)
     this.medias = medias
+    this.mediaEnCours = mediaEnCours
     this.affichageLightbox()
     this.chargerMedia(mediaEnCours)
     this.gestionClavier = this.gestionClavier.bind(this)
-    corpsPage.appendChild(this.element)
+    corpsPage.appendChild(this.lightbox)
     document.addEventListener('keyup', this.gestionClavier)
   }
 
-  creerLightbox (mediaEnCours, medias) {
+  creerLightbox (mediaEnCours) {
     const conteneurLightbox = document.createElement('section')
     conteneurLightbox.classList.add('lightbox')
     conteneurLightbox.setAttribute('role', 'dialog')
@@ -732,15 +733,15 @@ class Lightbox {
                     </ul>
   `
     conteneurLightbox.querySelector('.btn-fermeture').addEventListener('click', this.fermetureLightbox.bind(this))
-    conteneurLightbox.querySelector('.droite').addEventListener('click', this.suivante.bind(this, mediaEnCours))
-    conteneurLightbox.querySelector('.gauche').addEventListener('click', this.precedente.bind(this, mediaEnCours))
+    conteneurLightbox.querySelector('.droite').addEventListener('click', this.suivante.bind(this))
+    conteneurLightbox.querySelector('.gauche').addEventListener('click', this.precedente.bind(this))
     return conteneurLightbox
   }
 
   affichageLightbox (e) {
     corpsContenuPage.setAttribute('aria-hidden', 'true')
     corpsPage.style.overflow = 'hidden'
-    this.element.setAttribute('aria-hidden', 'false')
+    this.lightbox.setAttribute('aria-hidden', 'false')
     document.addEventListener('keyup', this.gestionClavier)
   }
 
@@ -749,7 +750,7 @@ class Lightbox {
     corpsContenuPage.setAttribute('aria-hidden', 'false')
     corpsPage.style.overflow = 'scroll'
     // this.element.setAttribute('aria-hidden', 'true')
-    this.element.remove()
+    this.lightbox.remove()
     document.removeEventListener('keydown', this.gestionClavier)
   }
 
@@ -763,35 +764,41 @@ class Lightbox {
     }
   }
 
-  chargerMedia (mediaEnCours) {
-    const conteneurLightbox = this.element.querySelector('.lightbox__contenu')
-    if (mediaEnCours.image !== undefined) {
+  chargerMedia (mediaAffiche) {
+    const conteneurLightbox = this.lightbox.querySelector('.lightbox__contenu')
+    if (this.mediaEnCours.image !== undefined) {
       conteneurLightbox.innerHTML =
           `<figure>
-            <img src="resources/img/photographers/${mediaEnCours.photographerId}/${mediaEnCours.image}" alt="${mediaEnCours.description}">
-          <figcaption class="photo-titre">${mediaEnCours.title}</figcaption>
+            <img src="resources/img/photographers/${this.mediaEnCours.photographerId}/${this.mediaEnCours.image}" alt="${this.mediaEnCours.description}">
+          <figcaption class="photo-titre">${this.mediaEnCours.title}</figcaption>
         </figure>
       </li>`
     } else {
       conteneurLightbox.innerHTML =
         `<figure>
-        <video src="resources/video/photographers/${mediaEnCours.photographerId}/${mediaEnCours.video}" alt="${mediaEnCours.description}">
-        <figcaption class="photo-titre">${mediaEnCours.title}</figcaption>
+        <video src="resources/video/photographers/${this.mediaEnCours.photographerId}/${this.mediaEnCours.video}" alt="${this.mediaEnCours.description}">
+        <figcaption class="photo-titre">${this.mediaEnCours.title}</figcaption>
       </figure>
     </li>`
     }
+    this.mediaEnCours = mediaAffiche
   }
 
-  suivante (mediaEnCours) {
-    let indexMediaEnCours = this.medias.indexOf(mediaEnCours)
+  suivante (e) {
+    e.preventDefault()
+    let indexMediaEnCours = this.medias.findIndex(media => media === this.mediaEnCours)
+    // let indexMediaEnCours = this.medias.indexOf(mediaEnCours)
     if (indexMediaEnCours === this.medias.length - 1) {
       indexMediaEnCours = 0
     }
     const mediaSuivant = this.medias[indexMediaEnCours + 1]
     this.chargerMedia(mediaSuivant)
+    // const mediaSuivant = this.medias[indexMediaEnCours + 1]
+    // this.chargerMedia(mediaSuivant)
   }
 
-  precedente (mediaEnCours) {
+  precedente (e) {
+    e.preventDefault()
     let indexMediaEnCours = this.medias.indexOf(mediaEnCours)
     if (indexMediaEnCours == 0) {
       indexMediaEnCours = this.medias.length
