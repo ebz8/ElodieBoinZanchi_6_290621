@@ -721,12 +721,14 @@ class Lightbox {
     e.preventDefault()
     // rechercher l'index du média en cours
     let indexMediaEnCours = this.medias.findIndex(media => media === this.mediaEnCours)
+    console.log(indexMediaEnCours)
     // quand dernier média du tableau, retourner au premier
     if (indexMediaEnCours === this.medias.length - 1) {
-      indexMediaEnCours = 0
+      indexMediaEnCours = -1
     }
     // +1 à l'index du média cours
     const mediaSuivant = this.medias[indexMediaEnCours + 1]
+    console.log(mediaSuivant)
     this.chargerMedia(mediaSuivant)
   }
 
@@ -734,6 +736,7 @@ class Lightbox {
     e.preventDefault()
     // rechercher l'index du média en cours
     let indexMediaEnCours = this.medias.findIndex(media => media === this.mediaEnCours)
+    console.log(indexMediaEnCours)
     // quand premier média du tableau, aller au dernier
     if (indexMediaEnCours === 0) {
       indexMediaEnCours = this.medias.length
