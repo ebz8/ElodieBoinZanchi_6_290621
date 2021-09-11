@@ -313,7 +313,7 @@ button {
 }
 
 *:focus {
-  outline: 0.2rem dotted #c4c4c4;
+  outline: 0.2rem dotted #8c8c8c;
 }
 
 body {
@@ -429,7 +429,7 @@ boutons
   padding: 0.2rem 0.5rem;
   color: #911d1d;
   font-size: 0.85rem;
-  border: 1px solid #c4c4c4;
+  border: 1px solid #8c8c8c;
   border-radius: 0.9rem;
 }
 .tag-entree:hover, .tag-entree.active {
@@ -899,7 +899,7 @@ TODO:
 }
 .photographe-profil .tarif {
   font-size: 0.8rem;
-  color: #c4c4c4;
+  color: #8c8c8c;
 }
 .photographe-profil .nav-par-tag {
   padding-left: 0;
@@ -1018,7 +1018,6 @@ TODO:
 .profil-galerie {
   display: flex;
   width: 100%;
-  align-items: space-between;
   flex-flow: row wrap;
   margin-top: 2rem;
   gap: 0.8rem;
