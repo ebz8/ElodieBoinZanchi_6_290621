@@ -696,14 +696,16 @@ class Lightbox {
     this.mediaEnCours = mediaAffiche
     if (this.mediaEnCours.image !== undefined) {
       conteneurLightbox.innerHTML =
-          `<figure>
-            <img src="resources/img/photographers/${this.mediaEnCours.photographerId}/${this.mediaEnCours.image}" alt="${this.mediaEnCours.description}" loading="lazy" aria-label="${this.mediaEnCours.title}">
+    `<li>
+        <figure>
+          <img src="resources/img/photographers/${this.mediaEnCours.photographerId}/${this.mediaEnCours.image}" alt="${this.mediaEnCours.description}" loading="lazy" aria-label="${this.mediaEnCours.title}">
           <figcaption class="photo-titre">${this.mediaEnCours.title}</figcaption>
         </figure>
       </li>`
     } else {
       conteneurLightbox.innerHTML =
-        `<figure>
+    `<li>
+      <figure>
         <video alt="${this.mediaEnCours.description}" controls="controls" loop="" <="" video="" aria-label="${this.mediaEnCours.title}">
           <source src="resources/video/photographers/${this.mediaEnCours.photographerId}/${this.mediaEnCours.video}" alt="${this.mediaEnCours.description}" type="video/mp4" loading="lazy">
         </video>
