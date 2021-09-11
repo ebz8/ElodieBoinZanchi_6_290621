@@ -126,25 +126,34 @@ TODO:
 
     .apercu-photo{
         width: 30vw;
-        height: 30vw;
+        height: 28vw;
         margin: 0;
 
         @include tablet{
             width: 43vw;
+            height: 100%;
         }
-
+        
         @include mobile-large{
+            height: 100%;
             width: 100vw;
-            height: 60vw;
         }
     }
 
     img, video{
         width: 100%;
-        height: 80%;
+        height: 90%;
         object-fit: cover;
         border-radius: .3rem;
         margin-bottom: $moyenne-marge;
+
+        @include tablet{
+            height: 25vw;
+        }
+
+        @include mobile-large{
+            height: 50vw;
+        }
     }
 
     figcaption{
@@ -154,6 +163,7 @@ TODO:
 
     .likes{
         display: flex;
+        align-items: flex-start;
 
         .likes__nombre{
             margin-right: .3rem;

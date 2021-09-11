@@ -1018,32 +1018,44 @@ TODO:
 .profil-galerie {
   display: flex;
   width: 100%;
+  align-items: space-between;
   flex-flow: row wrap;
   margin-top: 2rem;
   gap: 0.8rem;
 }
 .profil-galerie .apercu-photo {
   width: 30vw;
-  height: 30vw;
+  height: 28vw;
   margin: 0;
 }
 @media screen and (max-width: 805px) {
   .profil-galerie .apercu-photo {
     width: 43vw;
+    height: 100%;
   }
 }
 @media screen and (max-width: 544px) {
   .profil-galerie .apercu-photo {
+    height: 100%;
     width: 100vw;
-    height: 60vw;
   }
 }
 .profil-galerie img, .profil-galerie video {
   width: 100%;
-  height: 80%;
+  height: 90%;
   object-fit: cover;
   border-radius: 0.3rem;
   margin-bottom: 0.8rem;
+}
+@media screen and (max-width: 805px) {
+  .profil-galerie img, .profil-galerie video {
+    height: 25vw;
+  }
+}
+@media screen and (max-width: 544px) {
+  .profil-galerie img, .profil-galerie video {
+    height: 50vw;
+  }
 }
 .profil-galerie figcaption {
   display: flex;
@@ -1051,6 +1063,7 @@ TODO:
 }
 .profil-galerie .likes {
   display: flex;
+  align-items: flex-start;
 }
 .profil-galerie .likes .likes__nombre {
   margin-right: 0.3rem;
