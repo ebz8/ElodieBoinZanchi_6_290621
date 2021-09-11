@@ -697,14 +697,14 @@ class Lightbox {
     if (this.mediaEnCours.image !== undefined) {
       conteneurLightbox.innerHTML =
           `<figure>
-            <img src="resources/img/photographers/${this.mediaEnCours.photographerId}/${this.mediaEnCours.image}" alt="${this.mediaEnCours.description}" loading="lazy">
+            <img src="resources/img/photographers/${this.mediaEnCours.photographerId}/${this.mediaEnCours.image}" alt="${this.mediaEnCours.description}" loading="lazy" aria-label="${this.mediaEnCours.title}">
           <figcaption class="photo-titre">${this.mediaEnCours.title}</figcaption>
         </figure>
       </li>`
     } else {
       conteneurLightbox.innerHTML =
         `<figure>
-        <video alt="${this.mediaEnCours.description}" controls="" loop="" <="" video="">
+        <video alt="${this.mediaEnCours.description}" controls="controls" loop="" <="" video="" aria-label="${this.mediaEnCours.title}">
           <source src="resources/video/photographers/${this.mediaEnCours.photographerId}/${this.mediaEnCours.video}" alt="${this.mediaEnCours.description}" type="video/mp4" loading="lazy">
         </video>
         <figcaption class="photo-titre">${this.mediaEnCours.title}</figcaption>
@@ -721,14 +721,12 @@ class Lightbox {
     e.preventDefault()
     // rechercher l'index du média en cours
     let indexMediaEnCours = this.medias.findIndex(media => media === this.mediaEnCours)
-    console.log(indexMediaEnCours)
     // quand dernier média du tableau, retourner au premier
     if (indexMediaEnCours === this.medias.length - 1) {
       indexMediaEnCours = -1
     }
     // +1 à l'index du média cours
     const mediaSuivant = this.medias[indexMediaEnCours + 1]
-    console.log(mediaSuivant)
     this.chargerMedia(mediaSuivant)
   }
 
@@ -736,7 +734,6 @@ class Lightbox {
     e.preventDefault()
     // rechercher l'index du média en cours
     let indexMediaEnCours = this.medias.findIndex(media => media === this.mediaEnCours)
-    console.log(indexMediaEnCours)
     // quand premier média du tableau, aller au dernier
     if (indexMediaEnCours === 0) {
       indexMediaEnCours = this.medias.length
