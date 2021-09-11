@@ -711,7 +711,7 @@ class Lightbox {
       </figure>
     </li>`
     }
-    // gestion du focus
+    // diriger le focus sur le média en cours
     const mediasFocusables = ['img', 'video']
     const tableauMediasFocusables = conteneurLightbox.querySelectorAll(mediasFocusables)
     tableauMediasFocusables[0].focus()
@@ -719,22 +719,26 @@ class Lightbox {
 
   suivante (e) {
     e.preventDefault()
+    // rechercher l'index du média en cours
     let indexMediaEnCours = this.medias.findIndex(media => media === this.mediaEnCours)
-    // quand dernier élément du tableau, retourner au premier
+    // quand dernier média du tableau, retourner au premier
     if (indexMediaEnCours === this.medias.length - 1) {
       indexMediaEnCours = 0
     }
+    // +1 à l'index du média cours
     const mediaSuivant = this.medias[indexMediaEnCours + 1]
     this.chargerMedia(mediaSuivant)
   }
 
   precedente (e) {
     e.preventDefault()
+    // rechercher l'index du média en cours
     let indexMediaEnCours = this.medias.findIndex(media => media === this.mediaEnCours)
-    // quand premier élément du tableau, aller au dernier
+    // quand premier média du tableau, aller au dernier
     if (indexMediaEnCours === 0) {
       indexMediaEnCours = this.medias.length
     }
+    // -1 à l'index du média cours
     const mediaPrecedent = this.medias[indexMediaEnCours - 1]
     this.chargerMedia(mediaPrecedent)
   }
@@ -747,11 +751,6 @@ class Lightbox {
     } else if (e.key === 'ArrowRight' || e.code === 'ArrowRight') {
       this.suivante(e)
     }
-    // // gestion du focus
-    // const champsFocusables = ['img', 'video']
-    // const conteneurLightbox = document.querySelector('.lightbox')
-    // const tableauChampsFocusables = conteneurLightbox.querySelectorAll(champsFocusables)
-    // tableauChampsFocusables[0].focus()
   }
 }
 
