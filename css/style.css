@@ -929,15 +929,18 @@ TODO:
   }
 }
 .banniere-photographe .photographe-profil .nom {
-  font-size: 2.5em;
+  font-size: 2.2em;
   margin-right: 1.5rem;
+  white-space: normal;
 }
 .banniere-photographe .photographe-profil .localisation {
-  font-size: 0.99em;
+  font-size: 0.9em;
 }
 .banniere-photographe .photographe-profil .accroche {
   font-size: 0.8em;
   color: #525252;
+  line-height: 1.3rem;
+  margin-bottom: 1rem;
 }
 @media screen and (max-width: 544px) {
   .banniere-photographe .photographe-profil .nav-par-tag {
