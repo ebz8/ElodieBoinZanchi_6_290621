@@ -313,7 +313,7 @@ button {
 }
 
 *:focus {
-  outline: 0.2rem dotted #8c8c8c;
+  outline: 0.3rem solid #8c8c8c;
 }
 
 body {

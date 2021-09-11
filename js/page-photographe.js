@@ -102,9 +102,10 @@ const utilitaires = {
 
     const compteurGeneral = document.querySelector('.compteur-likes')
     let compteurGeneralLikes = compteurGeneral.textContent
-
-    event.target.classList.toggle('like-actif')
-    if (event.target.classList.contains('like-actif')) {
+    // event.preventDefault()
+    const iconeLike = event.currentTarget.querySelector('i')
+    iconeLike.classList.toggle('like-actif')
+    if (iconeLike.classList.contains('like-actif')) {
       totalLikes++
       affichageLikes.textContent = totalLikes
       compteurGeneralLikes++
@@ -268,13 +269,13 @@ const templates = {
     if (figure.image !== undefined) {
       return `
     <figure class="apercu-photo">
-      <a href="resources/img/photographers/${figure.photographerId}/${figure.image}" id="${figure.id}">
+      <a href="resources/img/photographers/${figure.photographerId}/${figure.image}" id="${figure.id}" tabindex="0">
         <img src="resources/img/photographers/${figure.photographerId}/${figure.image}" alt="${figure.description}">
       </a>
       <figcaption>
-        <p class="photo-titre" tabindex="0">${figure.title}</p>
+        <p class="photo-titre" >${figure.title}</p>
         <div class="likes">
-          <p class="likes__nombre" tabindex="0">${figure.likes}</p><button class="icone-like" aria-label="j'aime"><i class="fas fa-heart" tabindex="-1"></i></button> 
+          <p class="likes__nombre" tabindex="0">${figure.likes}</p><button class="icone-like" aria-label="j'aime" tabindex="0"><i class="fas fa-heart"></i></button> 
         </div>
       </figcaption>
     </figure>`
@@ -282,15 +283,15 @@ const templates = {
     } else {
       return `
     <figure class="apercu-photo">
-      <a href="resources/video/photographers/${figure.photographerId}/${figure.video}" id="${figure.id}">
+      <a href="resources/video/photographers/${figure.photographerId}/${figure.video}" id="${figure.id}" tabindex="0">
         <video alt="${figure.description}">
           <source src="resources/video/photographers/${figure.photographerId}/${figure.video}#t=0.1" alt="${figure.description}" type="video/mp4">
         </video>
       </a>
       <figcaption>
         <p class="photo-titre" tabindex="0">${figure.title}</p>
-        <div class="likes" tabindex="0">
-          <p class="likes__nombre">${figure.likes}</p><button class="icone-like" aria-label="j'aime"><i class="fas fa-heart" ></i></button> 
+        <div class="likes">
+          <p class="likes__nombre" tabindex="0">${figure.likes}</p><button class="icone-like" aria-label="j'aime" tabindex="0"><i class="fas fa-heart"></i></button> 
         </div>
       </figcaption>
     </figure>`
