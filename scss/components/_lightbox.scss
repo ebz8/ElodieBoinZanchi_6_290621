@@ -41,6 +41,11 @@ lightbox
         padding-top: 3rem;
         padding-bottom: 3rem;
         right: 3rem;
+
+        @include tablet{
+            right : .5rem;
+            padding-top: 0;
+        }
     }
     
     .gauche,
@@ -55,10 +60,19 @@ lightbox
     
     .gauche{
         left: 3rem;
+
+        @include tablet {
+            left : .5rem;
+        }
+
     }
     
     .droite{
         right: 3rem;
+
+        @include tablet {
+            right : .5rem;
+        }
     } 
 }
 
@@ -69,7 +83,11 @@ lightbox
     min-height: 100vh;
     margin: 0 5rem;
 
-    .lightbox-element{
+    @include mobile-large{
+        margin: 0rem;
+    }
+
+    .lightbox-element {
         // max-width : 100%;
         max-width : 50%;
         position: absolute;
@@ -84,5 +102,9 @@ lightbox
         width: 100%;
         max-height: 90vh;
         animation: lightboxIn .5s;
+
+        @include tablet {
+            max-height: 85vh;
+        }
     }
 }

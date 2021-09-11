@@ -723,6 +723,12 @@ lightbox
   padding-bottom: 3rem;
   right: 3rem;
 }
+@media screen and (max-width: 805px) {
+  .lightbox__commandes .btn-fermeture {
+    right: 0.5rem;
+    padding-top: 0;
+  }
+}
 .lightbox__commandes .gauche,
 .lightbox__commandes .droite {
   position: fixed;
@@ -735,8 +741,18 @@ lightbox
 .lightbox__commandes .gauche {
   left: 3rem;
 }
+@media screen and (max-width: 805px) {
+  .lightbox__commandes .gauche {
+    left: 0.5rem;
+  }
+}
 .lightbox__commandes .droite {
   right: 3rem;
+}
+@media screen and (max-width: 805px) {
+  .lightbox__commandes .droite {
+    right: 0.5rem;
+  }
 }
 
 .lightbox__contenu {
@@ -745,6 +761,11 @@ lightbox
   align-items: center;
   min-height: 100vh;
   margin: 0 5rem;
+}
+@media screen and (max-width: 544px) {
+  .lightbox__contenu {
+    margin: 0rem;
+  }
 }
 .lightbox__contenu .lightbox-element {
   max-width: 50%;
@@ -758,6 +779,11 @@ lightbox
   width: 100%;
   max-height: 90vh;
   animation: lightboxIn 0.5s;
+}
+@media screen and (max-width: 805px) {
+  .lightbox__contenu img, .lightbox__contenu video {
+    max-height: 85vh;
+  }
 }
 
 /**
