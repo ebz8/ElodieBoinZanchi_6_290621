@@ -283,8 +283,8 @@ const templates = {
       return `
     <figure class="apercu-photo">
       <a href="resources/video/photographers/${figure.photographerId}/${figure.video}" id="${figure.id}">
-        <video alt="${figure.description}" autoplay="" controls="" loop="" <="" video="">
-          <source src="resources/video/photographers/${figure.photographerId}/${figure.video}" alt="${figure.description}" type="video/mp4">
+        <video alt="${figure.description}">
+          <source src="resources/video/photographers/${figure.photographerId}/${figure.video}#t=0.1" alt="${figure.description}" type="video/mp4">
         </video>
       </a>
       <figcaption>
@@ -628,69 +628,6 @@ const formulaireTemplate = (photographe) => {
 5 - Lightbox et fonctionnalités
 ----------------------------------------------------
 */
-
-// const templateItemCarroussel = (photographe, media) => {
-//   if (media.image !== undefined) {
-//     return `
-//   <li class="lightbox-element">
-//     <figure>
-//       <img src="resources/img/photographers/${photographe.id}/${media.image}" alt="${media.description}">
-//       <figcaption class="photo-titre">${media.title}</figcaption>
-//     </figure>
-//  </li>
-// `
-//   } else {
-//     return `
-//   <li class="lightbox-element">
-//     <figure>
-//       <video src="resources/video/photographers/${photographe.id}/${media.video}" alt="${media.description}">
-//       <figcaption class="photo-titre">${media.title}</figcaption>
-//     </figure>
-//   </li>
-//   `
-//   }
-// }
-
-// const templateLightbox = (photographe, medias) => {
-//   // création du conteneur div
-//   const conteneurLightbox = document.createElement('section')
-//   conteneurLightbox.classList.add('lightbox')
-//   conteneurLightbox.setAttribute('role', 'dialog')
-//   conteneurLightbox.setAttribute('aria-label', 'image pein écran')
-//   conteneurLightbox.setAttribute('aria-modal', 'true')
-//   conteneurLightbox.setAttribute('aria-hidden', 'true')
-//   corpsPage.appendChild(conteneurLightbox)
-
-//   conteneurLightbox.innerHTML = `
-//                     <!-- composants lightbox -->
-//                     <div class="lightbox__commandes">
-//                       <button class="gauche" aria-label="image précédente"><i class="fas fa-chevron-left"></i> </button>
-//                       <button class="droite" aria-label="image suivante"><i class="fas fa-chevron-right"></i></button>
-//                       <button class="btn-fermeture" aria-label="fermer la lightbox"></button>
-//                     </div>
-//                     <ul class="lightbox__contenu">
-//                       ${medias.map((media) => templateItemCarroussel(photographe, media)).join('')}
-//                     </ul>
-//   `
-// //   <li class="lightbox-element actif">
-// }
-
-// const affichageLightbox = (vignette, vignettesImages) => {
-//   const corpsLightbox = document.querySelector('.lightbox')
-
-//   corpsContenuPage.setAttribute('aria-hidden', 'true')
-//   corpsPage.style.overflow = 'hidden'
-//   corpsLightbox.setAttribute('aria-hidden', 'false')
-// }
-
-// const fermetureLightbox = () => {
-//   const corpsLightbox = document.querySelector('.lightbox')
-
-//   corpsContenuPage.setAttribute('aria-hidden', 'false')
-//   corpsPage.style.overflow = 'scroll'
-//   corpsLightbox.setAttribute('aria-hidden', 'true')
-// }
-
 class Lightbox {
   static init (medias) {
     const vignettes = Array.from(document.querySelectorAll('.apercu-photo a'))
@@ -756,29 +693,34 @@ class Lightbox {
 
   chargerMedia (mediaAffiche) {
     const conteneurLightbox = this.lightbox.querySelector('.lightbox__contenu')
+    this.mediaEnCours = mediaAffiche
     if (this.mediaEnCours.image !== undefined) {
       conteneurLightbox.innerHTML =
           `<figure>
-            <img src="resources/img/photographers/${this.mediaEnCours.photographerId}/${this.mediaEnCours.image}" alt="${this.mediaEnCours.description}">
+            <img src="resources/img/photographers/${this.mediaEnCours.photographerId}/${this.mediaEnCours.image}" alt="${this.mediaEnCours.description}" loading="lazy">
           <figcaption class="photo-titre">${this.mediaEnCours.title}</figcaption>
         </figure>
       </li>`
     } else {
       conteneurLightbox.innerHTML =
         `<figure>
-        <video alt="${this.mediaEnCours.description}" autoplay="" controls="" loop="" <="" video="">
-          <source src="resources/video/photographers/${this.mediaEnCours.photographerId}/${this.mediaEnCours.video}" alt="${this.mediaEnCours.description}" type="video/mp4">
+        <video alt="${this.mediaEnCours.description}" controls="" loop="" <="" video="">
+          <source src="resources/video/photographers/${this.mediaEnCours.photographerId}/${this.mediaEnCours.video}" alt="${this.mediaEnCours.description}" type="video/mp4" loading="lazy">
         </video>
         <figcaption class="photo-titre">${this.mediaEnCours.title}</figcaption>
       </figure>
     </li>`
     }
-    this.mediaEnCours = mediaAffiche
+    // gestion du focus
+    const mediasFocusables = ['img', 'video']
+    const tableauMediasFocusables = conteneurLightbox.querySelectorAll(mediasFocusables)
+    tableauMediasFocusables[0].focus()
   }
 
   suivante (e) {
     e.preventDefault()
     let indexMediaEnCours = this.medias.findIndex(media => media === this.mediaEnCours)
+    // quand dernier élément du tableau, retourner au premier
     if (indexMediaEnCours === this.medias.length - 1) {
       indexMediaEnCours = 0
     }
@@ -789,6 +731,7 @@ class Lightbox {
   precedente (e) {
     e.preventDefault()
     let indexMediaEnCours = this.medias.findIndex(media => media === this.mediaEnCours)
+    // quand premier élément du tableau, aller au dernier
     if (indexMediaEnCours === 0) {
       indexMediaEnCours = this.medias.length
     }
@@ -797,13 +740,18 @@ class Lightbox {
   }
 
   gestionClavier (e) {
-    if (e.key === 'Escape') {
+    if (e.key === 'Escape' || e.code === 'Escape') {
       this.fermetureLightbox(e)
-    } else if (e.key === 'ArrowLeft') {
+    } else if (e.key === 'ArrowLeft' || e.code === 'ArrowLeft') {
       this.precedente(e)
-    } else if (e.key === 'ArrowRight') {
+    } else if (e.key === 'ArrowRight' || e.code === 'ArrowRight') {
       this.suivante(e)
     }
+    // // gestion du focus
+    // const champsFocusables = ['img', 'video']
+    // const conteneurLightbox = document.querySelector('.lightbox')
+    // const tableauChampsFocusables = conteneurLightbox.querySelectorAll(champsFocusables)
+    // tableauChampsFocusables[0].focus()
   }
 }
 
