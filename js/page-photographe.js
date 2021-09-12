@@ -1,4 +1,4 @@
-// import { templates } from './index.js'
+/* eslint-disable no-new */
 /* eslint-disable eqeqeq */
 
 /**
@@ -58,7 +58,12 @@ document.addEventListener('DOMContentLoaded', chargementData)
 */
 
 const utilitaires = {
-  // test de squelette
+  definirAttributs: (element, attributs) => {
+    for (let cle in attributs) {
+      element.setAttribute(cle, attributs[cle])
+    }
+  },
+
   prependElementDOM: (balise, classe, template, conteneur) => {
     const element = document.createElement(balise)
     element.classList.add(classe)
@@ -470,12 +475,9 @@ class Formulaire {
   creerFormulaire (photographe) {
     const sectionFormulaire = document.createElement('section')
     sectionFormulaire.classList.add('modale-formulaire')
-    sectionFormulaire.setAttribute('id', 'dialog')
-    sectionFormulaire.setAttribute('role', 'dialog')
-    sectionFormulaire.setAttribute('aria-labelledby', 'titre-formulaire')
-    sectionFormulaire.setAttribute('aria-modal', 'true')
-
+    utilitaires.definirAttributs(sectionFormulaire, {'id': 'dialog', 'role': 'dialog', 'aria-labelledby': 'titre-formulaire', 'aria-modal': 'true' })
     sectionFormulaire.innerHTML = templates.sectionFormulaire(photographe)
+
     sectionFormulaire.querySelector('.modale-formulaire .btn-fermeture').addEventListener('click', this.fermetureFormulaire.bind(this))
     sectionFormulaire.querySelector('#btn-envoi').addEventListener('click', this.gestionSaisie.bind(this))
     return sectionFormulaire
@@ -577,10 +579,8 @@ class Lightbox {
   creerLightbox (mediaEnCours) {
     const conteneurLightbox = document.createElement('section')
     conteneurLightbox.classList.add('lightbox')
-    conteneurLightbox.setAttribute('role', 'dialog')
-    conteneurLightbox.setAttribute('aria-label', 'image pein écran')
-    conteneurLightbox.setAttribute('aria-modal', 'true')
-    conteneurLightbox.setAttribute('aria-hidden', 'true')
+    utilitaires.definirAttributs(conteneurLightbox, { 'role': 'dialog', 'aria-label': 'image en plein écran', 'aria-hidden': 'true', 'aria-modal': 'true' })
+
     conteneurLightbox.innerHTML = `
                     <!-- composants lightbox -->
                     <div class="lightbox__commandes">
@@ -608,7 +608,7 @@ class Lightbox {
     e.preventDefault()
     corpsContenuPage.setAttribute('aria-hidden', 'false')
     corpsPage.style.overflow = 'scroll'
-    // this.element.setAttribute('aria-hidden', 'true')
+    // this.lightbox.setAttribute('aria-hidden', 'true')
     this.lightbox.remove()
     document.removeEventListener('keydown', this.gestionClavier)
   }
