@@ -98,12 +98,11 @@ const utilitaires = {
 
   incrementerLikes: (like, event) => {
     let totalLikes = like.previousSibling.textContent.replace(/\s+/g, '')
-    let affichageLikes = like.previousSibling
-
+    const affichageLikes = like.previousSibling
     const compteurGeneral = document.querySelector('.compteur-likes')
-    let compteurGeneralLikes = compteurGeneral.textContent
-    // event.preventDefault()
     const iconeLike = event.currentTarget.querySelector('i')
+    let compteurGeneralLikes = compteurGeneral.textContent
+
     iconeLike.classList.toggle('like-actif')
     if (iconeLike.classList.contains('like-actif')) {
       totalLikes++
@@ -321,6 +320,7 @@ const creationBannierePhotographe = (currentPhotographe) => {
     templates.contenuBannierePhotographe(currentPhotographe),
     corpsContenuPage
   )
+  Formulaire.init(currentPhotographe)
 }
 
 const creationBlocFixe = (photographe, medias) => {
@@ -397,198 +397,369 @@ const creationBoutonTrierPar = (photographe, medias) => {
 ----------------------------------------------------
 */
 
-const formulaireTemplate = (photographe) => {
-  // création du conteneur div
-  const sectionFormulaire = document.createElement('section')
-  sectionFormulaire.classList.add('modale-formulaire')
-  sectionFormulaire.setAttribute('id', 'dialog')
-  sectionFormulaire.setAttribute('role', 'dialog')
-  sectionFormulaire.setAttribute('aria-labelledby', 'titre-formulaire')
-  sectionFormulaire.setAttribute('aria-modal', 'true')
-  sectionFormulaire.setAttribute('aria-hidden', 'true')
+// const formulaireTemplate = (photographe) => {
+//   // création du conteneur div
+//   const sectionFormulaire = document.createElement('section')
+//   sectionFormulaire.classList.add('modale-formulaire')
+//   sectionFormulaire.setAttribute('id', 'dialog')
+//   sectionFormulaire.setAttribute('role', 'dialog')
+//   sectionFormulaire.setAttribute('aria-labelledby', 'titre-formulaire')
+//   sectionFormulaire.setAttribute('aria-modal', 'true')
+//   sectionFormulaire.setAttribute('aria-hidden', 'true')
 
-  corpsPage.appendChild(sectionFormulaire)
+//   corpsPage.appendChild(sectionFormulaire)
 
-  // ajout de chaque fiche au conteneur
-  sectionFormulaire.innerHTML = `
-          <!-- <h2 class="hidden">Formulaire de contact</h2> -->
+//   // ajout de chaque fiche au conteneur
+//   sectionFormulaire.innerHTML = `
+//           <!-- <h2 class="hidden">Formulaire de contact</h2> -->
 
-            <div role="document" class="formulaire-contenu">
+//             <div role="document" class="formulaire-contenu">
 
-                <button type="button" aria-label="Fermer la fenêtre de dialogue"
-                data-dismiss="dialog"
-                class="btn-fermeture">
-                </button>
+//                 <button type="button" aria-label="Fermer la fenêtre de dialogue"
+//                 data-dismiss="dialog"
+//                 class="btn-fermeture">
+//                 </button>
 
-                <!-- titre perso du formulaire -->
-                <div id="titre-formulaire">
-                    <h1>Contactez moi
-                    <br>${photographe.name}</h1>
-                </div>
-                
+//                 <!-- titre perso du formulaire -->
+//                 <div id="titre-formulaire">
+//                     <h1>Contactez moi
+//                     <br>${photographe.name}</h1>
+//                 </div>
 
-                <form action="/" method="GET" class="formulaire" name="formulaire-contact">
 
-                    <div class="champ-formulaire">
-                        <label for="prenom">Prénom</label>
-                        <input
-                        class="text-control"
-                        type="text"
-                        id="prenom"
-                        name="prenom"
-                        title="Renseignez votre prénom."
-                        aria-required="true"
-                        autofocus
-                        />
-                    </div>
+//                 <form action="/" method="GET" class="formulaire" name="formulaire-contact">
 
-                    <div class="champ-formulaire">
-                        <label for="nom">Nom</label>
-                        <input
-                        class="text-control"
-                        type="text"
-                        id="nom"
-                        name="nom"
-                        title="Renseignez votre nom."
-                        aria-required="true"
-                        />
-                    </div>
+//                     <div class="champ-formulaire">
+//                         <label for="prenom">Prénom</label>
+//                         <input
+//                         class="text-control"
+//                         type="text"
+//                         id="prenom"
+//                         name="prenom"
+//                         title="Renseignez votre prénom."
+//                         aria-required="true"
+//                         autofocus
+//                         />
+//                     </div>
 
-                    <div class="champ-formulaire">
-                        <label for="email">Email</label>
-                        <input
-                        class="text-control"
-                        type="email"
-                        id="email"
-                        name="email"
-                        title="Renseignez votre email."
-                        aria-required="true"
-                        />
-                    </div>
+//                     <div class="champ-formulaire">
+//                         <label for="nom">Nom</label>
+//                         <input
+//                         class="text-control"
+//                         type="text"
+//                         id="nom"
+//                         name="nom"
+//                         title="Renseignez votre nom."
+//                         aria-required="true"
+//                         />
+//                     </div>
 
-                    <div class="champ-formulaire">
-                        <label for="message">Message</label>
-                        <textarea
-                        class="text-control"
-                        id="message"
-                        name="message"
-                        title="Rédigez ici votre message adressé au photographe."
-                        aria-required="true">
-                        </textarea>
-                        
+//                     <div class="champ-formulaire">
+//                         <label for="email">Email</label>
+//                         <input
+//                         class="text-control"
+//                         type="email"
+//                         id="email"
+//                         name="email"
+//                         title="Renseignez votre email."
+//                         aria-required="true"
+//                         />
+//                     </div>
 
-                    </div>
+//                     <div class="champ-formulaire">
+//                         <label for="message">Message</label>
+//                         <textarea
+//                         class="text-control"
+//                         id="message"
+//                         name="message"
+//                         title="Rédigez ici votre message adressé au photographe."
+//                         aria-required="true">
+//                         </textarea>
 
-                    <!-- bouton d'envoi -->
+
+//                     </div>
+
+//                     <!-- bouton d'envoi -->
+//                     <input
+//                       id="btn-envoi"
+//                       type="submit"
+//                       class="btn-principal"
+//                       value="Envoyer"
+//                       aria-label="Envoyer"
+//                       aria-describedby="erreur-saisie"/>
+
+//                       <!-- message d'erreur -->
+//                     <span id= "erreur-saisie" class="erreur-saisie"
+//                         role="alert" tabindex="0"></span>
+
+
+//                 </form>
+
+//             </div>`
+
+//   // éléments du DOM
+//   const corpsFormulaire = document.querySelector('.modale-formulaire')
+//   const contenuFormulaire = document.querySelector('.formulaire-contenu')
+//   const btnOuvrirFormulaire = document.querySelector('#btn-modale')
+//   const btnFermerFormulaire = document.querySelector('.modale-formulaire .btn-fermeture')
+
+//   const formChamps = document.forms['formulaire-contact']
+//   const btnEnvoiFormulaire = document.querySelector('#btn-envoi')
+//   const messageErreur = document.querySelector('.erreur-saisie')
+
+//   const tableauChampsFocusables = [
+//     '[href]',
+//     'button:not([disabled])',
+//     'input:not([disabled])',
+//     'select:not([disabled])',
+//     'textarea:not([disabled])',
+//     '[tabindex]:not([tabindex="-1"])'
+//   ]
+
+//   const champsFocusables = contenuFormulaire.querySelectorAll(tableauChampsFocusables)
+//   const premierElementFocusable = champsFocusables[0]
+//   const dernierElementFocusable = champsFocusables[champsFocusables.length - 1]
+
+//   // expressions régulières
+//   const regexNom = /^(?=[a-zA-ZéèîïÉÎÏ\s]{2,25}$)(?=[a-zA-Z\s])(?:([\w\s*?])\1?(?!\1))+$/
+//   const regexMail = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
+
+//   // //////////////////////////////////
+//   // OUVERTURE ACCESSIBLE FORMULAIRE //
+//   // //////////////////////////////////
+
+//   function formulaireOuverture () {
+//     corpsFormulaire.setAttribute('aria-hidden', 'false')
+//     corpsContenuPage.setAttribute('aria-hidden', 'true')
+//     corpsPage.style.overflow = 'hidden'
+//     premierElementFocusable.focus()
+//   }
+//   btnOuvrirFormulaire.addEventListener('click', formulaireOuverture)
+
+//   /// //////////////////////////////////
+//   // FERMETURE ACCESSIBLE FORMULAIRE //
+//   /// //////////////////////////////////
+
+//   function formulaireFermeture () {
+//     corpsFormulaire.setAttribute('aria-hidden', 'true')
+//     corpsContenuPage.setAttribute('aria-hidden', 'false')
+//     corpsPage.style.overflow = 'scroll'
+//     btnOuvrirFormulaire.focus()
+//   }
+//   btnFermerFormulaire.addEventListener('click', formulaireFermeture)
+
+//   // ////////////////////////
+//   // NAVIGATION AU CLAVIER //
+//   // ////////////////////////
+
+//   // quitter avec échap
+//   corpsFormulaire.addEventListener('keydown', (e) => {
+//     if (e.which === touchesClavier.echap) {
+//       formulaireFermeture()
+//     }
+//   })
+
+//   // gestion du focus avec tab
+//   window.setTimeout(() => {
+//   // focus à l'intérieur de la modale
+//     champsFocusables.forEach((champsFocusable) => {
+//       if (champsFocusable.addEventListener) {
+//         champsFocusable.addEventListener('keydown', (e) => {
+//           const tab = e.which === touchesClavier.tab
+
+//           if (!tab) {
+//             return
+//           } if (e.touchesClavier) {
+//             if (e.target === premierElementFocusable) { // shift + tab
+//               e.preventDefault()
+//               dernierElementFocusable.focus()
+//             }
+//           } else if (e.target === dernierElementFocusable) { // tab
+//             e.preventDefault()
+//             premierElementFocusable.focus()
+//           }
+//         })
+//       }
+//     })
+//   }, 100)
+
+//   // ///////////////////////
+//   // GESTION DE LA SAISIE //
+//   // ///////////////////////
+
+//   btnEnvoiFormulaire.addEventListener('click', function (e) {
+//     e.preventDefault()
+
+//     let typeErreur
+//     // vérifier la validité des infos saisies
+//     if (regexNom.test(formChamps.prenom.value) === false) {
+//       typeErreur = 'Veuillez saisir un prénom valide : deux caractères minimum et chiffres interdits.'
+//     } else if (regexNom.test(formChamps.nom.value) === false) {
+//       typeErreur = 'Veuillez saisir un nom valide : deux caractères minimum et chiffres interdits.'
+//     } else if (regexMail.test(formChamps.email.value) === false) {
+//       typeErreur = 'Veuillez saisir un email valide : doit correspondre au format mail@mail.com.'
+//     }
+//     // vérifier que les champs ne sont pas vides
+//     for (let i = 0; i < formChamps.length; i++) {
+//       if (!formChamps[i].value) {
+//         typeErreur = 'Veuillez renseigner tous les champs.'
+//       }
+//     }
+//     // si erreur de saisie, affichage message d'erreur spécifique
+//     if (typeErreur) {
+//       e.preventDefault()
+//       messageErreur.innerHTML = typeErreur
+//       messageErreur.classList.add('erreur-saisie--active')
+//     } else {
+//     // afficher les données saisies puis effacer le formulaire
+//       for (let i = 0; i < formChamps.length - 1; i++) {
+//         console.log(formChamps[i].value)
+//         formChamps[i].value = ''
+//       }
+//       messageErreur.innerHTML = ' '
+//       // message de confirmation et fermeture de la fenêtre
+//       alert('Votre message a bien été envoyé.')
+//       formulaireFermeture()
+//     }
+//   })
+// }
+
+class Formulaire {
+  static init (photographe) {
+    const btnFormulaire = document.querySelector('#btn-modale')
+    btnFormulaire.addEventListener('click', (e) => {
+      new Formulaire(photographe)
+    })
+  }
+
+  constructor (photographe) {
+    this.formulaire = this.creerFormulaire(photographe)
+    this.affichageFormulaire()
+    this.fermetureFormulaire()
+    this.gestionSaisie = this.gestionSaisie.bind(this)
+    this.gestionClavier = this.gestionClavier.bind(this)
+    document.addEventListener('keyup', this.gestionClavier)
+    corpsPage.appendChild(this.formulaire)
+  }
+
+  creerFormulaire (photographe) {
+    const sectionFormulaire = document.createElement('section')
+    sectionFormulaire.classList.add('modale-formulaire')
+    sectionFormulaire.setAttribute('id', 'dialog')
+    sectionFormulaire.setAttribute('role', 'dialog')
+    sectionFormulaire.setAttribute('aria-labelledby', 'titre-formulaire')
+    sectionFormulaire.setAttribute('aria-modal', 'true')
+
+    sectionFormulaire.innerHTML = `
+      <!-- <h2 class="hidden">Formulaire de contact</h2> -->
+        <div role="document" class="formulaire-contenu">
+            <button type="button" aria-label="Fermer la fenêtre de dialogue"
+            data-dismiss="dialog"
+            class="btn-fermeture">
+            </button>
+
+            <!-- titre perso du formulaire -->
+            <div id="titre-formulaire">
+                <h1>Contactez moi
+                <br>${photographe.name}</h1>
+            </div>
+
+            <form action="/" method="GET" class="formulaire" name="formulaire-contact">
+                <div class="champ-formulaire">
+                    <label for="prenom">Prénom</label>
                     <input
-                      id="btn-envoi"
-                      type="submit"
-                      class="btn-principal"
-                      value="Envoyer"
-                      aria-label="Envoyer"
-                      aria-describedby="erreur-saisie"/>
-                      
-                      <!-- message d'erreur -->
-                    <span id= "erreur-saisie" class="erreur-saisie"
-                        role="alert" tabindex="0"></span>
-                        
+                    class="text-control"
+                    type="text"
+                    id="prenom"
+                    name="prenom"
+                    title="Renseignez votre prénom."
+                    aria-required="true"
+                    autofocus
+                    />
+                </div>
 
-                </form>
+                <div class="champ-formulaire">
+                    <label for="nom">Nom</label>
+                    <input
+                    class="text-control"
+                    type="text"
+                    id="nom"
+                    name="nom"
+                    title="Renseignez votre nom."
+                    aria-required="true"
+                    />
+                </div>
 
-            </div>`
+                <div class="champ-formulaire">
+                    <label for="email">Email</label>
+                    <input
+                    class="text-control"
+                    type="email"
+                    id="email"
+                    name="email"
+                    title="Renseignez votre email."
+                    aria-required="true"
+                    />
+                </div>
 
-  // éléments du DOM
-  const corpsFormulaire = document.querySelector('.modale-formulaire')
-  const contenuFormulaire = document.querySelector('.formulaire-contenu')
-  const btnOuvrirFormulaire = document.querySelector('#btn-modale')
-  const btnFermerFormulaire = document.querySelector('.modale-formulaire .btn-fermeture')
+                <div class="champ-formulaire">
+                    <label for="message">Message</label>
+                    <textarea
+                    class="text-control"
+                    id="message"
+                    name="message"
+                    title="Rédigez ici votre message adressé au photographe."
+                    aria-required="true">
+                    </textarea>
+                </div>
 
-  const formChamps = document.forms['formulaire-contact']
-  const btnEnvoiFormulaire = document.querySelector('#btn-envoi')
-  const messageErreur = document.querySelector('.erreur-saisie')
+                <!-- bouton d'envoi -->
+                <input
+                  id="btn-envoi"
+                  type="submit"
+                  class="btn-principal"
+                  value="Envoyer"
+                  aria-label="Envoyer"
+                  aria-describedby="erreur-saisie"/>
+                  
+                  <!-- message d'erreur -->
+                <span id= "erreur-saisie" class="erreur-saisie" role="alert" tabindex="0"></span>
+            </form>
+        </div>`
+    sectionFormulaire.querySelector('.modale-formulaire .btn-fermeture').addEventListener('click', this.fermetureFormulaire.bind(this))
+    sectionFormulaire.querySelector('#btn-envoi').addEventListener('click', this.gestionSaisie.bind(this))
+    return sectionFormulaire
+  }
 
-  const tableauChampsFocusables = [
-    '[href]',
-    'button:not([disabled])',
-    'input:not([disabled])',
-    'select:not([disabled])',
-    'textarea:not([disabled])',
-    '[tabindex]:not([tabindex="-1"])'
-  ]
-
-  const champsFocusables = contenuFormulaire.querySelectorAll(tableauChampsFocusables)
-  const premierElementFocusable = champsFocusables[0]
-  const dernierElementFocusable = champsFocusables[champsFocusables.length - 1]
-
-  // expressions régulières
-  const regexNom = /^(?=[a-zA-ZéèîïÉÎÏ\s]{2,25}$)(?=[a-zA-Z\s])(?:([\w\s*?])\1?(?!\1))+$/
-  const regexMail = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
-
-  // //////////////////////////////////
-  // OUVERTURE ACCESSIBLE FORMULAIRE //
-  // //////////////////////////////////
-
-  function formulaireOuverture () {
-    corpsFormulaire.setAttribute('aria-hidden', 'false')
+  affichageFormulaire () {
     corpsContenuPage.setAttribute('aria-hidden', 'true')
     corpsPage.style.overflow = 'hidden'
-    premierElementFocusable.focus()
+    this.formulaire.setAttribute('aria-hidden', 'false')
+    // premierElementFocusable.focus()
   }
-  btnOuvrirFormulaire.addEventListener('click', formulaireOuverture)
 
-  /// //////////////////////////////////
-  // FERMETURE ACCESSIBLE FORMULAIRE //
-  /// //////////////////////////////////
-
-  function formulaireFermeture () {
-    corpsFormulaire.setAttribute('aria-hidden', 'true')
+  fermetureFormulaire () {
     corpsContenuPage.setAttribute('aria-hidden', 'false')
     corpsPage.style.overflow = 'scroll'
-    btnOuvrirFormulaire.focus()
+    // this.formulaire.setAttribute('aria-hidden', 'true')
+    // btnOuvrirFormulaire.focus()
+    this.formulaire.remove()
   }
-  btnFermerFormulaire.addEventListener('click', formulaireFermeture)
 
-  // ////////////////////////
-  // NAVIGATION AU CLAVIER //
-  // ////////////////////////
-
-  // quitter avec échap
-  corpsFormulaire.addEventListener('keydown', (e) => {
-    if (e.which === touchesClavier.echap) {
-      formulaireFermeture()
+  gestionClavier (e) {
+    if (e.key === 'Escape' || e.code === 'Escape') {
+      this.fermetureFormulaire(e)
     }
-  })
+  }
 
-  // gestion du focus avec tab
-  window.setTimeout(() => {
-  // focus à l'intérieur de la modale
-    champsFocusables.forEach((champsFocusable) => {
-      if (champsFocusable.addEventListener) {
-        champsFocusable.addEventListener('keydown', (e) => {
-          const tab = e.which === touchesClavier.tab
-
-          if (!tab) {
-            return
-          } if (e.touchesClavier) {
-            if (e.target === premierElementFocusable) { // shift + tab
-              e.preventDefault()
-              dernierElementFocusable.focus()
-            }
-          } else if (e.target === dernierElementFocusable) { // tab
-            e.preventDefault()
-            premierElementFocusable.focus()
-          }
-        })
-      }
-    })
-  }, 100)
-
-  // ///////////////////////
-  // GESTION DE LA SAISIE //
-  // ///////////////////////
-
-  btnEnvoiFormulaire.addEventListener('click', function (e) {
+  gestionSaisie (e) {
     e.preventDefault()
+
+    const formChamps = document.forms['formulaire-contact']
+    const messageErreur = document.querySelector('.erreur-saisie')
+    // expressions régulières
+    const regexNom = /^(?=[a-zA-ZéèîïÉÎÏ\s]{2,25}$)(?=[a-zA-Z\s])(?:([\w\s*?])\1?(?!\1))+$/
+    const regexMail = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
 
     let typeErreur
     // vérifier la validité des infos saisies
@@ -611,7 +782,7 @@ const formulaireTemplate = (photographe) => {
       messageErreur.innerHTML = typeErreur
       messageErreur.classList.add('erreur-saisie--active')
     } else {
-    // afficher les données saisies puis effacer le formulaire
+      // afficher les données saisies puis effacer le formulaire
       for (let i = 0; i < formChamps.length - 1; i++) {
         console.log(formChamps[i].value)
         formChamps[i].value = ''
@@ -619,9 +790,9 @@ const formulaireTemplate = (photographe) => {
       messageErreur.innerHTML = ' '
       // message de confirmation et fermeture de la fenêtre
       alert('Votre message a bien été envoyé.')
-      formulaireFermeture()
+      this.fermetureFormulaire()
     }
-  })
+  }
 }
 
 /**
@@ -649,8 +820,8 @@ class Lightbox {
     this.affichageLightbox()
     this.chargerMedia(mediaEnCours)
     this.gestionClavier = this.gestionClavier.bind(this)
-    corpsPage.appendChild(this.lightbox)
     document.addEventListener('keyup', this.gestionClavier)
+    corpsPage.appendChild(this.lightbox)
   }
 
   creerLightbox (mediaEnCours) {
@@ -769,7 +940,4 @@ const constructeurPagePhotographe = (currentPhotographe, currentPhotographeMedia
   creationBlocFixe(currentPhotographe, currentPhotographeMedias)
   creationBoutonTrierPar(currentPhotographe, currentPhotographeMedias)
   creationGaleriePhotographe(currentPhotographe, currentPhotographeMedias)
-
-  // modale formulaire
-  formulaireTemplate(currentPhotographe)
 }
