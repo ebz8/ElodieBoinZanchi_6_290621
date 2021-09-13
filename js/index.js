@@ -73,7 +73,7 @@ const templates = {
   fichePhotographe: (photographe) => {
     return `<li class="photographe-profil">
       <a href="page-photographe.html?id=${photographe.id}">
-        <img class="vignette" src="resources/img/photographers/IDphotos/${photographe.portrait}" alt=" "/>
+        <img class="vignette" src="resources/img/photographers/IDphotos/${photographe.portrait}" alt="portrait de ${photographe.name}"/>
         <h2 class="nom">${photographe.name}</h2>
       </a>
       <div tabindex="0">

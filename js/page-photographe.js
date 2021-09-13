@@ -183,6 +183,33 @@ const utilitaires = {
       utilitaires.trierParTitre(medias)
     }
     utilitaires.actualisationAffichage(medias)
+  },
+
+  gestionFocusModale: (modale) => {
+    const focusableElements = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    const firstFocusableElement = modale.querySelectorAll(focusableElements)[0]
+    const focusableContent = modale.querySelectorAll(focusableElements)
+    const lastFocusableElement = focusableContent[focusableContent.length - 1]
+
+    firstFocusableElement.focus()
+
+    document.addEventListener('keydown', (e) => {
+      const isTabPressed = e.key === 'Tab'
+
+      if (!isTabPressed) { return }
+      if (e.shiftKey) { // if shift key pressed for shift + tab combination
+        if (document.activeElement === firstFocusableElement) {
+          lastFocusableElement.focus() // add focus for the last focusable element
+          e.preventDefault()
+        }
+      } else { // if tab key is pressed
+        if (document.activeElement === lastFocusableElement) { // if focused has reached to last focusable element then focus first focusable element after pressing tab
+          firstFocusableElement.focus() // add focus for the first focusable element
+          e.preventDefault()
+        }
+      }
+    })
+    firstFocusableElement.focus()
   }
 }
 
@@ -214,11 +241,11 @@ const templates = {
           <p class="accroche">${photographe.tagline}</p>
         </div>
         ${templates.listeTagsParPhotographe(photographe.tags)}
-        <button type="button" aria-haspopup="dialog" aria-controls="dialog" id="btn-modale" class="btn-formulaire btn-principal">
+        <button type="button" id="btn-modale" class="btn-formulaire btn-principal">
           Contactez-moi
         </button>
     </div>
-    <img class="vignette" src="resources/img/photographers/IDphotos/${photographe.portrait}" alt="" tabindex="0"/>`
+    <img class="vignette" src="resources/img/photographers/IDphotos/${photographe.portrait}" alt="portrait de ${photographe.name}" tabindex="0"/>`
   },
 
   compteurBlocFixe: (totalLikesGalerie, photographe) => {
@@ -238,11 +265,11 @@ const templates = {
         </svg>
   
         <button class="selected" aria-labelledby="label-trier-par" aria-haspopup="listbox"
-        aria-label="criteres" aria-expanded="false">
+        aria-label="criteres" aria-expanded="false" aria-haspopup="true" aria-controls="listbox-liste">
             Popularité
         </button>
   
-        <ul class="conteneur-options" role="listbox" aria-labelledby="label-trier-par"
+        <ul id="listbox-liste" class="conteneur-options" role="listbox" aria-labelledby="trier par"
             aria-label="criteres">
   
             <li class="option" role="option">
@@ -312,11 +339,9 @@ const templates = {
 
   sectionFormulaire: (photographe) => {
     return `
-    <!-- <h2 class="hidden">Formulaire de contact</h2> -->
         <div role="document" class="formulaire-contenu">
             <button type="button" aria-label="Fermer la fenêtre de dialogue"
-            data-dismiss="dialog"
-            class="btn-fermeture">
+            data-dismiss="dialog" class="btn-fermeture">
             </button>
 
             <!-- titre perso du formulaire -->
@@ -433,17 +458,19 @@ const creationBoutonTrierPar = (photographe, medias) => {
     btnFleche.classList.toggle('extend')
     selected.toggleAttribute('aria-expanded', 'true')
     selected.classList.toggle('selected-active')
+    // conteneurOptions.setAttribute('tabindex', '-1')
   })
 
   // selection d'une option (NE PAS OUBLIER ACCESSIBILITE)
   optionsListe.forEach(o => {
     o.addEventListener('click', () => {
       selected.innerHTML = o.querySelector('label').innerHTML
-      conteneurOptions.classList.remove('active')
       selected.classList.remove('selected-active')
       btnFleche.classList.remove('extend')
       // o.removeAttribute('aria-checked')
+      conteneurOptions.classList.remove('active')
       conteneurOptions.setAttribute('aria-activedescendant', o.innerText)
+      // conteneurOptions.setAttribute('tabindex', '0')
       utilitaires.trierMediasPar(medias)
     })
   })
@@ -457,15 +484,11 @@ const creationBoutonTrierPar = (photographe, medias) => {
 
 class Formulaire {
   static init (photographe) {
-    document.querySelector('#btn-modale').addEventListener('click', (e) => {
-      new Formulaire(photographe)
-    })
+    new Formulaire(photographe)
   }
 
   constructor (photographe) {
     this.formulaire = this.creerFormulaire(photographe)
-    this.affichageFormulaire()
-    this.fermetureFormulaire()
     this.gestionSaisie = this.gestionSaisie.bind(this)
     this.gestionClavier = this.gestionClavier.bind(this)
     document.addEventListener('keyup', this.gestionClavier)
@@ -473,12 +496,18 @@ class Formulaire {
   }
 
   creerFormulaire (photographe) {
+    console.log('création formulaire')
     const sectionFormulaire = document.createElement('section')
     sectionFormulaire.classList.add('modale-formulaire')
-    utilitaires.definirAttributs(sectionFormulaire, {'id': 'dialog', 'role': 'dialog', 'aria-labelledby': 'titre-formulaire', 'aria-modal': 'true' })
+    utilitaires.definirAttributs(sectionFormulaire, { id: 'dialog', role: 'dialog', 'aria-labelledby': 'titre-formulaire', 'aria-modal': 'true', 'aria-hidden': 'true', tabindex: '-1' })
     sectionFormulaire.innerHTML = templates.sectionFormulaire(photographe)
 
+    // affichage du formulaire
+    document.querySelector('#btn-modale').addEventListener('click', this.affichageFormulaire.bind(this))
+    // dissimulation du formulaire
     sectionFormulaire.querySelector('.modale-formulaire .btn-fermeture').addEventListener('click', this.fermetureFormulaire.bind(this))
+    // gestion au clavier du formulaire
+    // contrôle de la saisie des champs du formulaire
     sectionFormulaire.querySelector('#btn-envoi').addEventListener('click', this.gestionSaisie.bind(this))
     return sectionFormulaire
   }
@@ -487,18 +516,18 @@ class Formulaire {
     corpsContenuPage.setAttribute('aria-hidden', 'true')
     corpsPage.style.overflow = 'hidden'
     this.formulaire.setAttribute('aria-hidden', 'false')
-    // premierElementFocusable.focus()
+    utilitaires.gestionFocusModale(this.formulaire)
   }
 
   fermetureFormulaire () {
     corpsContenuPage.setAttribute('aria-hidden', 'false')
     corpsPage.style.overflow = 'scroll'
-    // this.formulaire.setAttribute('aria-hidden', 'true')
-    // btnOuvrirFormulaire.focus()
-    this.formulaire.remove()
+    this.formulaire.setAttribute('aria-hidden', 'true')
+    document.querySelector('#btn-modale').focus()
   }
 
   gestionClavier (e) {
+    console.log('gestion clavier')
     if (e.key === 'Escape' || e.code === 'Escape') {
       this.fermetureFormulaire(e)
     }
