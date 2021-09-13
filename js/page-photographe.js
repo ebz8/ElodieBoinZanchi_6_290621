@@ -272,7 +272,7 @@ const templates = {
     // si image :
     if (figure.image !== undefined) {
       return `
-    <figure class="apercu-photo">
+    <figure class="apercu-photo" role="group" aria-label="${figure.title}">
       <a href="resources/img/photographers/${figure.photographerId}/${figure.image}" id="${figure.id}" tabindex="0">
         <img src="resources/img/photographers/${figure.photographerId}/${figure.image}" alt="${figure.description}">
       </a>
@@ -286,7 +286,7 @@ const templates = {
     // si vidéo :
     } else {
       return `
-    <figure class="apercu-photo">
+    <figure class="apercu-photo" role="group" aria-label="${figure.title}">
       <a href="resources/video/photographers/${figure.photographerId}/${figure.video}" id="${figure.id}" tabindex="0">
         <video alt="${figure.description}">
           <source src="resources/video/photographers/${figure.photographerId}/${figure.video}#t=0.1" alt="${figure.description}" type="video/mp4">
@@ -302,11 +302,11 @@ const templates = {
     }
   },
 
-  champsFormulaire: (name, label, type, title) => {
+  champsFormulaire: (name, label, type, titre) => {
     return `
     <div class="champ-formulaire">
       <label for="${name}">${label}</label>
-      <${type} class="text-control" id="${name}" name="${name}" title="${title}" aria-required="true"></${type}>
+      <${type} class="text-control" id="${name}" name="${name}" title="${titre}" aria-required="true"></${type}>
     </div>`
   },
 
@@ -619,7 +619,7 @@ class Lightbox {
     if (this.mediaEnCours.image !== undefined) {
       conteneurLightbox.innerHTML =
     `<li>
-        <figure>
+        <figure role="group" aria-label="${this.mediaEnCours.title}">
           <img src="resources/img/photographers/${this.mediaEnCours.photographerId}/${this.mediaEnCours.image}" alt="${this.mediaEnCours.description}" loading="lazy" aria-label="${this.mediaEnCours.title}">
           <figcaption class="photo-titre">${this.mediaEnCours.title}</figcaption>
         </figure>
@@ -627,7 +627,7 @@ class Lightbox {
     } else {
       conteneurLightbox.innerHTML =
     `<li>
-      <figure>
+      <figure role="group" aria-label="${this.mediaEnCours.title}">
         <video alt="${this.mediaEnCours.description}" controls="controls" loop="" <="" video="" aria-label="${this.mediaEnCours.title}">
           <source src="resources/video/photographers/${this.mediaEnCours.photographerId}/${this.mediaEnCours.video}" alt="${this.mediaEnCours.description}" type="video/mp4" loading="lazy">
         </video>
