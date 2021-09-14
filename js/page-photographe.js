@@ -341,7 +341,7 @@ const templates = {
     return `
         <div role="document" class="formulaire-contenu">
             <button type="button" aria-label="Fermer la fenêtre de dialogue"
-            data-dismiss="dialog" class="btn-fermeture">
+            data-dismiss="dialog" class="btn-fermeture" autofocus>
             </button>
 
             <!-- titre perso du formulaire -->
@@ -527,9 +527,8 @@ class Formulaire {
   }
 
   gestionClavier (e) {
-    console.log('gestion clavier')
     if (e.key === 'Escape' || e.code === 'Escape') {
-      this.fermetureFormulaire(e)
+      this.fermetureFormulaire()
     }
   }
 
@@ -595,7 +594,7 @@ class Lightbox {
   }
 
   constructor (mediaEnCours, medias) {
-    this.lightbox = this.creerLightbox(mediaEnCours)
+    this.lightbox = this.creerLightbox()
     this.medias = medias
     this.mediaEnCours = mediaEnCours
     this.affichageLightbox()
@@ -605,10 +604,10 @@ class Lightbox {
     corpsPage.appendChild(this.lightbox)
   }
 
-  creerLightbox (mediaEnCours) {
+  creerLightbox () {
     const conteneurLightbox = document.createElement('section')
     conteneurLightbox.classList.add('lightbox')
-    utilitaires.definirAttributs(conteneurLightbox, { 'role': 'dialog', 'aria-label': 'image en plein écran', 'aria-hidden': 'true', 'aria-modal': 'true' })
+    utilitaires.definirAttributs(conteneurLightbox, { role: 'dialog', 'aria-label': 'image en plein écran', 'aria-hidden': 'true', 'aria-modal': 'true' })
 
     conteneurLightbox.innerHTML = `
                     <!-- composants lightbox -->
@@ -626,11 +625,11 @@ class Lightbox {
     return conteneurLightbox
   }
 
-  affichageLightbox (e) {
+  affichageLightbox () {
     corpsContenuPage.setAttribute('aria-hidden', 'true')
     corpsPage.style.overflow = 'hidden'
     this.lightbox.setAttribute('aria-hidden', 'false')
-    document.addEventListener('keyup', this.gestionClavier)
+    // document.addEventListener('keyup', this.gestionClavier())
   }
 
   fermetureLightbox (e) {
