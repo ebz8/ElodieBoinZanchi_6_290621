@@ -11,15 +11,6 @@ PAGES PHOTOGRAPHES
 const corpsPage = document.querySelector('.js-page')
 const corpsContenuPage = document.querySelector('.js-document')
 
-const touchesClavier = {
-  tab: 9,
-  enter: 13,
-  echap: 27,
-  gauche: 37,
-  droite: 39,
-  espace: 32
-}
-
 /**
 ---------------------------------------
 1 - récupération des donnée JSON
@@ -332,7 +323,7 @@ const templates = {
           Contactez-moi
         </button>
     </div>
-    <img class="vignette" src="resources/img/photographers/IDphotos/${photographe.portrait}" alt="portrait de ${photographe.name}" tabindex="0"/>`
+    <img class="vignette" src="resources/img/photographers/IDphotos/${photographe.portrait}" alt="portrait de ${photographe.name}"/>`
   },
 
   compteurBlocFixe: (totalLikesGalerie, photographe) => {
@@ -361,15 +352,15 @@ const templates = {
   
             <li class="option" role="option">
                 <input class="radio" id="option-popularite" name="select" type="radio" value="popularite"/>
-                <label for="popularite">Popularité</label>
+                <label for="option-popularite">Popularité</label>
             </li>
             <li class="option" role="option">
                 <input class="radio" id="option-date" name="select" type="radio" value="date" />
-                <label for="date">Date</label>
+                <label for="option-date">Date</label>
             </li>
             <li class="option" role="option">
                 <input class="radio" id="option-titre" name="select" type="radio" value="titre" />
-                <label for="titre">Titre</label>
+                <label for="option-titre">Titre</label>
             </li>
                 
         </ul>
@@ -386,7 +377,7 @@ const templates = {
     if (figure.image !== undefined) {
       return `
     <figure class="apercu-photo" role="group" aria-label="${figure.title}">
-      <a href="resources/img/photographers/${figure.photographerId}/${figure.image}" id="${figure.id}" tabindex="0">
+      <a href="resources/img/photographers/${figure.photographerId}/${figure.image}" id="${figure.id}">
         <img src="resources/img/photographers/${figure.photographerId}/${figure.image}" alt="${figure.description}">
       </a>
       <figcaption>
@@ -400,7 +391,7 @@ const templates = {
     } else {
       return `
     <figure class="apercu-photo" role="group" aria-label="${figure.title}">
-      <a href="resources/video/photographers/${figure.photographerId}/${figure.video}" id="${figure.id}" tabindex="0">
+      <a href="resources/video/photographers/${figure.photographerId}/${figure.video}" id="${figure.id}">
         <video alt="${figure.description}">
           <source src="resources/video/photographers/${figure.photographerId}/${figure.video}#t=0.1" alt="${figure.description}" type="video/mp4">
         </video>
