@@ -24,6 +24,8 @@ lightbox
 }
 
 .lightbox__commandes{
+    display: flex;
+    align-items: center;
     position: fixed;
     opacity : .8;
     transition : .2s;
@@ -36,6 +38,7 @@ lightbox
 
     .btn-fermeture{
         position: fixed;
+        align-self: flex-start;
         z-index: 10;
         height: 6rem;
         padding-top: 3rem;
@@ -51,8 +54,8 @@ lightbox
     .gauche,
     .droite{
         position: fixed;
-        height: 100%;
         cursor: pointer;
+        height: 20rem;
         background-color: transparent;
         font-size: 2rem;
         color: $couleur-primaire;

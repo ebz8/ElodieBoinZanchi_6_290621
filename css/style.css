@@ -706,6 +706,8 @@ lightbox
 }
 
 .lightbox__commandes {
+  display: flex;
+  align-items: center;
   position: fixed;
   opacity: 0.8;
   transition: 0.2s;
@@ -717,6 +719,7 @@ lightbox
 }
 .lightbox__commandes .btn-fermeture {
   position: fixed;
+  align-self: flex-start;
   z-index: 10;
   height: 6rem;
   padding-top: 3rem;
@@ -732,8 +735,8 @@ lightbox
 .lightbox__commandes .gauche,
 .lightbox__commandes .droite {
   position: fixed;
-  height: 100%;
   cursor: pointer;
+  height: 20rem;
   background-color: transparent;
   font-size: 2rem;
   color: #911d1d;
