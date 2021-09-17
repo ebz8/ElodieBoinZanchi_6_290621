@@ -675,8 +675,8 @@ class Lightbox {
                     <!-- composants lightbox -->
                     <div class="lightbox__commandes">
                       <button class="btn-fermeture" aria-label="fermer la lightbox"></button>
-                      <button class="gauche" aria-label="image précédente"><i class="fas fa-chevron-left"></i> </button>
                       <button class="droite" aria-label="image suivante"><i class="fas fa-chevron-right"></i></button>
+                      <button class="gauche" aria-label="image précédente"><i class="fas fa-chevron-left"></i> </button>
                     </div>
                     <ul class="lightbox__contenu">
                     </ul>
