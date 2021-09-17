@@ -260,7 +260,7 @@ const templates = {
     return `<div class="trier-par">
     <p tabindex="0" id="label-trier-par">Trier par</p>
   
-    <div class="select" tabindex="0">
+    <div class="select">
         <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
             <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"></path>
         </svg>
@@ -274,8 +274,7 @@ const templates = {
             aria-label="criteres">
   
             <li class="option" role="option">
-                <input class="radio" id="option-popularite" name="select" type="radio" value="popularite"
-                aria-checked="ok" />
+                <input class="radio" id="option-popularite" name="select" type="radio" value="popularite"/>
                 <label for="popularite">Popularité</label>
             </li>
             <li class="option" role="option">
@@ -459,22 +458,50 @@ const creationBoutonTrierPar = (photographe, medias) => {
     btnFleche.classList.toggle('extend')
     selected.toggleAttribute('aria-expanded', 'true')
     selected.classList.toggle('selected-active')
+    optionsListe.forEach(option => {
+      option.setAttribute('tabindex', '0')
+    })
     // conteneurOptions.setAttribute('tabindex', '-1')
   })
 
   // selection d'une option (NE PAS OUBLIER ACCESSIBILITE)
-  optionsListe.forEach(o => {
-    o.addEventListener('click', () => {
-      selected.innerHTML = o.querySelector('label').innerHTML
+  optionsListe.forEach(option => {
+    option.addEventListener('click', () => {
+      selected.innerHTML = option.querySelector('label').innerHTML
       selected.classList.remove('selected-active')
       btnFleche.classList.remove('extend')
-      // o.removeAttribute('aria-checked')
       conteneurOptions.classList.remove('active')
-      conteneurOptions.setAttribute('aria-activedescendant', o.innerText)
-      // conteneurOptions.setAttribute('tabindex', '0')
+      conteneurOptions.setAttribute('aria-activedescendant', option.innerText)
       utilitaires.trierMediasPar(medias)
+      // gestion du focus
+      optionsListe.forEach(option => {
+        option.removeAttribute('tabindex', '0')
+      })
+      document.querySelector('.profil-galerie').focus()
     })
   })
+
+  optionsListe.forEach(o => {
+    o.addEventListener('keydown', (e) => {
+      console.log(e)
+      if (e.key === 'Enter') {
+        selected.innerHTML = o.querySelector('label').innerHTML
+        selected.classList.remove('selected-active')
+        btnFleche.classList.remove('extend')
+        // o.removeAttribute('aria-checked')
+        conteneurOptions.classList.remove('active')
+        conteneurOptions.setAttribute('aria-activedescendant', o.innerText)
+        // conteneurOptions.setAttribute('tabindex', '0')
+        utilitaires.trierMediasPar(medias)
+        // gestion du focus
+      optionsListe.forEach(option => {
+        option.removeAttribute('tabindex', '0')
+      })
+        document.querySelector('.profil-galerie').focus()
+      }
+    })
+  })
+
 }
 
 /**
@@ -506,24 +533,25 @@ class Formulaire {
     document.querySelector('#btn-modale').addEventListener('click', this.affichageFormulaire.bind(this))
     // dissimulation du formulaire
     sectionFormulaire.querySelector('.modale-formulaire .btn-fermeture').addEventListener('click', this.fermetureFormulaire.bind(this))
-    // gestion au clavier du formulaire
     // contrôle de la saisie des champs du formulaire
     sectionFormulaire.querySelector('#btn-envoi').addEventListener('click', this.gestionSaisie.bind(this))
     return sectionFormulaire
   }
 
   affichageFormulaire () {
-    corpsContenuPage.setAttribute('aria-hidden', 'true')
-    corpsPage.style.overflow = 'hidden'
     this.formulaire.setAttribute('aria-hidden', 'false')
+    corpsPage.style.overflow = 'hidden'
+    corpsContenuPage.setAttribute('aria-hidden', 'true')
+    // gestion du focus
     utilitaires.gestionFocusModale(this.formulaire)
   }
 
   fermetureFormulaire () {
-    document.querySelector('#btn-modale').focus()
     this.formulaire.setAttribute('aria-hidden', 'true')
-    corpsContenuPage.setAttribute('aria-hidden', 'false')
     corpsPage.style.overflow = 'scroll'
+    corpsContenuPage.setAttribute('aria-hidden', 'false')
+    // gestion du focus
+    document.querySelector('#btn-modale').focus()
   }
 
   gestionClavier (e) {
