@@ -185,41 +185,65 @@ const utilitaires = {
     utilitaires.actualisationAffichage(medias)
   },
 
-  ouvrirDropdown: (bouton, conteneurListe, listeOptions, medias) => {
+  fermetureDropdown: (bouton, conteneurListe, listeOptions) => {
+    const btnFleche = document.querySelector('.select svg')
+    bouton.classList.remove('selected-active')
+    btnFleche.classList.remove('extend')
+    conteneurListe.classList.remove('active')
+    bouton.innerHTML = conteneurListe.getAttribute('aria-activedescendant')
+    // gestion du focus
+    listeOptions.forEach(option => {
+      option.removeAttribute('tabindex', '0')
+    })
+    document.querySelector('.profil-galerie').focus()
+  },
+
+  affichageDropdown: (bouton, conteneurListe, listeOptions) => {
     const btnFleche = document.querySelector('.select svg')
 
+    bouton.innerHTML = ''
+    conteneurListe.classList.toggle('active')
+    btnFleche.classList.toggle('extend')
+    bouton.toggleAttribute('aria-expanded', 'true')
+    bouton.classList.toggle('selected-active')
+
+    // gestion du focus
+    listeOptions.forEach(option => {
+      option.setAttribute('tabindex', '0')
+    })
+  },
+
+  selectionOptionDropdown: (bouton, conteneurListe, listeOptions, option, medias) => {
+    const btnFleche = document.querySelector('.select svg')
+
+    bouton.innerHTML = option.querySelector('label').innerHTML
+    bouton.classList.remove('selected-active')
+    btnFleche.classList.remove('extend')
+    conteneurListe.classList.remove('active')
+    conteneurListe.setAttribute('aria-activedescendant', option.innerText)
+    utilitaires.trierMediasPar(medias)
+
+    // gestion du focus
+    listeOptions.forEach(option => {
+      option.removeAttribute('tabindex', '0')
+    })
+    document.querySelector('.profil-galerie').focus()
+  },
+
+  gestionDropdown: (bouton, conteneurListe, listeOptions, medias) => {
     // par défaut : première option (popularité)
     bouton.innerHTML = listeOptions[0].querySelector('label').innerHTML
+    conteneurListe.setAttribute('aria-activedescendant', listeOptions[0].innerText)
 
     // affichage des options
-    bouton.addEventListener('click', (e) => {
-      bouton.innerHTML = ''
-      conteneurListe.classList.toggle('active')
-      btnFleche.classList.toggle('extend')
-      bouton.toggleAttribute('aria-expanded', 'true')
-      bouton.classList.toggle('selected-active')
-
-      // gestion du focus
-      listeOptions.forEach(option => {
-        option.setAttribute('tabindex', '0')
-      })
+    bouton.addEventListener('click', () => {
+      utilitaires.affichageDropdown(bouton, conteneurListe, listeOptions)
     })
 
-    // navigation entre les options et sélection
+    // sélection d'une option
     listeOptions.forEach(option => {
       option.addEventListener('click', () => {
-        bouton.innerHTML = option.querySelector('label').innerHTML
-        bouton.classList.remove('selected-active')
-        btnFleche.classList.remove('extend')
-        conteneurListe.classList.remove('active')
-        conteneurListe.setAttribute('aria-activedescendant', option.innerText)
-        utilitaires.trierMediasPar(medias)
-
-        // gestion du focus
-        listeOptions.forEach(option => {
-          option.removeAttribute('tabindex', '0')
-        })
-        document.querySelector('.profil-galerie').focus()
+        utilitaires.selectionOptionDropdown(bouton, conteneurListe, listeOptions, option, medias)
       })
     })
 
@@ -227,18 +251,7 @@ const utilitaires = {
     listeOptions.forEach(option => {
       option.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') {
-          bouton.innerHTML = option.querySelector('label').innerHTML
-          bouton.classList.remove('selected-active')
-          btnFleche.classList.remove('extend')
-          conteneurListe.classList.remove('active')
-          conteneurListe.setAttribute('aria-activedescendant', option.innerText)
-          utilitaires.trierMediasPar(medias)
-
-          // gestion du focus
-          listeOptions.forEach(option => {
-            option.removeAttribute('tabindex', '0')
-          })
-          document.querySelector('.profil-galerie').focus()
+          utilitaires.selectionOptionDropdown(bouton, conteneurListe, listeOptions, option, medias)
         }
       })
     })
@@ -246,15 +259,15 @@ const utilitaires = {
     // fermeture sans choix d'option (clic au dehors / échap)
     document.addEventListener('keyup', (e) => {
       if (e.key === 'Escape' || e.code === 'Escape') {
-        bouton.classList.remove('selected-active')
-        btnFleche.classList.remove('extend')
-        conteneurListe.classList.remove('active')
-        bouton.innerHTML = conteneurListe.getAttribute('aria-activedescendant')
-        // gestion du focus
-        listeOptions.forEach(option => {
-          option.removeAttribute('tabindex', '0')
-        })
-        document.querySelector('.profil-galerie').focus()
+        utilitaires.fermetureDropdown(bouton, conteneurListe, listeOptions)
+      }
+    })
+
+    // fermeture au clic à l'extérieur du bouton
+    document.addEventListener('click', (e) => {
+      const elementClic = e.target
+      if (bouton !== elementClic) {
+        utilitaires.fermetureDropdown(bouton, conteneurListe, listeOptions)
       }
     })
   },
@@ -521,7 +534,7 @@ const creationBoutonTrierPar = (photographe, medias) => {
   const conteneurListe = document.querySelector('.conteneur-options')
   const listeOptions = document.querySelectorAll('.option')
 
-  utilitaires.ouvrirDropdown(
+  utilitaires.gestionDropdown(
     btnSelected,
     conteneurListe,
     listeOptions,
