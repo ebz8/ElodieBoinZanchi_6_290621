@@ -256,7 +256,6 @@ const utilitaires = {
       })
     })
 
-    // fermeture sans choix d'option (clic au dehors / échap)
     document.addEventListener('keyup', (e) => {
       if (e.key === 'Escape' || e.code === 'Escape') {
         utilitaires.fermetureDropdown(bouton, conteneurListe, listeOptions)
@@ -273,31 +272,31 @@ const utilitaires = {
   },
 
   gestionFocusModale: (modale) => {
-    const focusableElements = 'img, video, button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-    const firstFocusableElement = modale.querySelectorAll(focusableElements)[0]
-    const focusableContent = modale.querySelectorAll(focusableElements)
-    const lastFocusableElement = focusableContent[focusableContent.length - 1]
+    const elementsAvecFocus = 'img, video, button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    const premierElementAvecFocus = modale.querySelectorAll(elementsAvecFocus)[0]
+    const contenusAvecFocus = modale.querySelectorAll(elementsAvecFocus)
+    const dernierElementAvecFocus = contenusAvecFocus[contenusAvecFocus.length - 1]
 
-    console.log(firstFocusableElement)
-    firstFocusableElement.focus()
+    setTimeout(() => premierElementAvecFocus.focus(), 50)
 
     document.addEventListener('keydown', (e) => {
       const isTabPressed = e.key === 'Tab'
 
       if (!isTabPressed) { return }
       if (e.shiftKey) { // if shift key pressed for shift + tab combination
-        if (document.activeElement === firstFocusableElement) {
-          lastFocusableElement.focus() // add focus for the last focusable element
+        if (document.activeElement === premierElementAvecFocus) {
+          dernierElementAvecFocus.focus()
           e.preventDefault()
         }
       } else { // if tab key is pressed
-        if (document.activeElement === lastFocusableElement) { // if focused has reached to last focusable element then focus first focusable element after pressing tab
-          firstFocusableElement.focus() // add focus for the first focusable element
+        // gestion du dernier élément focusable
+        if (document.activeElement === dernierElementAvecFocus) {
+          premierElementAvecFocus.focus()
           e.preventDefault()
         }
       }
     })
-    firstFocusableElement.focus()
+    premierElementAvecFocus.focus()
   }
 }
 
@@ -391,7 +390,7 @@ const templates = {
         <img src="resources/img/photographers/${figure.photographerId}/${figure.image}" alt="${figure.description}">
       </a>
       <figcaption>
-        <p class="photo-titre" tabindex="0">${figure.title}</p>
+        <p class="photo-titre">${figure.title}</p>
         <div class="likes">
           <p class="likes__nombre">${figure.likes}</p><button class="icone-like" aria-label="j'aime" tabindex="0"><i class="fas fa-heart"></i></button> 
         </div>
@@ -407,7 +406,7 @@ const templates = {
         </video>
       </a>
       <figcaption>
-        <p class="photo-titre" tabindex="0">${figure.title}</p>
+        <p class="photo-titre">${figure.title}</p>
         <div class="likes">
           <p class="likes__nombre">${figure.likes}</p><button class="icone-like" aria-label="j'aime" tabindex="0"><i class="fas fa-heart"></i></button> 
         </div>
@@ -557,7 +556,6 @@ class Formulaire {
     this.formulaire = this.creerFormulaire(photographe)
     this.gestionSaisie = this.gestionSaisie.bind(this)
     this.gestionClavier = this.gestionClavier.bind(this)
-    // document.addEventListener('keyup', this.gestionClavier)
     corpsPage.appendChild(this.formulaire)
   }
 
@@ -583,17 +581,17 @@ class Formulaire {
     // ativer l'écoute du clavier
     document.addEventListener('keyup', this.gestionClavier)
     // gestion du focus
-    document.addEventListener('keydown', utilitaires.gestionFocusModale(this.formulaire))
+    document.addEventListener('keyup', utilitaires.gestionFocusModale(this.formulaire))
   }
 
   fermetureFormulaire () {
     this.formulaire.setAttribute('aria-hidden', 'true')
     corpsPage.style.overflow = 'scroll'
     corpsContenuPage.setAttribute('aria-hidden', 'false')
-    // gestion du focus
-    document.querySelector('#btn-modale').focus()
     // désactiver l'écoute du clavier
     document.removeEventListener('keyup', this.gestionClavier)
+    // gestion du focus
+    document.querySelector('#btn-modale').focus()
   }
 
   gestionClavier (e) {
@@ -699,6 +697,7 @@ class Lightbox {
     corpsContenuPage.setAttribute('aria-hidden', 'true')
     corpsPage.style.overflow = 'hidden'
     this.lightbox.setAttribute('aria-hidden', 'false')
+    setTimeout(() => this.lightbox.querySelector('.btn-fermeture').focus(), 50)
   }
 
   fermetureLightbox (e) {
