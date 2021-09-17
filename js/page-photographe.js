@@ -186,11 +186,12 @@ const utilitaires = {
   },
 
   gestionFocusModale: (modale) => {
-    const focusableElements = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    const focusableElements = 'img, video, button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
     const firstFocusableElement = modale.querySelectorAll(focusableElements)[0]
     const focusableContent = modale.querySelectorAll(focusableElements)
     const lastFocusableElement = focusableContent[focusableContent.length - 1]
 
+    console.log(firstFocusableElement)
     firstFocusableElement.focus()
 
     document.addEventListener('keydown', (e) => {
@@ -241,7 +242,7 @@ const templates = {
           <p class="accroche">${photographe.tagline}</p>
         </div>
         ${templates.listeTagsParPhotographe(photographe.tags)}
-        <button type="button" id="btn-modale" class="btn-formulaire btn-principal">
+        <button type="button" id="btn-modale" class="btn-formulaire btn-principal" aria-haspopup="dialog" aria-controls="dialog">
           Contactez-moi
         </button>
     </div>
@@ -341,7 +342,7 @@ const templates = {
     return `
         <div role="document" class="formulaire-contenu">
             <button type="button" aria-label="Fermer la fenêtre de dialogue"
-            data-dismiss="dialog" class="btn-fermeture" autofocus>
+            data-dismiss="dialog" class="btn-fermeture">
             </button>
 
             <!-- titre perso du formulaire -->
@@ -496,10 +497,9 @@ class Formulaire {
   }
 
   creerFormulaire (photographe) {
-    console.log('création formulaire')
     const sectionFormulaire = document.createElement('section')
     sectionFormulaire.classList.add('modale-formulaire')
-    utilitaires.definirAttributs(sectionFormulaire, { id: 'dialog', role: 'dialog', 'aria-labelledby': 'titre-formulaire', 'aria-modal': 'true', 'aria-hidden': 'true', tabindex: '-1' })
+    utilitaires.definirAttributs(sectionFormulaire, { id: 'dialog', role: 'dialog', 'aria-labelledby': 'titre-formulaire', 'aria-modal': 'true', 'aria-hidden': 'true' })
     sectionFormulaire.innerHTML = templates.sectionFormulaire(photographe)
 
     // affichage du formulaire
@@ -520,10 +520,10 @@ class Formulaire {
   }
 
   fermetureFormulaire () {
+    document.querySelector('#btn-modale').focus()
+    this.formulaire.setAttribute('aria-hidden', 'true')
     corpsContenuPage.setAttribute('aria-hidden', 'false')
     corpsPage.style.overflow = 'scroll'
-    this.formulaire.setAttribute('aria-hidden', 'true')
-    document.querySelector('#btn-modale').focus()
   }
 
   gestionClavier (e) {
@@ -629,7 +629,6 @@ class Lightbox {
     corpsContenuPage.setAttribute('aria-hidden', 'true')
     corpsPage.style.overflow = 'hidden'
     this.lightbox.setAttribute('aria-hidden', 'false')
-    // document.addEventListener('keyup', this.gestionClavier())
   }
 
   fermetureLightbox (e) {
