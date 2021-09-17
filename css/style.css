@@ -509,7 +509,7 @@ boutons
   left: 5rem;
 }
 .trier-par .select .active {
-  max-height: 11rem;
+  max-height: 13rem;
   opacity: 1;
   margin-top: -3rem;
   z-index: 1;
@@ -565,7 +565,7 @@ boutons
   padding-bottom: 1rem;
   border-bottom: 0.1rem white solid;
 }
-.trier-par .option:hover {
+.trier-par .option:hover, .trier-par .option:focus {
   background-color: #d3573c;
 }
 .trier-par label {

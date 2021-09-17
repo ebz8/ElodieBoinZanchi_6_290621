@@ -185,6 +185,65 @@ const utilitaires = {
     utilitaires.actualisationAffichage(medias)
   },
 
+  ouvrirDropdown: (bouton, conteneurListe, listeOptions, medias) => {
+    const btnFleche = document.querySelector('.select svg')
+
+    // par défaut : première option (popularité)
+    bouton.innerHTML = listeOptions[0].querySelector('label').innerHTML
+
+    // affichage des options
+    bouton.addEventListener('click', (e) => {
+      bouton.innerHTML = ''
+      conteneurListe.classList.toggle('active')
+      btnFleche.classList.toggle('extend')
+      bouton.toggleAttribute('aria-expanded', 'true')
+      bouton.classList.toggle('selected-active')
+
+      // gestion du focus
+      listeOptions.forEach(option => {
+        option.setAttribute('tabindex', '0')
+      })
+    })
+
+    // navigation entre les options et sélection
+    listeOptions.forEach(option => {
+      option.addEventListener('click', () => {
+        bouton.innerHTML = option.querySelector('label').innerHTML
+        bouton.classList.remove('selected-active')
+        btnFleche.classList.remove('extend')
+        conteneurListe.classList.remove('active')
+        conteneurListe.setAttribute('aria-activedescendant', option.innerText)
+        utilitaires.trierMediasPar(medias)
+
+        // gestion du focus
+        listeOptions.forEach(option => {
+          option.removeAttribute('tabindex', '0')
+        })
+        document.querySelector('.profil-galerie').focus()
+      })
+    })
+
+    // navigation au clavier
+    listeOptions.forEach(o => {
+      o.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          bouton.innerHTML = o.querySelector('label').innerHTML
+          bouton.classList.remove('selected-active')
+          btnFleche.classList.remove('extend')
+          conteneurListe.classList.remove('active')
+          conteneurListe.setAttribute('aria-activedescendant', o.innerText)
+          utilitaires.trierMediasPar(medias)
+
+          // gestion du focus
+          listeOptions.forEach(option => {
+            option.removeAttribute('tabindex', '0')
+          })
+          document.querySelector('.profil-galerie').focus()
+        }
+      })
+    })
+  },
+
   gestionFocusModale: (modale) => {
     const focusableElements = 'img, video, button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
     const firstFocusableElement = modale.querySelectorAll(focusableElements)[0]
@@ -443,65 +502,16 @@ const creationBoutonTrierPar = (photographe, medias) => {
     corpsContenuPage
   )
 
-  const selected = document.querySelector('.selected')
-  const conteneurOptions = document.querySelector('.conteneur-options')
-  const optionsListe = document.querySelectorAll('.option')
-  const btnFleche = document.querySelector('.select svg')
+  const btnSelected = document.querySelector('.selected')
+  const conteneurListe = document.querySelector('.conteneur-options')
+  const listeOptions = document.querySelectorAll('.option')
 
-  // par défaut : popularité
-  selected.innerHTML = optionsListe[0].querySelector('label').innerHTML
-
-  // afficher les options
-  selected.addEventListener('click', (e) => {
-    selected.innerHTML = ''
-    conteneurOptions.classList.toggle('active')
-    btnFleche.classList.toggle('extend')
-    selected.toggleAttribute('aria-expanded', 'true')
-    selected.classList.toggle('selected-active')
-    optionsListe.forEach(option => {
-      option.setAttribute('tabindex', '0')
-    })
-    // conteneurOptions.setAttribute('tabindex', '-1')
-  })
-
-  // selection d'une option (NE PAS OUBLIER ACCESSIBILITE)
-  optionsListe.forEach(option => {
-    option.addEventListener('click', () => {
-      selected.innerHTML = option.querySelector('label').innerHTML
-      selected.classList.remove('selected-active')
-      btnFleche.classList.remove('extend')
-      conteneurOptions.classList.remove('active')
-      conteneurOptions.setAttribute('aria-activedescendant', option.innerText)
-      utilitaires.trierMediasPar(medias)
-      // gestion du focus
-      optionsListe.forEach(option => {
-        option.removeAttribute('tabindex', '0')
-      })
-      document.querySelector('.profil-galerie').focus()
-    })
-  })
-
-  optionsListe.forEach(o => {
-    o.addEventListener('keydown', (e) => {
-      console.log(e)
-      if (e.key === 'Enter') {
-        selected.innerHTML = o.querySelector('label').innerHTML
-        selected.classList.remove('selected-active')
-        btnFleche.classList.remove('extend')
-        // o.removeAttribute('aria-checked')
-        conteneurOptions.classList.remove('active')
-        conteneurOptions.setAttribute('aria-activedescendant', o.innerText)
-        // conteneurOptions.setAttribute('tabindex', '0')
-        utilitaires.trierMediasPar(medias)
-        // gestion du focus
-      optionsListe.forEach(option => {
-        option.removeAttribute('tabindex', '0')
-      })
-        document.querySelector('.profil-galerie').focus()
-      }
-    })
-  })
-
+  utilitaires.ouvrirDropdown(
+    btnSelected,
+    conteneurListe,
+    listeOptions,
+    medias
+  )
 }
 
 /**
