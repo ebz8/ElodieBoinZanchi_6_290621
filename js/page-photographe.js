@@ -658,15 +658,16 @@ class Lightbox {
       const idVignetteEnCours = e.currentTarget.getAttribute('id')
       const mediaEnCours = medias.find(media => media.id == idVignetteEnCours)
       // eslint-disable-next-line no-new
-      new Lightbox(mediaEnCours, medias)
+      new Lightbox(vignette, mediaEnCours, medias)
     })
     )
   }
 
-  constructor (mediaEnCours, medias) {
+  constructor (vignette, mediaEnCours, medias) {
     this.lightbox = this.creerLightbox()
     this.medias = medias
     this.mediaEnCours = mediaEnCours
+    this.vignette = vignette
     this.affichageLightbox()
     this.chargerMedia(mediaEnCours)
     this.gestionClavier = this.gestionClavier.bind(this)
@@ -702,14 +703,15 @@ class Lightbox {
     document.addEventListener('keyup', utilitaires.gestionFocusModale(this.lightbox))
   }
 
-  fermetureLightbox (e) {
-    e.preventDefault()
+  fermetureLightbox () {
+    // this.lightbox.setAttribute('aria-hidden', 'true')
     corpsContenuPage.setAttribute('aria-hidden', 'false')
     corpsPage.style.overflow = 'scroll'
-    // this.lightbox.setAttribute('aria-hidden', 'true')
     this.lightbox.remove()
     document.removeEventListener('keydown', this.gestionClavier)
+    // gestion du focus
     document.removeEventListener('keyup', utilitaires.gestionFocusModale)
+    this.vignette.focus()
   }
 
   chargerMedia (mediaAffiche) {
