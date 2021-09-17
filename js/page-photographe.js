@@ -224,14 +224,14 @@ const utilitaires = {
     })
 
     // navigation au clavier
-    listeOptions.forEach(o => {
-      o.addEventListener('keydown', (e) => {
+    listeOptions.forEach(option => {
+      option.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') {
-          bouton.innerHTML = o.querySelector('label').innerHTML
+          bouton.innerHTML = option.querySelector('label').innerHTML
           bouton.classList.remove('selected-active')
           btnFleche.classList.remove('extend')
           conteneurListe.classList.remove('active')
-          conteneurListe.setAttribute('aria-activedescendant', o.innerText)
+          conteneurListe.setAttribute('aria-activedescendant', option.innerText)
           utilitaires.trierMediasPar(medias)
 
           // gestion du focus
@@ -241,6 +241,21 @@ const utilitaires = {
           document.querySelector('.profil-galerie').focus()
         }
       })
+    })
+
+    // fermeture sans choix d'option (clic au dehors / échap)
+    document.addEventListener('keyup', (e) => {
+      if (e.key === 'Escape' || e.code === 'Escape') {
+        bouton.classList.remove('selected-active')
+        btnFleche.classList.remove('extend')
+        conteneurListe.classList.remove('active')
+        bouton.innerHTML = conteneurListe.getAttribute('aria-activedescendant')
+        // gestion du focus
+        listeOptions.forEach(option => {
+          option.removeAttribute('tabindex', '0')
+        })
+        document.querySelector('.profil-galerie').focus()
+      }
     })
   },
 
@@ -363,9 +378,9 @@ const templates = {
         <img src="resources/img/photographers/${figure.photographerId}/${figure.image}" alt="${figure.description}">
       </a>
       <figcaption>
-        <p class="photo-titre" >${figure.title}</p>
+        <p class="photo-titre" tabindex="0">${figure.title}</p>
         <div class="likes">
-          <p class="likes__nombre" tabindex="0">${figure.likes}</p><button class="icone-like" aria-label="j'aime" tabindex="0"><i class="fas fa-heart"></i></button> 
+          <p class="likes__nombre">${figure.likes}</p><button class="icone-like" aria-label="j'aime" tabindex="0"><i class="fas fa-heart"></i></button> 
         </div>
       </figcaption>
     </figure>`
@@ -381,7 +396,7 @@ const templates = {
       <figcaption>
         <p class="photo-titre" tabindex="0">${figure.title}</p>
         <div class="likes">
-          <p class="likes__nombre" tabindex="0">${figure.likes}</p><button class="icone-like" aria-label="j'aime" tabindex="0"><i class="fas fa-heart"></i></button> 
+          <p class="likes__nombre">${figure.likes}</p><button class="icone-like" aria-label="j'aime" tabindex="0"><i class="fas fa-heart"></i></button> 
         </div>
       </figcaption>
     </figure>`
@@ -529,7 +544,7 @@ class Formulaire {
     this.formulaire = this.creerFormulaire(photographe)
     this.gestionSaisie = this.gestionSaisie.bind(this)
     this.gestionClavier = this.gestionClavier.bind(this)
-    document.addEventListener('keyup', this.gestionClavier)
+    // document.addEventListener('keyup', this.gestionClavier)
     corpsPage.appendChild(this.formulaire)
   }
 
@@ -552,8 +567,10 @@ class Formulaire {
     this.formulaire.setAttribute('aria-hidden', 'false')
     corpsPage.style.overflow = 'hidden'
     corpsContenuPage.setAttribute('aria-hidden', 'true')
+    // ativer l'écoute du clavier
+    document.addEventListener('keyup', this.gestionClavier)
     // gestion du focus
-    utilitaires.gestionFocusModale(this.formulaire)
+    document.addEventListener('keydown', utilitaires.gestionFocusModale(this.formulaire))
   }
 
   fermetureFormulaire () {
@@ -562,6 +579,8 @@ class Formulaire {
     corpsContenuPage.setAttribute('aria-hidden', 'false')
     // gestion du focus
     document.querySelector('#btn-modale').focus()
+    // désactiver l'écoute du clavier
+    document.removeEventListener('keyup', this.gestionClavier)
   }
 
   gestionClavier (e) {
