@@ -590,6 +590,8 @@ class Formulaire {
     corpsContenuPage.setAttribute('aria-hidden', 'false')
     // désactiver l'écoute du clavier
     document.removeEventListener('keyup', this.gestionClavier)
+    document.removeEventListener('keyup', utilitaires.gestionFocusModale)
+
     // gestion du focus
     document.querySelector('#btn-modale').focus()
   }
@@ -680,9 +682,9 @@ class Lightbox {
     conteneurLightbox.innerHTML = `
                     <!-- composants lightbox -->
                     <div class="lightbox__commandes">
+                      <button class="btn-fermeture" aria-label="fermer la lightbox"></button>
                       <button class="gauche" aria-label="image précédente"><i class="fas fa-chevron-left"></i> </button>
                       <button class="droite" aria-label="image suivante"><i class="fas fa-chevron-right"></i></button>
-                      <button class="btn-fermeture" aria-label="fermer la lightbox"></button>
                     </div>
                     <ul class="lightbox__contenu">
                     </ul>
@@ -697,7 +699,7 @@ class Lightbox {
     corpsContenuPage.setAttribute('aria-hidden', 'true')
     corpsPage.style.overflow = 'hidden'
     this.lightbox.setAttribute('aria-hidden', 'false')
-    setTimeout(() => this.lightbox.querySelector('.btn-fermeture').focus(), 50)
+    document.addEventListener('keyup', utilitaires.gestionFocusModale(this.lightbox))
   }
 
   fermetureLightbox (e) {
@@ -707,6 +709,7 @@ class Lightbox {
     // this.lightbox.setAttribute('aria-hidden', 'true')
     this.lightbox.remove()
     document.removeEventListener('keydown', this.gestionClavier)
+    document.removeEventListener('keyup', utilitaires.gestionFocusModale)
   }
 
   chargerMedia (mediaAffiche) {
