@@ -347,7 +347,7 @@ const templates = {
             Popularité
         </button>
   
-        <ul id="listbox-liste" class="conteneur-options" role="listbox" aria-labelledby="trier par"
+        <ul id="listbox-liste" class="conteneur-options" role="listbox" 
             aria-label="criteres">
   
             <li class="option" role="option">
