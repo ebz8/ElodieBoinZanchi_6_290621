@@ -50,6 +50,7 @@ document.addEventListener('DOMContentLoaded', chargementData)
 
 const utilitaires = {
   definirAttributs: (element, attributs) => {
+    // eslint-disable-next-line prefer-const
     for (let cle in attributs) {
       element.setAttribute(cle, attributs[cle])
     }
@@ -87,6 +88,7 @@ const utilitaires = {
   },
 
   recupCurrentPhotographeTotalLikes: (medias) => {
+    // eslint-disable-next-line prefer-const
     let likesParImage = []
     medias.map(media => likesParImage.push(media.likes))
     return likesParImage

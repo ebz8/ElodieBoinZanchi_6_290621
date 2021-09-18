@@ -8,12 +8,6 @@ PAGE INDEX
 const corpsPage = document.querySelector('.js-page') // body
 const corpsContenuPage = document.querySelector('.js-document') // main
 
-const touchesClavier = {
-  tab: 9,
-  enter: 13,
-  echap: 27
-}
-
 /**
 ----------------------------------------------------------
 1 - récupération des donnée JSON au chargement de la page
@@ -100,6 +94,7 @@ const utilitaires = {
 
   // trier les tags et supprimer les doublons
   trierTableauTags: (data) => {
+    // eslint-disable-next-line prefer-const
     let tableauTags = []
     data.photographers.map(tag => tag.tags.map(tag => tableauTags.push(tag)))
     const tagUnique = new Set(tableauTags)
