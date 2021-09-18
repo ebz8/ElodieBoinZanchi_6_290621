@@ -355,7 +355,7 @@ banniere
   min-width: 150px;
   margin-left: -5px;
 }
-@media screen and (max-width: 544px) {
+@media screen and (max-width: 590px) {
   .logo {
     flex-basis: 50%;
   }
@@ -412,7 +412,7 @@ boutons
   left: 15px;
   background-color: #911d1d;
 }
-@media screen and (max-width: 544px) {
+@media screen and (max-width: 590px) {
   .btn-fermeture::before, .btn-fermeture::after {
     height: 1.5rem;
   }
@@ -628,7 +628,7 @@ TODO:
   border-radius: 0.5rem;
   overflow: scroll;
 }
-@media screen and (max-width: 544px) {
+@media screen and (max-width: 590px) {
   .formulaire-contenu {
     height: 100%;
     width: 100%;
@@ -663,7 +663,7 @@ TODO:
   background-color: white;
   color: #911d1d;
 }
-@media screen and (max-width: 544px) {
+@media screen and (max-width: 590px) {
   .formulaire .btn-principal {
     align-self: center;
   }
@@ -765,7 +765,7 @@ lightbox
   min-height: 100vh;
   margin: 0 5rem;
 }
-@media screen and (max-width: 544px) {
+@media screen and (max-width: 590px) {
   .lightbox__contenu {
     margin: 0rem;
   }
@@ -832,7 +832,7 @@ TODO:
   font-size: 1.8rem;
   color: #911d1d;
 }
-@media screen and (max-width: 544px) {
+@media screen and (max-width: 590px) {
   .banniere h1 {
     position: absolute;
     top: 50px;
@@ -847,22 +847,35 @@ TODO:
   width: 14vw;
   min-width: 150px;
 }
-@media screen and (max-width: 544px) {
+@media screen and (max-width: 590px) {
   .logo {
     flex-basis: 50%;
   }
 }
 
 .photographes-galerie {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, 28vw);
+  justify-content: space-between;
   text-align: center;
-  flex-flow: row wrap;
   gap: 2rem;
   width: 100%;
   margin-top: 5vw;
   padding-left: 0;
 }
+@media screen and (max-width: 805px) {
+  .photographes-galerie {
+    grid-template-columns: repeat(2, 16rem);
+  }
+}
+@media screen and (max-width: 590px) {
+  .photographes-galerie {
+    grid-template-columns: repeat(1, 100%);
+  }
+}
 .photographes-galerie .nav-par-tag {
+  display: flex;
+  flex-wrap: wrap;
   justify-content: center;
 }
 
@@ -875,7 +888,7 @@ TODO:
     flex-basis: 46%;
   }
 }
-@media screen and (max-width: 544px) {
+@media screen and (max-width: 590px) {
   .photographe-profil {
     flex-basis: 100%;
   }
@@ -929,7 +942,7 @@ TODO:
   font-size: 1rem;
   align-items: flex-start;
 }
-@media screen and (max-width: 544px) {
+@media screen and (max-width: 590px) {
   .banniere-photographe {
     flex-flow: row nowrap;
     background-color: white;
@@ -971,7 +984,7 @@ TODO:
   line-height: 1.3rem;
   margin-bottom: 1rem;
 }
-@media screen and (max-width: 544px) {
+@media screen and (max-width: 590px) {
   .banniere-photographe .photographe-profil .nav-par-tag {
     flex-flow: row wrap;
   }
@@ -984,7 +997,7 @@ TODO:
   box-shadow: 0px 4px 10px 2px rgba(0, 0, 0, 0.3);
   align-self: center;
 }
-@media screen and (max-width: 544px) {
+@media screen and (max-width: 590px) {
   .banniere-photographe .vignette {
     width: 8rem;
     height: 8rem;
@@ -1036,7 +1049,7 @@ TODO:
     height: 100%;
   }
 }
-@media screen and (max-width: 544px) {
+@media screen and (max-width: 590px) {
   .profil-galerie .apercu-photo {
     height: 100%;
     width: 100vw;
@@ -1054,7 +1067,7 @@ TODO:
     height: 25vw;
   }
 }
-@media screen and (max-width: 544px) {
+@media screen and (max-width: 590px) {
   .profil-galerie img, .profil-galerie video {
     height: 50vw;
   }
