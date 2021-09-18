@@ -313,7 +313,9 @@ button {
 }
 
 *:focus {
-  outline: 0.3rem solid #8c8c8c;
+  outline: 0.2rem solid #f0c6bc;
+  border-radius: 0.5rem 0.5rem;
+  box-shadow: 4px 4px 10px 2px rgba(190, 108, 108, 0.3);
 }
 
 body {
@@ -387,7 +389,7 @@ boutons
   transform: translate(-50%, -50%);
   width: max-content;
   padding: 0.3rem;
-  background-color: #d3573c;
+  background-color: #cc4b2e;
   color: black;
   border-radius: 0.5rem;
 }
@@ -459,21 +461,12 @@ boutons
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: #d3573c;
+  background-color: #cc4b2e;
   border-radius: 0.4rem;
   opacity: 0;
   transition: opacity 220ms;
 }
-.btn-principal:hover {
-  color: black;
-}
-.btn-principal:hover::after {
-  opacity: 1;
-}
-.btn-principal:focus {
-  color: black;
-}
-.btn-principal:focus::after {
+.btn-principal:hover::after, .btn-principal:focus::after {
   opacity: 1;
 }
 
@@ -566,7 +559,7 @@ boutons
   border-bottom: 0.1rem white solid;
 }
 .trier-par .option:hover, .trier-par .option:focus {
-  background-color: #d3573c;
+  background-color: #cc4b2e;
 }
 .trier-par label {
   cursor: pointer;
@@ -622,7 +615,7 @@ TODO:
   height: max-content;
   margin: 2.4rem auto;
   padding: 1.5rem;
-  background-color: #d3573c;
+  background-color: #cc4b2e;
   color: black;
   font-size: 1.3rem;
   border-radius: 0.5rem;
@@ -903,7 +896,7 @@ TODO:
 .photographe-profil .nom {
   padding: 0.5rem 0;
   font-size: 1.8rem;
-  color: #d3573c;
+  color: #cc4b2e;
   white-space: nowrap;
 }
 .photographe-profil .localisation {
@@ -1014,7 +1007,7 @@ TODO:
   width: 13rem;
   padding: 1rem;
   margin-right: 1rem;
-  background-color: #d3573c;
+  background-color: #cc4b2e;
   color: black;
   border-radius: 0.3rem 0.3rem 0 0;
 }

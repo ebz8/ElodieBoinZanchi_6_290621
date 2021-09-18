@@ -120,16 +120,7 @@ boutons
         transition: opacity 220ms;
     }
 
-    &:hover{
-        color: black;
-        
-        &::after{
-            opacity: 1;
-        }
-    }
-
-    &:focus{
-        color: black;
+    &:hover, &:focus{
         
         &::after{
             opacity: 1;

@@ -746,6 +746,7 @@ class Lightbox {
     // +1 à l'index du média cours
     const mediaSuivant = this.medias[indexMediaEnCours + 1]
     this.chargerMedia(mediaSuivant)
+    setTimeout(() => this.lightbox.querySelector('.droite').focus(), 50)
   }
 
   precedente (e) {
@@ -759,6 +760,7 @@ class Lightbox {
     // -1 à l'index du média cours
     const mediaPrecedent = this.medias[indexMediaEnCours - 1]
     this.chargerMedia(mediaPrecedent)
+    setTimeout(() => this.lightbox.querySelector('.gauche').focus(), 50)
   }
 
   gestionClavier (e) {

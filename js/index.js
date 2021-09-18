@@ -70,7 +70,7 @@ const templates = {
         <img class="vignette" src="resources/img/photographers/IDphotos/${photographe.portrait}" alt="portrait de ${photographe.name}"/>
         <h2 class="nom">${photographe.name}</h2>
       </a>
-      <div tabindex="0">
+      <div>
         <p class="localisation">${photographe.city}, ${photographe.country}</p>
         <p class="accroche">${photographe.tagline}</p>
         <span class="tarif">${photographe.price}€</span><span class="tarif">/jour</span>
@@ -177,7 +177,7 @@ const creationHeader = (data) => {
             ${utilitaires.trierTableauTags(data).map(templates.navigationTag).join('')}
           </ul>
         </nav>
-        <h1 tabindex="0">Nos photographes</h1>
+        <h1>Nos photographes</h1>
 `
   corpsPage.prepend(header)
 }
@@ -203,4 +203,5 @@ const constructeurIndex = (data) => {
   creationGaleriePhotographes(data)
 
   utilitaires.trierParTag()
+  utilitaires.gestionFocus(corpsPage)
 }

@@ -29,7 +29,9 @@ button{
 // Accessibilité
 //
 *:focus{
-    outline: .3rem solid $couleur-neutre-intermediaire;
+    outline: .2rem solid lighten($couleur-secondaire, 35%);
+    border-radius: .5rem .5rem;
+    box-shadow: 4px 4px 10px 2px rgba(190, 108, 108, 0.3)
 }
 
 //
