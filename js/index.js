@@ -79,7 +79,7 @@ const templates = {
       <div tabindex="0">
         <p class="localisation">${photographe.city}, ${photographe.country}</p>
         <p class="accroche">${photographe.tagline}</p>
-        <span class="tarif">${photographe.price}€</span><span class="tarif" aria-label="par jour">/jour</span>
+        <span class="tarif">${photographe.price}€</span><span class="tarif">/jour</span>
       </div>
       ${templates.listeTagsParPhotographe(photographe.tags)}
       </li>`
