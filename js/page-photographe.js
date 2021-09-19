@@ -720,7 +720,6 @@ class Lightbox {
           <figcaption class="photo-titre">${this.mediaEnCours.title}</figcaption>
         </figure>
       </li>`
-      document.addEventListener('keyup', utilitaires.gestionFocusModale(this.lightbox, 1))
     } else {
       conteneurLightbox.innerHTML =
     `<li>
