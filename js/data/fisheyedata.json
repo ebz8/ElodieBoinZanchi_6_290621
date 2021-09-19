@@ -468,7 +468,8 @@
       "tags": ["animals"],
       "likes": 142,
       "date": "2019-08-23",
-      "price": 60
+      "price": 60,
+      "description": "Chevaux sauvages au galop dans les montagnes recouvertes de neige."
     },
     {
       "id": 95234343,

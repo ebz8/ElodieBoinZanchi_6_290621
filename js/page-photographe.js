@@ -394,7 +394,8 @@ const templates = {
       return `
     <figure class="apercu-photo" role="group" aria-label="${figure.title}">
       <a href="resources/video/photographers/${figure.photographerId}/${figure.video}" id="${figure.id}">
-        <video alt="${figure.description}">
+        <span class="hidden">vidéo</span>
+      <video alt="${figure.description}">
           <source src="resources/video/photographers/${figure.photographerId}/${figure.video}#t=0.1" alt="${figure.description}" type="video/mp4">
         </video>
       </a>
