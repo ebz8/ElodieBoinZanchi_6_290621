@@ -1033,7 +1033,6 @@ TODO:
 }
 .profil-galerie .apercu-photo {
   width: 100%;
-  height: 22rem;
   margin: 0;
 }
 @media screen and (max-width: 805px) {
@@ -1044,15 +1043,17 @@ TODO:
 }
 .profil-galerie img, .profil-galerie video {
   width: 100%;
-  height: 88%;
+  height: 20rem;
   object-fit: cover;
   object-position: top;
   border-radius: 0.3rem;
-  margin-bottom: 0.8rem;
+  margin-bottom: 0.3rem;
 }
 .profil-galerie figcaption {
+  height: 2rem;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 .profil-galerie .likes {
   display: flex;

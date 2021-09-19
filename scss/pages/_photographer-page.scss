@@ -126,7 +126,6 @@ TODO:
 
     .apercu-photo{
         width: 100%;
-        height: 22rem;
         margin: 0;
 
         @include tablet{
@@ -137,16 +136,18 @@ TODO:
 
     img, video{
         width: 100%;
-        height: 88%;
+        height: 20rem;
         object-fit: cover;
         object-position: top;
         border-radius: .3rem;
-        margin-bottom: $moyenne-marge;
+        margin-bottom: $petite-marge;
     }
 
     figcaption{
+        height: 2rem;
         display: flex;
         justify-content: space-between;
+        align-items: center;
     }
 
     .likes{
