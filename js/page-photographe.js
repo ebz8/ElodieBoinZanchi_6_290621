@@ -271,17 +271,19 @@ const utilitaires = {
     const dernierElementAvecFocus = contenusAvecFocus[contenusAvecFocus.length - 1]
 
     setTimeout(() => premierElementAvecFocus.focus(), 50)
+    console.log(premierElementAvecFocus)
 
     document.addEventListener('keydown', (e) => {
       const isTabPressed = e.key === 'Tab'
 
+      // combinaison des deux touches
       if (!isTabPressed) { return }
-      if (e.shiftKey) { // if shift key pressed for shift + tab combination
+      if (e.shiftKey) {
         if (document.activeElement === premierElementAvecFocus) {
           dernierElementAvecFocus.focus()
           e.preventDefault()
         }
-      } else { // if tab key is pressed
+      } else {
         // gestion du dernier élément focusable
         if (document.activeElement === dernierElementAvecFocus) {
           premierElementAvecFocus.focus()
@@ -694,7 +696,6 @@ class Lightbox {
     corpsContenuPage.setAttribute('aria-hidden', 'true')
     corpsPage.style.overflow = 'hidden'
     this.lightbox.setAttribute('aria-hidden', 'false')
-    document.addEventListener('keyup', utilitaires.gestionFocusModale(this.lightbox))
   }
 
   fermetureLightbox () {
@@ -702,8 +703,8 @@ class Lightbox {
     corpsContenuPage.setAttribute('aria-hidden', 'false')
     corpsPage.style.overflow = 'scroll'
     this.lightbox.remove()
+    // gestion du clavier
     document.removeEventListener('keydown', this.gestionClavier)
-    // gestion du focus
     document.removeEventListener('keyup', utilitaires.gestionFocusModale)
     this.vignette.focus()
   }
@@ -719,6 +720,7 @@ class Lightbox {
           <figcaption class="photo-titre">${this.mediaEnCours.title}</figcaption>
         </figure>
       </li>`
+      document.addEventListener('keyup', utilitaires.gestionFocusModale(this.lightbox, 1))
     } else {
       conteneurLightbox.innerHTML =
     `<li>
@@ -730,10 +732,7 @@ class Lightbox {
       </figure>
     </li>`
     }
-    // diriger le focus sur le média en cours
-    const mediasFocusables = ['img', 'video']
-    const tableauMediasFocusables = conteneurLightbox.querySelectorAll(mediasFocusables)
-    tableauMediasFocusables[0].focus()
+    document.addEventListener('keyup', utilitaires.gestionFocusModale(this.lightbox))
   }
 
   suivante (e) {
