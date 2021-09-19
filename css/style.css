@@ -1025,45 +1025,30 @@ TODO:
 }
 
 .profil-galerie {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
   width: 100%;
-  flex-flow: row wrap;
   margin-top: 2rem;
-  gap: 0.8rem;
+  gap: 1rem 4rem;
 }
 .profil-galerie .apercu-photo {
-  width: 30vw;
-  height: 28vw;
+  width: 100%;
+  height: 22rem;
   margin: 0;
 }
 @media screen and (max-width: 805px) {
   .profil-galerie .apercu-photo {
-    width: 43vw;
-    height: 100%;
-  }
-}
-@media screen and (max-width: 590px) {
-  .profil-galerie .apercu-photo {
-    height: 100%;
-    width: 100vw;
+    width: 100%;
+    height: 18rem;
   }
 }
 .profil-galerie img, .profil-galerie video {
   width: 100%;
-  height: 90%;
+  height: 88%;
   object-fit: cover;
+  object-position: top;
   border-radius: 0.3rem;
   margin-bottom: 0.8rem;
-}
-@media screen and (max-width: 805px) {
-  .profil-galerie img, .profil-galerie video {
-    height: 25vw;
-  }
-}
-@media screen and (max-width: 590px) {
-  .profil-galerie img, .profil-galerie video {
-    height: 50vw;
-  }
 }
 .profil-galerie figcaption {
   display: flex;

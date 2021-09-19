@@ -116,43 +116,32 @@ TODO:
 // galerie d'images
 
 .profil-galerie{
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
     width: 100%;
     // justify-content: space-between;
-    flex-flow: row wrap;
+    // flex-flow: row wrap;
     margin-top: $grande-marge;
-    gap: $moyenne-marge;
+    gap: 1rem 4rem;
 
     .apercu-photo{
-        width: 30vw;
-        height: 28vw;
+        width: 100%;
+        height: 22rem;
         margin: 0;
 
         @include tablet{
-            width: 43vw;
-            height: 100%;
-        }
-        
-        @include mobile-large{
-            height: 100%;
-            width: 100vw;
+            width: 100%;
+            height: 18rem;
         }
     }
 
     img, video{
         width: 100%;
-        height: 90%;
+        height: 88%;
         object-fit: cover;
+        object-position: top;
         border-radius: .3rem;
         margin-bottom: $moyenne-marge;
-
-        @include tablet{
-            height: 25vw;
-        }
-
-        @include mobile-large{
-            height: 50vw;
-        }
     }
 
     figcaption{
