@@ -317,8 +317,8 @@ const templates = {
   contenuBannierePhotographe: (photographe) => {
     return `
     <div class="photographe-profil">
-      <h1 class="nom" tabindex="0">${photographe.name}</h1>
-        <div tabindex="0">
+      <h1 class="nom">${photographe.name}</h1>
+        <div>
           <p class="localisation">${photographe.city}, ${photographe.country}</p>
           <p class="accroche">${photographe.tagline}</p>
         </div>
