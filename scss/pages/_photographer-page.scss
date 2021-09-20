@@ -140,11 +140,15 @@ TODO:
 
     img, video{
         width: 100%;
-        height: 60vw;
+        height: 20rem;
         object-fit: cover;
         object-position: top;
         border-radius: .3rem;
         margin-bottom: $petite-marge;
+
+        @include tablet{
+            height: 60vw;
+        }
     }
 
     figcaption{

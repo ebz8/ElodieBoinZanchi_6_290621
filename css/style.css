@@ -1048,11 +1048,16 @@ TODO:
 }
 .profil-galerie img, .profil-galerie video {
   width: 100%;
-  height: 60vw;
+  height: 20rem;
   object-fit: cover;
   object-position: top;
   border-radius: 0.3rem;
   margin-bottom: 0.3rem;
+}
+@media screen and (max-width: 805px) {
+  .profil-galerie img, .profil-galerie video {
+    height: 60vw;
+  }
 }
 .profil-galerie figcaption {
   height: 2rem;
