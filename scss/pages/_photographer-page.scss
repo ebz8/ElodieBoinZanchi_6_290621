@@ -1,9 +1,6 @@
 /**
 ----------------------
 page photographe
-
-TODO:
-- mettre au propre l'anim btn-principal
 ----------------------
 */
 
@@ -114,14 +111,12 @@ TODO:
 }
 
 // galerie d'images
-
 .profil-galerie{
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
     width: 100%;
-    // justify-content: space-between;
-    // flex-flow: row wrap;
     margin-top: $grande-marge;
+    margin-bottom: 4.5rem;
     gap: 1rem 4rem;
 
     @include tablet{
