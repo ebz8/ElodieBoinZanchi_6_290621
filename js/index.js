@@ -70,7 +70,7 @@ const templates = {
         <img class="vignette" src="resources/img/photographers/IDphotos/${photographe.portrait}" alt="portrait de ${photographe.name}"/>
         <h2 class="nom">${photographe.name}</h2>
       </a>
-      <div>
+      <div tabindex="0">
         <p class="localisation">${photographe.city}, ${photographe.country}</p>
         <p class="accroche">${photographe.tagline}</p>
         <span class="tarif">${photographe.price}€</span><span class="tarif">/jour</span>
@@ -81,6 +81,12 @@ const templates = {
 }
 
 const utilitaires = {
+  definirAttributs: (element, attributs) => {
+    // eslint-disable-next-line prefer-const
+    for (let cle in attributs) {
+      element.setAttribute(cle, attributs[cle])
+    }
+  },
   // apparait au scroll et retour vers le haut au clic
   // (!!!) Ajouter gestion au clavier
   apparitionAuScroll: function (valeurY, element) {
@@ -159,8 +165,7 @@ const utilitaires = {
 const creationBtnRetourMain = () => {
   const btnRetour = document.createElement('a')
   btnRetour.classList.add('btn-contenu-principal')
-  btnRetour.setAttribute('href', '#contenu-principal')
-  btnRetour.setAttribute('aria-hidden', 'true')
+  utilitaires.definirAttributs(btnRetour, { href: '#contenu-prinipal', 'aria-hidden': 'true', tabindex: '0' })
   btnRetour.innerText = 'Passer au contenu'
   corpsPage.prepend(btnRetour)
 
@@ -177,7 +182,7 @@ const creationHeader = (data) => {
             ${utilitaires.trierTableauTags(data).map(templates.navigationTag).join('')}
           </ul>
         </nav>
-        <h1>Nos photographes</h1>
+        <h1 tabindex="0">Nos photographes</h1>
 `
   corpsPage.prepend(header)
 }
@@ -203,5 +208,4 @@ const constructeurIndex = (data) => {
   creationGaleriePhotographes(data)
 
   utilitaires.trierParTag()
-  utilitaires.gestionFocus(corpsPage)
 }

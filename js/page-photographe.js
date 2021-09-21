@@ -271,7 +271,6 @@ const utilitaires = {
     const dernierElementAvecFocus = contenusAvecFocus[contenusAvecFocus.length - 1]
 
     setTimeout(() => premierElementAvecFocus.focus(), 50)
-    console.log(premierElementAvecFocus)
 
     document.addEventListener('keydown', (e) => {
       const isTabPressed = e.key === 'Tab'
@@ -317,8 +316,8 @@ const templates = {
   contenuBannierePhotographe: (photographe) => {
     return `
     <div class="photographe-profil">
-      <h1 class="nom">${photographe.name}</h1>
-        <div>
+      <h1 class="nom" tabindex="0">${photographe.name}</h1>
+        <div tabindex="0">
           <p class="localisation">${photographe.city}, ${photographe.country}</p>
           <p class="accroche">${photographe.tagline}</p>
         </div>
@@ -327,7 +326,7 @@ const templates = {
           Contactez-moi
         </button>
     </div>
-    <img class="vignette" src="resources/img/photographers/IDphotos/${photographe.portrait}" alt="portrait de ${photographe.name}"/>`
+    <img class="vignette" src="resources/img/photographers/IDphotos/${photographe.portrait}" alt="portrait de ${photographe.name}" tabindex="0"/>`
   },
 
   compteurBlocFixe: (totalLikesGalerie, photographe) => {
@@ -385,9 +384,9 @@ const templates = {
         <img src="resources/img/photographers/${figure.photographerId}/${figure.image}" alt="${figure.description}">
       </a>
       <figcaption>
-        <p class="photo-titre">${figure.title}</p>
+        <p class="photo-titre" tabindex="0">${figure.title}</p>
         <div class="likes">
-          <p class="likes__nombre">${figure.likes}</p><button class="icone-like" aria-label="j'aime" tabindex="0"><i class="fas fa-heart"></i></button> 
+          <p class="likes__nombre" tabindex="0">${figure.likes}</p><button class="icone-like" aria-label="j'aime" tabindex="0"><i class="fas fa-heart"></i></button> 
         </div>
       </figcaption>
     </figure>`
@@ -402,9 +401,9 @@ const templates = {
         </video>
       </a>
       <figcaption>
-        <p class="photo-titre">${figure.title}</p>
+        <p class="photo-titre" tabindex="0">${figure.title}</p>
         <div class="likes">
-          <p class="likes__nombre">${figure.likes}</p><button class="icone-like" aria-label="j'aime" tabindex="0"><i class="fas fa-heart"></i></button> 
+          <p class="likes__nombre" tabindex="0">${figure.likes}</p><button class="icone-like" aria-label="j'aime" tabindex="0"><i class="fas fa-heart"></i></button> 
         </div>
       </figcaption>
     </figure>`
