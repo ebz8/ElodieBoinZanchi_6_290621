@@ -1,15 +1,13 @@
 /**
 ----------------------
 page index
-
-TODO:
-- responsive pour petits mobiles
-- vignette ronde responsive
 ----------------------
 */
 
-
+//
 // en-tête
+//
+
 .banniere{
     display: flex;
     justify-content: space-between;
@@ -64,13 +62,15 @@ TODO:
     }
 }
 
+//
 // contenu main
+//
+
 .photographes-galerie{
     display: grid;
     grid-template-columns: repeat(3, 28vw);
     justify-content: space-between;
     text-align: center;
-    // flex-flow: row wrap;
     gap: 2rem;
     width: 100%;
     margin-top: 5vw;

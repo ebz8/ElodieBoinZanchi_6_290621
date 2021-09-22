@@ -4,6 +4,10 @@ boutons
 ----------------------
 */
 
+//
+// bouton skip - retour au contenu principal
+//
+
 .btn-contenu-principal{
     display: block;
     position: fixed;
@@ -20,6 +24,10 @@ boutons
         display: none;
     }
 }
+
+//
+// bouton de fermeture
+//
 
 .btn-fermeture{
     z-index: 10;
@@ -57,6 +65,7 @@ boutons
 //
 // tags
 //
+
 .tag-entree {
     margin: 0 .3rem .3rem 0;
     padding: .2rem .5rem;
@@ -77,8 +86,8 @@ boutons
 }
 
 
-// Bouton principal
-// Contactez-moi, menu etc
+//
+// Bouton principal (Contactez-moi, menu etc)
 //
 .btn-principal{
     cursor: pointer;
@@ -108,7 +117,6 @@ boutons
     }
 
     &:hover, &:focus{
-        
         &::after{
             opacity: 1;
         }
@@ -118,6 +126,7 @@ boutons
 //
 // bouton likes
 //
+
 .icone-like{
     cursor: pointer;
     background: none;
@@ -177,7 +186,7 @@ boutons
         &.extend {
             transform: rotate(180deg);
         }
-    }
+      }
     }
     
     .conteneur-options {

@@ -4,7 +4,10 @@ base
 ----------------------
 */
 
+//
 // reset balises de base
+//
+
 h1, h2, h3, h4, h5, p{
     margin: 0;
     padding: 0;
@@ -28,6 +31,7 @@ button{
 //
 // Accessibilité
 //
+
 *:focus{
     outline: .2rem solid lighten($couleur-secondaire, 35%);
     border-radius: .5rem .5rem;
@@ -56,7 +60,6 @@ body{
 .nav-par-tag{
     display: flex;
 }
-
 
 /// dissimulation - accessibilité
 .hidden{

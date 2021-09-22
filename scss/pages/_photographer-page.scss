@@ -4,6 +4,9 @@ page photographe
 ----------------------
 */
 
+//
+// bannière
+//
 
 .banniere-photographe{
     display: flex;
@@ -20,7 +23,6 @@ page photographe
         background-color: white;
         padding: 0;
     }
-
     
     .photographe-profil{
         display: flex;
@@ -81,8 +83,10 @@ page photographe
 
 }
 
+//
 // compteur de likes
-// reste fixe en bas de la page
+//
+
 .bloc-fixe{
     display: flex;
     position: fixed;
@@ -110,7 +114,10 @@ page photographe
     }
 }
 
-// galerie d'images
+//
+// galerie de médias
+//
+
 .profil-galerie{
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
