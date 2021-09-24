@@ -28,13 +28,14 @@ const jsonData = async () => {
 
 const chargementData = async () => {
   const data = await jsonData()
+  // appel du constructeur de la page avec récupération des données
   constructeurIndex(data)
 }
 document.addEventListener('DOMContentLoaded', chargementData)
 
 /**
 ---------------------------------------
-2 - Outils
+2 - Ressources
 ---------------------------------------
 */
 
@@ -70,10 +71,10 @@ const templates = {
         <img class="vignette" src="resources/img/photographers/IDphotos/${photographe.portrait}" alt="portrait de ${photographe.name}"/>
         <h2 class="nom">${photographe.name}</h2>
       </a>
-      <div tabindex="0">
-        <p class="localisation">${photographe.city}, ${photographe.country}</p>
-        <p class="accroche">${photographe.tagline}</p>
-        <span class="tarif">${photographe.price}€</span><span class="tarif">/jour</span>
+      <div>
+        <p class="localisation" tabindex="0">${photographe.city}, ${photographe.country}</p>
+        <p class="accroche" tabindex="0">${photographe.tagline}</p>
+        <span class="tarif" tabindex="0">${photographe.price}€ /jour</span>
       </div>
       ${templates.listeTagsParPhotographe(photographe.tags)}
       </li>`

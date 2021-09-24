@@ -17,7 +17,8 @@ const corpsContenuPage = document.querySelector('.js-document')
 ---------------------------------------
 */
 
-const apiUrl = 'js/data/fisheyedata.json'
+// eslint-disable-next-line prefer-const
+let apiUrl = 'js/data/fisheyedata.json'
 const jsonData = async () => {
   try {
     const reponse = await fetch(apiUrl)
@@ -33,18 +34,19 @@ const chargementData = async () => {
   const photographes = data.photographers
   const mediasPhotographe = data.media
 
+  // récupération de l'ID du photographe en cours et de ses médias
   const photographeID = utilitaires.recupParametreUrl()
   const currentPhotographe = utilitaires.recupCurrentPhotographe(photographes, photographeID)
   const currentPhotographeMedias = utilitaires.recupCurrentPhotographeMedias(mediasPhotographe, photographeID)
 
-  // appel du constructeur de la page avec récupération du photographe en cours et de ses médias
+  // appel du constructeur de la page avec le photographe en cours et de ses médias
   constructeurPagePhotographe(currentPhotographe, currentPhotographeMedias)
 }
 document.addEventListener('DOMContentLoaded', chargementData)
 
 /**
 ----------------------------------------------------
-2 - Outils
+2 - Ressources
 ----------------------------------------------------
 */
 
@@ -317,9 +319,9 @@ const templates = {
     return `
     <div class="photographe-profil">
       <h1 class="nom" tabindex="0">${photographe.name}</h1>
-        <div tabindex="0">
-          <p class="localisation">${photographe.city}, ${photographe.country}</p>
-          <p class="accroche">${photographe.tagline}</p>
+        <div>
+          <p class="localisation" tabindex="0">${photographe.city}, ${photographe.country}</p>
+          <p class="accroche" tabindex="0">${photographe.tagline}</p>
         </div>
         ${templates.listeTagsParPhotographe(photographe.tags)}
         <button type="button" id="btn-modale" class="btn-formulaire btn-principal" aria-haspopup="dialog" aria-controls="dialog">
@@ -331,8 +333,8 @@ const templates = {
 
   compteurBlocFixe: (totalLikesGalerie, photographe) => {
     return `
-      <p class="compteur-likes">${totalLikesGalerie} <span class="icone-like" aria-label="j'aime"><i class="fas fa-heart"></i></span></p>
-      <span class="tarif">${photographe.price}€ /jour</span>
+      <p class="compteur-likes" tabindex="0">${totalLikesGalerie} <span class="icone-like" aria-label="j'aime"><i class="fas fa-heart"></i></span></p>
+      <span class="tarif" tabindex="0">${photographe.price}€ /jour</span>
     `
   },
 
@@ -427,8 +429,8 @@ const templates = {
 
             <!-- titre perso du formulaire -->
             <div id="titre-formulaire">
-                <h1>Contactez moi
-                <br>${photographe.name}</h1>
+                <h1 tabindex="0">Contactez moi
+                <br tabindex="0">${photographe.name}</h1>
             </div>
 
             <form action="/" method="GET" class="formulaire" name="formulaire-contact">
@@ -497,8 +499,6 @@ const creationBlocFixe = (photographe, medias) => {
     'bloc-fixe',
     templates.compteurBlocFixe(totalLikesGalerie, photographe),
     corpsContenuPage)
-
-  document.querySelector('.bloc-fixe').setAttribute('tabindex', '0')
 }
 
 const creationGaleriePhotographe = (photographe, medias) => {
@@ -673,7 +673,7 @@ class Lightbox {
   creerLightbox () {
     const conteneurLightbox = document.createElement('section')
     conteneurLightbox.classList.add('lightbox')
-    utilitaires.definirAttributs(conteneurLightbox, { role: 'dialog', 'aria-label': 'image en plein écran', 'aria-hidden': 'true', 'aria-modal': 'true' })
+    utilitaires.definirAttributs(conteneurLightbox, { role: 'dialog', 'aria-label': 'image en plein écran', 'aria-modal': 'true' })
 
     conteneurLightbox.innerHTML = `
                     <!-- composants lightbox -->
@@ -694,11 +694,9 @@ class Lightbox {
   affichageLightbox () {
     corpsContenuPage.setAttribute('aria-hidden', 'true')
     corpsPage.style.overflow = 'hidden'
-    this.lightbox.setAttribute('aria-hidden', 'false')
   }
 
   fermetureLightbox () {
-    // this.lightbox.setAttribute('aria-hidden', 'true')
     corpsContenuPage.setAttribute('aria-hidden', 'false')
     corpsPage.style.overflow = 'scroll'
     this.lightbox.remove()
@@ -772,7 +770,7 @@ class Lightbox {
 
 /**
 ----------------------------------------------------
-6 - Génération de la page
+6 - Fabrique de la page photographe
 ----------------------------------------------------
 */
 
