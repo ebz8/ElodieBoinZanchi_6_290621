@@ -694,6 +694,7 @@ class Lightbox {
   affichageLightbox () {
     corpsContenuPage.setAttribute('aria-hidden', 'true')
     corpsPage.style.overflow = 'hidden'
+    // document.addEventListener('keyup', utilitaires.gestionFocusModale(this.lightbox))
   }
 
   fermetureLightbox () {
@@ -713,8 +714,8 @@ class Lightbox {
       conteneurLightbox.innerHTML =
     `<li>
         <figure role="group" aria-label="${this.mediaEnCours.title}">
-          <img src="resources/img/photographers/${this.mediaEnCours.photographerId}/${this.mediaEnCours.image}" alt="${this.mediaEnCours.description}" loading="lazy" aria-label="${this.mediaEnCours.title}">
-          <figcaption class="photo-titre">${this.mediaEnCours.title}</figcaption>
+          <img tabindex="0" src="resources/img/photographers/${this.mediaEnCours.photographerId}/${this.mediaEnCours.image}" alt="${this.mediaEnCours.description}" loading="lazy" aria-label="${this.mediaEnCours.title}">
+          <figcaption tabindex="0" class="photo-titre">${this.mediaEnCours.title}</figcaption>
         </figure>
       </li>`
     } else {
