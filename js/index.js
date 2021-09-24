@@ -29,7 +29,7 @@ const jsonData = async () => {
 const chargementData = async () => {
   const data = await jsonData()
   // appel du constructeur de la page avec récupération des données
-  constructeurIndex(data)
+  PageIndex(data)
 }
 document.addEventListener('DOMContentLoaded', chargementData)
 
@@ -203,7 +203,7 @@ const creationGaleriePhotographes = (data) => {
 ---------------------------------
 */
 
-const constructeurIndex = (data) => {
+const PageIndex = (data) => {
   creationBtnRetourMain()
   creationHeader(data)
   creationGaleriePhotographes(data)

@@ -40,7 +40,7 @@ const chargementData = async () => {
   const currentPhotographeMedias = utilitaires.recupCurrentPhotographeMedias(mediasPhotographe, photographeID)
 
   // appel du constructeur de la page avec le photographe en cours et de ses médias
-  constructeurPagePhotographe(currentPhotographe, currentPhotographeMedias)
+  PagePhotographe(currentPhotographe, currentPhotographeMedias)
 }
 document.addEventListener('DOMContentLoaded', chargementData)
 
@@ -775,7 +775,7 @@ class Lightbox {
 ----------------------------------------------------
 */
 
-const constructeurPagePhotographe = (currentPhotographe, currentPhotographeMedias) => {
+const PagePhotographe = (currentPhotographe, currentPhotographeMedias) => {
   creationHeader()
   creationBannierePhotographe(currentPhotographe)
   creationBlocFixe(currentPhotographe, currentPhotographeMedias)
