@@ -48,6 +48,7 @@ const utilitaires = {
       element.setAttribute(cle, attributs[cle])
     }
   },
+
   // apparait au scroll et retour vers le haut au clic
   apparitionAuScroll: function (valeurY, element) {
     window.addEventListener('scroll', () => {
@@ -58,13 +59,15 @@ const utilitaires = {
     })
   },
 
-  // trier les tags et supprimer les doublons
   trierTableauTags: (data) => {
     // eslint-disable-next-line prefer-const
     let tableauTags = []
+    // recherche des tags dans le json et push de chacun dans le tableau ci-dessus
     data.photographers.map(tag => tag.tags.map(tag => tableauTags.push(tag)))
+    // tri et suppression des doublons
     const tagUnique = new Set(tableauTags)
     const listeTags = [...tagUnique]
+    // retourne le tableau des tags
     return listeTags
   },
 
@@ -108,8 +111,10 @@ const utilitaires = {
   // fonctionnalité : affichage par tag
   trierParTag: function () {
     const tags = document.querySelectorAll('.tag-entree')
+    // écoute d'évènement sur chaque tag, en ciblant le tag cliqué
     tags.forEach(function (tagActif) {
       tagActif.addEventListener('click', () => {
+        // déclencher la méthode de tri d'affichage
         utilitaires.affichageParTagActif(tags, tagActif)
       })
     })
@@ -171,6 +176,7 @@ const creationBtnRetourMain = () => {
   btnRetour.innerText = 'Passer au contenu'
   corpsPage.prepend(btnRetour)
 
+  // ajout de la fonctionnalité d'apparition au scroll
   utilitaires.apparitionAuScroll(200, btnRetour)
 }
 
@@ -194,6 +200,7 @@ const creationGaleriePhotographes = (data) => {
   photographesGalerie.classList.add('photographes-galerie')
   corpsContenuPage.append(photographesGalerie)
 
+  // pour chaque photographe, appliquer templates fiche, et stocker dans une variable l'ensemble des fiches générées
   const dataFiche = data.photographers.map(templates.fichePhotographe).join('')
   photographesGalerie.innerHTML = dataFiche
 }
