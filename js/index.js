@@ -49,13 +49,12 @@ const utilitaires = {
     }
   },
   // apparait au scroll et retour vers le haut au clic
-  // (!!!) Ajouter gestion au clavier
   apparitionAuScroll: function (valeurY, element) {
     window.addEventListener('scroll', () => {
       window.scrollY > valeurY ? element.removeAttribute('aria-hidden') : element.setAttribute('aria-hidden', 'true')
     })
     element.addEventListener('click', () => {
-      window.scrollTop = 0
+      window.scrollTo = 0
     })
   },
 
@@ -168,7 +167,7 @@ const templates = {
 const creationBtnRetourMain = () => {
   const btnRetour = document.createElement('a')
   btnRetour.classList.add('btn-contenu-principal')
-  utilitaires.definirAttributs(btnRetour, { href: '#contenu-prinipal', 'aria-hidden': 'true', tabindex: '0' })
+  utilitaires.definirAttributs(btnRetour, { href: '#contenu-principal', 'aria-hidden': 'true', tabindex: '0' })
   btnRetour.innerText = 'Passer au contenu'
   corpsPage.prepend(btnRetour)
 
