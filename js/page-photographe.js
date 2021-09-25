@@ -388,7 +388,7 @@ const templates = {
       <figcaption>
         <p class="photo-titre" tabindex="0">${figure.title}</p>
         <div class="likes">
-          <p class="likes__nombre" tabindex="0">${figure.likes}</p><button class="icone-like" aria-label="j'aime" tabindex="0"><i class="fas fa-heart"></i></button> 
+          <p class="likes__nombre" tabindex="0">${figure.likes}</p><button class="icone-like" title="j'aime" tabindex="0"><i class="fas fa-heart"></i></button> 
         </div>
       </figcaption>
     </figure>`
@@ -405,7 +405,7 @@ const templates = {
       <figcaption>
         <p class="photo-titre" tabindex="0">${figure.title}</p>
         <div class="likes">
-          <p class="likes__nombre" tabindex="0">${figure.likes}</p><button class="icone-like" aria-label="j'aime" tabindex="0"><i class="fas fa-heart"></i></button> 
+          <p class="likes__nombre" tabindex="0">${figure.likes}</p><button class="icone-like" title="j'aime" tabindex="0"><i class="fas fa-heart"></i></button> 
         </div>
       </figcaption>
     </figure>`
@@ -502,6 +502,7 @@ const creationBlocFixe = (photographe, medias) => {
 }
 
 const creationGaleriePhotographe = (photographe, medias) => {
+  // tri par défaut : popularité
   const apercuFigure = medias.sort((a, b) => b.likes - a.likes)
     .map(templates.itemGalerie).join('')
 
@@ -734,6 +735,7 @@ class Lightbox {
 
   suivante (e) {
     e.preventDefault()
+    this.lightbox.querySelector('.droite').focus()
     // rechercher l'index du média en cours
     let indexMediaEnCours = this.medias.findIndex(media => media === this.mediaEnCours)
     // quand dernier média du tableau, retourner au premier
@@ -771,7 +773,7 @@ class Lightbox {
 
 /**
 ----------------------------------------------------
-6 - Fabrique de la page photographe
+6 - Constructeur de la page photographe
 ----------------------------------------------------
 */
 

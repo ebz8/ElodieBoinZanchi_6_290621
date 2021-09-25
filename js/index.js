@@ -26,6 +26,8 @@ const jsonData = async () => {
   }
 }
 
+console.log(typeof jsonData)
+
 const chargementData = async () => {
   const data = await jsonData()
   // appel du constructeur de la page avec récupération des données
@@ -38,48 +40,6 @@ document.addEventListener('DOMContentLoaded', chargementData)
 2 - Ressources
 ---------------------------------------
 */
-
-const templates = {
-
-  // logo
-  logoFisheEye: () => {
-    return `
-    <a href="index.html">
-      <img class="logo" src="resources/img/logo.png" alt="FishEye : Page d'accueil">
-    </a>`
-  },
-
-  // bouton tag individuel
-  navigationTag: (tag) => {
-    return ` <li class="tag-entree"><a href="#"><span aria-label="hashtag">#</span>${tag}</a></li>`
-  },
-
-  // liste des tags par photographe
-  listeTagsParPhotographe: (tags) => {
-    return `
-    <ul class="nav-par-tag" >
-    ${tags.map((tag) =>
-     `<li class="tag-entree"><a href="#"><span aria-label="hashtag">#</span>${tag}</a></li>`
-    ).join('')}
-    </ul>`
-  },
-
-  // fiche complète d'un photographe
-  fichePhotographe: (photographe) => {
-    return `<li class="photographe-profil">
-      <a href="page-photographe.html?id=${photographe.id}">
-        <img class="vignette" src="resources/img/photographers/IDphotos/${photographe.portrait}" alt="portrait de ${photographe.name}"/>
-        <h2 class="nom">${photographe.name}</h2>
-      </a>
-      <div>
-        <p class="localisation" tabindex="0">${photographe.city}, ${photographe.country}</p>
-        <p class="accroche" tabindex="0">${photographe.tagline}</p>
-        <span class="tarif" tabindex="0">${photographe.price}€ /jour</span>
-      </div>
-      ${templates.listeTagsParPhotographe(photographe.tags)}
-      </li>`
-  }
-}
 
 const utilitaires = {
   definirAttributs: (element, attributs) => {
@@ -157,6 +117,48 @@ const utilitaires = {
   }
 }
 
+const templates = {
+
+  // logo
+  logoFisheEye: () => {
+    return `
+    <a href="index.html">
+      <img class="logo" src="resources/img/logo.png" alt="FishEye : Page d'accueil">
+    </a>`
+  },
+
+  // bouton tag individuel
+  navigationTag: (tag) => {
+    return ` <li class="tag-entree"><a href="#"><span aria-label="hashtag">#</span>${tag}</a></li>`
+  },
+
+  // liste des tags par photographe
+  listeTagsParPhotographe: (tags) => {
+    return `
+    <ul class="nav-par-tag">
+    ${tags.map((tag) =>
+     `<li class="tag-entree"><a href="#"><span aria-label="hashtag">#</span>${tag}</a></li>`
+    ).join('')}
+    </ul>`
+  },
+
+  // fiche complète d'un photographe
+  fichePhotographe: (photographe) => {
+    return `<li class="photographe-profil">
+      <a href="page-photographe.html?id=${photographe.id}">
+        <img class="vignette" src="resources/img/photographers/IDphotos/${photographe.portrait}" alt="portrait de ${photographe.name}"/>
+        <h2 class="nom">${photographe.name}</h2>
+      </a>
+      <div>
+        <p class="localisation" tabindex="0">${photographe.city}, ${photographe.country}</p>
+        <p class="accroche" tabindex="0">${photographe.tagline}</p>
+        <span class="tarif" tabindex="0">${photographe.price}€ /jour</span>
+      </div>
+      ${templates.listeTagsParPhotographe(photographe.tags)}
+      </li>`
+  }
+}
+
 /**
 ----------------------------------------
 3 - Initialisation des éléments du DOM
@@ -178,7 +180,7 @@ const creationHeader = (data) => {
   header.classList.add('banniere')
   header.innerHTML = `
         ${templates.logoFisheEye()}
-        <nav aria-label="trier les photographes par categories">
+        <nav role="navigation" aria-label="trier les photographes par categories">
           <ul class="nav-par-tag" >
             ${utilitaires.trierTableauTags(data).map(templates.navigationTag).join('')}
           </ul>
@@ -199,7 +201,7 @@ const creationGaleriePhotographes = (data) => {
 
 /**
 ---------------------------------
-4 - Fabrique de la page index
+4 - Constructeur de la page index
 ---------------------------------
 */
 
