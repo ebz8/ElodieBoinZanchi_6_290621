@@ -91,16 +91,19 @@ const utilitaires = {
 
   recupCurrentPhotographeTotalLikes: (medias) => {
     // eslint-disable-next-line prefer-const
-    let likesParImage = []
-    medias.map(media => likesParImage.push(media.likes))
-    return likesParImage
+    let likesParPhotographe = []
+    // dans le json récupérer tous les likes du photographe en cours
+    medias.map(media => likesParPhotographe.push(media.likes))
+    return likesParPhotographe
   },
 
   incrementerLikes: (like, event) => {
+    // récupérer et nettoyer contenu texte de l'élément voisin du btn like
     let totalLikes = like.previousSibling.textContent.replace(/\s+/g, '')
     const affichageLikes = like.previousSibling
-    const compteurGeneral = document.querySelector('.compteur-likes')
+
     const iconeLike = event.currentTarget.querySelector('i')
+    const compteurGeneral = document.querySelector('.compteur-likes')
     let compteurGeneralLikes = compteurGeneral.textContent
 
     iconeLike.classList.toggle('like-actif')
@@ -491,7 +494,7 @@ const creationBannierePhotographe = (currentPhotographe) => {
 
 const creationBlocFixe = (photographe, medias) => {
   const reducer = (accumulator, currentValue) => accumulator + currentValue
-  // additionner les valeurs pour obtenir le total des likes
+  // additionner les valeurs pour obtenir le total des likes depuis le tableau récupéré
   const totalLikesGalerie = utilitaires.recupCurrentPhotographeTotalLikes(medias).reduce(reducer)
 
   utilitaires.appendElementDOM(
@@ -695,7 +698,6 @@ class Lightbox {
   affichageLightbox () {
     corpsContenuPage.setAttribute('aria-hidden', 'true')
     corpsPage.style.overflow = 'hidden'
-    // document.addEventListener('keyup', utilitaires.gestionFocusModale(this.lightbox))
   }
 
   fermetureLightbox () {

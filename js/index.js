@@ -26,8 +26,6 @@ const jsonData = async () => {
   }
 }
 
-console.log(typeof jsonData)
-
 const chargementData = async () => {
   const data = await jsonData()
   // appel du constructeur de la page avec récupération des données
