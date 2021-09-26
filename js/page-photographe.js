@@ -129,6 +129,7 @@ const utilitaires = {
     })
   },
 
+  // types de tri de médias
   trierParPopularite: (medias) => {
     medias.sort((a, b) => {
       return b.likes - a.likes
@@ -157,6 +158,7 @@ const utilitaires = {
     })
   },
 
+  // actualiser affichage de la galerie
   actualisationAffichage: (medias) => {
     const itemsGalerie = document.querySelectorAll('.apercu-photo')
     const conteneurGalerie = document.querySelector('.profil-galerie')
@@ -171,6 +173,7 @@ const utilitaires = {
     Lightbox.init(medias)
   },
 
+  // déclenchement de l'actualisation d'affichage selon type de tri selectionné
   trierMediasPar: (medias) => {
     const selected = document.querySelector('.selected')
     if (selected.textContent === 'Popularité') {
@@ -196,6 +199,7 @@ const utilitaires = {
     document.querySelector('.profil-galerie').focus()
   },
 
+  // gestion du déploiement du btn dropdown
   affichageDropdown: (bouton, conteneurListe, listeOptions) => {
     const btnFleche = document.querySelector('.select svg')
 
@@ -211,6 +215,7 @@ const utilitaires = {
     })
   },
 
+  // sélection d'une option de tri dans le btn dropdown
   selectionOptionDropdown: (bouton, conteneurListe, listeOptions, option, medias) => {
     const btnFleche = document.querySelector('.select svg')
 
@@ -228,6 +233,7 @@ const utilitaires = {
     document.querySelector('.profil-galerie').focus()
   },
 
+  // ensemble des fonctionnalités du btn dropdown
   gestionDropdown: (bouton, conteneurListe, listeOptions, medias) => {
     // par défaut : première option (popularité)
     bouton.innerHTML = listeOptions[0].querySelector('label').innerHTML
