@@ -350,8 +350,7 @@ const templates = {
             <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"></path>
         </svg>
   
-        <button class="selected" aria-labelledby="label-trier-par" aria-haspopup="listbox"
-        aria-label="criteres" aria-expanded="false" aria-haspopup="true" aria-controls="listbox-liste">
+        <button class="selected" aria-labelledby="label-trier-par" aria-label="criteres" aria-expanded="false" aria-haspopup="true" aria-controls="listbox-liste">
             Popularité
         </button>
   
