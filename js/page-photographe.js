@@ -363,15 +363,15 @@ const templates = {
         <ul id="listbox-liste" class="conteneur-options" role="listbox" 
             aria-label="criteres">
   
-            <li class="option" role="option">
+            <li class="option" role="option" aria-setsize="3" aria-posinset="1">
                 <input class="radio" id="option-popularite" name="select" type="radio" value="popularite"/>
                 <label for="option-popularite">Popularité</label>
             </li>
-            <li class="option" role="option">
+            <li class="option" role="option" aria-setsize="3" aria-posinset="2">
                 <input class="radio" id="option-date" name="select" type="radio" value="date" />
                 <label for="option-date">Date</label>
             </li>
-            <li class="option" role="option">
+            <li class="option" role="option" aria-setsize="3" aria-posinset="3">
                 <input class="radio" id="option-titre" name="select" type="radio" value="titre" />
                 <label for="option-titre">Titre</label>
             </li>
