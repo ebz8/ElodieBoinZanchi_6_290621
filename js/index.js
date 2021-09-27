@@ -176,6 +176,8 @@ const creationBtnRetourMain = () => {
 
   // ajout de la fonctionnalité d'apparition au scroll
   utilitaires.apparitionAuScroll(200, btnRetour)
+
+  return btnRetour
 }
 
 const creationHeader = (data) => {
@@ -191,6 +193,8 @@ const creationHeader = (data) => {
         <h1 tabindex="0">Nos photographes</h1>
 `
   corpsPage.prepend(header)
+
+  return header
 }
 
 const creationGaleriePhotographes = (data) => {
@@ -201,6 +205,8 @@ const creationGaleriePhotographes = (data) => {
   // pour chaque photographe, appliquer templates fiche, et stocker dans une variable l'ensemble des fiches générées
   const dataFiche = data.photographers.map(templates.fichePhotographe).join('')
   photographesGalerie.innerHTML = dataFiche
+
+  return photographesGalerie
 }
 
 /**

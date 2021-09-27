@@ -63,6 +63,8 @@ const utilitaires = {
     element.classList.add(classe)
     element.innerHTML = template
     conteneur.prepend(element)
+
+    return element
   },
 
   appendElementDOM: (balise, classe, template, conteneur) => {
@@ -70,6 +72,8 @@ const utilitaires = {
     element.classList.add(classe)
     element.innerHTML = template
     conteneur.append(element)
+
+    return element
   },
 
   // récupérer dans l'URL l'id du photographe en cours
@@ -480,21 +484,25 @@ const templates = {
 */
 
 const creationHeader = (data) => {
-  utilitaires.prependElementDOM(
+  const header = utilitaires.prependElementDOM(
     'header',
     'banniere',
     templates.logoFisheEye(),
     corpsPage)
+
+  return header
 }
 
 const creationBannierePhotographe = (currentPhotographe) => {
-  utilitaires.appendElementDOM(
+  const banniere = utilitaires.appendElementDOM(
     'div',
     'banniere-photographe',
     templates.contenuBannierePhotographe(currentPhotographe),
     corpsContenuPage
   )
   Formulaire.init(currentPhotographe)
+
+  return banniere
 }
 
 const creationBlocFixe = (photographe, medias) => {
@@ -502,11 +510,13 @@ const creationBlocFixe = (photographe, medias) => {
   // additionner les valeurs pour obtenir le total des likes depuis le tableau récupéré
   const totalLikesGalerie = utilitaires.recupCurrentPhotographeTotalLikes(medias).reduce(reducer)
 
-  utilitaires.appendElementDOM(
+  const blocFixe = utilitaires.appendElementDOM(
     'div',
     'bloc-fixe',
     templates.compteurBlocFixe(totalLikesGalerie, photographe),
     corpsContenuPage)
+
+  return blocFixe
 }
 
 const creationGaleriePhotographe = (photographe, medias) => {
@@ -514,7 +524,7 @@ const creationGaleriePhotographe = (photographe, medias) => {
   const apercuFigure = medias.sort((a, b) => b.likes - a.likes)
     .map(templates.itemGalerie).join('')
 
-  utilitaires.appendElementDOM(
+  const galerie = utilitaires.appendElementDOM(
     'div',
     'profil-galerie',
     apercuFigure,
@@ -523,10 +533,12 @@ const creationGaleriePhotographe = (photographe, medias) => {
 
   utilitaires.fonctionLike()
   Lightbox.init(medias)
+
+  return galerie
 }
 
 const creationBoutonTrierPar = (photographe, medias) => {
-  utilitaires.appendElementDOM(
+  const boutonTrierPar = utilitaires.appendElementDOM(
     'div',
     'trier-par',
     templates.btnTrierPar(),
@@ -543,6 +555,8 @@ const creationBoutonTrierPar = (photographe, medias) => {
     listeOptions,
     medias
   )
+
+  return boutonTrierPar
 }
 
 /**
