@@ -756,7 +756,6 @@ class Lightbox {
 
   suivante (e) {
     e.preventDefault()
-    this.lightbox.querySelector('.droite').focus()
     // rechercher l'index du média en cours
     let indexMediaEnCours = this.medias.findIndex(media => media === this.mediaEnCours)
     // quand dernier média du tableau, retourner au premier
